@@ -1,24 +1,24 @@
 # Summary
 
 - Browser
-  - [Chrome](/Software/Chrome/Readme.md)
-  - [Firefox](/Software/Firefox/Readme.md)
+  - [Chrome](/Software/Chrome/README.md)
+  - [Firefox](/Software/Firefox/README.md)
 
 
 - IDE
-  - [Eclipse](/Software/Eclipse/Readme.md)
+  - [Eclipse](/Software/Eclipse/README.md)
 
 
 - 开发工具
-  - [Maven](/Software/Maven/Readme.md)
-  - [Gradle](/Software/Gradle/Readme.md)
-  - [Git](/Software/Git/Readme.md)
+  - [Maven](/Software/Maven/README.md)
+  - [Gradle](/Software/Gradle/README.md)
+  - [Git](/Software/Git/README.md)
 
 
 - 测试工具
-  - [Postman](/Software/Postman/Readme.md)
-  - [JMeter](/Software/JMeter/Readme.md))
+  - [Postman](/Software/Postman/README.md)
+  - [JMeter](/Software/JMeter/README.md))
 
 
 - DB
-  - [Postgres](/Software/Postgres/Readme.md)
+  - [Postgres](/Software/Postgres/README.md)
