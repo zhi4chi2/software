@@ -6,6 +6,8 @@
 
 # Reference
 
-- https://www.greenjsq.me/shiyong/88.html - 测试不成功
+- https://www.greenjsq.me/index.php
 - https://www.greenjsq.me/user-xianlu.html
-- https://www.greenjsq.me/shiyong/67.html - 最后不应该使用 ca.crt 而是使用默认的与连接名同名的 pem 文件才成功。例如 /home/me/.cert/nm-openvpn/UnitedStates-05-ca.pem
+- https://www.greenjsq.me/shiyong/88.html - PPTP 测试不成功
+- https://www.greenjsq.me/shiyong/67.html - OpenVPN 最后不应该使用 ca.crt 而是使用默认的与连接名同名的 pem 文件才成功。例如 /home/me/.cert/nm-openvpn/UnitedStates-05-ca.pem
+
