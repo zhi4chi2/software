@@ -64,10 +64,14 @@ me@mypc:~$
 
 # 术语
 
+文件状态
 - staged - 将要被 commit
 - unstaged - 文件虽然被更改但还没准备 commit
 - untracked - 新建的文件
 - deleted - 已删除，将要从 Git 中删除
+
+- staging area - 暂存区
+
 
 # Reference
 
