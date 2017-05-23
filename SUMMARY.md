@@ -13,7 +13,8 @@
   - [Maven](/Software/Maven/README.md)
   - [Gradle](/Software/Gradle/README.md)
   - [Git](/Software/Git/README.md)
-    - [GitBook](/Software/Git/GitBook.md)
+    - [GitBook](/Software/Git/GitBook/README.md)
+      - [Getting Started](Software/Git/GitBook/Getting Started.md)
 
 
 - 测试工具
