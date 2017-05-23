@@ -67,7 +67,7 @@ me@mypc:~$
 
 版本 2.13.0(Git-2.13.0-64-bit.exe)
 
-
+- 更改安装路径 D:\Git(C:\Program Files\Git)
 
 # 术语
 
