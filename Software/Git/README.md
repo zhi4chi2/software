@@ -1,5 +1,6 @@
 # 安装
 
+## Linux
 ```bash
 me@mypc:~$ sudo apt-get install git
 [sudo] password for me: 
@@ -61,6 +62,12 @@ me@mypc:~$ git --version
 git version 2.7.4
 me@mypc:~$ 
 ```
+
+## Windows
+
+版本 2.13.0(Git-2.13.0-64-bit.exe)
+
+
 
 # 术语
 
