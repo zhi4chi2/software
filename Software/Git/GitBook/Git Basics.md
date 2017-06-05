@@ -37,7 +37,7 @@ bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone
 $
 ```
 
-clone 到了 G:\TempWork\201705\20170523\remote-clone\myfirst 目录下，库在 G:\TempWork\201705\20170523\remote-clone\myfirst\.git
+clone 到了 G:\TempWork\201705\20170523\remote-clone\myfirst 目录下，库在 G:\TempWork\201705\20170523\remote-clone\myfirst\\.git
 
 除了 https:// 协议外还可以使用 git:// 或者使用 SSH 传输协议。
 
@@ -203,7 +203,7 @@ $
 - 可以使用标准的 glob 模式匹配
 - 匹配模式可以以 / 开头防止递归
 - 匹配模式可以以 / 结尾指定目录。
-- 要忽略指定模式以外的文件或目录，可以在模式前加上 ! 取反。
+- 不忽略指定模式的文件或目录，可以在模式前加上 ! 取反。
 
 glob 模式是指 shell 所使用的简化了的正则表达式。
 - \* 匹配零个或多个任意字符；
