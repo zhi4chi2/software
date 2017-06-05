@@ -122,9 +122,9 @@ $
 # 获取帮助
 
 有三种方式
-- `git help &lt;verb>` - 例如 `git help config` 在 windows 下打开 file:///D:/Git/mingw64/share/doc/git-doc/git-config.html
-- `git &lt;verb> --help` - 例如 `git config --help` 在 windows 下打开 file:///D:/Git/mingw64/share/doc/git-doc/git-config.html
-- `man git-&lt;verb>`
+- `git help <verb>` - 例如 `git help config` 在 windows 下打开 file:///D:/Git/mingw64/share/doc/git-doc/git-config.html
+- `git <verb> --help` - 例如 `git config --help` 在 windows 下打开 file:///D:/Git/mingw64/share/doc/git-doc/git-config.html
+- `man git-<verb>`
 
 在 windows 下
 ```bash
