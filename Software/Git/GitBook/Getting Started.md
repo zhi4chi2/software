@@ -53,8 +53,8 @@ Windows 下的官方版本是一个名为 Git for Windows 的项目（也叫做 
 - .git/config - 默认
 
 在 windows 下对应
-- G:\Git\etc\gitconfig
-- C:\Users\$USER\.gitconfig
+- D:\Git\etc\gitconfig
+- C:\Users\\$USER\.gitconfig
 - .git/config
 
 ## 用户
