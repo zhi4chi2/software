@@ -13,6 +13,7 @@
   - [Maven](/Software/Maven/README.md)
   - [Gradle](/Software/Gradle/README.md)
   - [Git](/Software/Git/README.md)
+    - [GitHubDesktop](/Software/Git/GitHubDesktop/README.md)
     - [GitBook](/Software/Git/GitBook/README.md)
       - [Getting Started](/Software/Git/GitBook/Getting Started.md)
       - [Git Basics](/Software/Git/GitBook/Git Basics.md)
