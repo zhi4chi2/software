@@ -13,7 +13,6 @@
   - [Maven](/Software/Maven/README.md)
   - [Gradle](/Software/Gradle/README.md)
   - [Git](/Software/Git/README.md)
-    - [GitHubDesktop](/Software/Git/GitHubDesktop/README.md)
     - [GitBook](/Software/Git/GitBook/README.md)
       - [Getting Started](/Software/Git/GitBook/Getting Started.md)
       - [Git Basics](/Software/Git/GitBook/Git Basics.md)
@@ -35,6 +34,9 @@
     - [git reset](/Software/Git/reset.md)
     - [git status](/Software/Git/status.md)
     - [git tag](/Software/Git/tag.md)
+  - [GitHub]
+    - [GitHubDesktop](/Software/GitHub/GitHubDesktop/README.md)
+    - [GitHub Guide](/Software/GitHub/GitHub Guide.md)
 
 
 - 测试工具
