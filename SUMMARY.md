@@ -34,9 +34,12 @@
     - [git reset](/Software/Git/reset.md)
     - [git status](/Software/Git/status.md)
     - [git tag](/Software/Git/tag.md)
-  - [GitHub]
+  - [GitHub](/Software/GitHub/README.md)
     - [GitHubDesktop](/Software/GitHub/GitHubDesktop/README.md)
-    - [GitHub Guide](/Software/GitHub/GitHub Guide.md)
+    - [GitHub Pages](/Software/GitHub/GitHubPages.md)
+    - [GitHub Guide](/Software/GitHub/GitHubGuide.md)
+    - [GitHubHelp](/Software/GitHub/GitHubHelp/README.md)
+      - [Helping people contribute to your project](/Software/GitHub/GitHubHelp/contribute.md)
 
 
 - 测试工具
