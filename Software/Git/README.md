@@ -69,6 +69,18 @@ me@mypc:~$
 
 - 更改安装路径 D:\Git(C:\Program Files\Git)
 
+
+# 配置
+```bash
+me@mypc:~$ git config --global user.name me
+me@mypc:~$ git config --global user.email me@example.com
+me@mypc:~$ git config --list
+user.email=me@example.com
+user.name=me
+me@mypc:~$ 
+```
+
+
 # 术语
 
 文件状态

@@ -32,18 +32,26 @@ Git 数据库中保存的信息都是以文件内容的哈希值来索引，而�
 
 三个工作区域
 - Git 仓库
-- 暂存区域 - 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。有时候也被称作索引
+- 暂存区域(staging area) - 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。有时候也被称作索引(index)
 - 工作目录
+
 
 # 命令行
 
-# 安装 Git
 
+# 安装 Git
 本书写作时使用的 Git 版本为 2.0.0
+
+Linux 下安装 `apt-get install git` 。英文文档中的安装方法是 `apt-get install git-all`
 
 Windows 下的官方版本是一个名为 Git for Windows 的项目（也叫做 msysGit ），和 Git 是分别独立的项目；更多信息请访问 http://msysgit.github.io/ 。
 
+英文文档中给的地址是 https://git-for-windows.github.io/
+
 另一个简单的方法是安装 GitHub for Windows 。该安装程序包含图形化和命令行版本的 Git 。 它也能支持 Powershell ，提供了稳定的凭证缓存和健全的 CRLF 设置。
+
+安装过程参见 [Git](/Software/Git/README.md)
+
 
 # 初次运行 Git 前的配置
 
@@ -56,6 +64,9 @@ Windows 下的官方版本是一个名为 Git for Windows 的项目（也叫做 
 - D:\Git\etc\gitconfig
 - C:\Users\\$USER\.gitconfig
 - .git/config
+
+当使用 Git for Windows 2.x 时，在 Windows 下还有一个 system level config file 在 C:\ProgramData\Git\config 下，但只能通过 git config -f 修改。
+
 
 ## 用户
 
@@ -71,6 +82,13 @@ bruce@bruce-PC MINGW64 ~
 $
 ```
 
+在 Linux 下
+```bash
+me@mypc:~$ git config --global user.name me
+me@mypc:~$ git config --global user.email me@example.com
+me@mypc:~$ 
+```
+
 ## 文本编辑器
 
 默认使用 vim ，可以修改为 emacs
@@ -79,10 +97,17 @@ $
 git config --global core.editor emacs
 ```
 
+在 Windows 下可以改为 Notepad++
+```bash
+git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession"
+```
+
+
 ## 检查配置信息
 
 在 windows 下
 ```bash
+bruce@bruce-PC MINGW64 ~
 $ git config --list
 core.symlinks=false
 core.autocrlf=true
@@ -108,15 +133,33 @@ $
 ```
 
 
+在 Linux 下
+```bash
+me@mypc:~$ git config --list
+user.email=me@example.com
+user.name=me
+me@mypc:~$ 
+```
+
 Git 会从不同的文件中读取同一个配置，因此可能有重复的配置名，则将使用最后一个配置。可以使用 `git config key` 检查配置
 
 在 windows 下
 ```bash
+bruce@bruce-PC MINGW64 ~
 $ git config user.name
 me
 
 bruce@bruce-PC MINGW64 ~
 $
+```
+
+在 Linux 下
+```bash
+me@mypc:~$ git config user.name
+me
+me@mypc:~$ git config user.email
+me@example.com
+me@mypc:~$ 
 ```
 
 # 获取帮助
@@ -128,6 +171,7 @@ $
 
 在 windows 下
 ```bash
+bruce@bruce-PC MINGW64 ~
 $ git help config
 
 bruce@bruce-PC MINGW64 ~
@@ -140,4 +184,13 @@ bash: man: command not found
 bruce@bruce-PC MINGW64 ~
 $
 ```
+
+在 Linux 下
+```bash
+me@mypc:~$ git help config
+me@mypc:~$ git config --help
+me@mypc:~$ man git-config
+me@mypc:~$ 
+```
+三种方式得到的帮助是一样的。
 
