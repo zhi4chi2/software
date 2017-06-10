@@ -1,5 +1,4 @@
 # 安装
-
 ## Linux
 ```bash
 me@mypc:~$ sudo apt-get install git
@@ -63,10 +62,9 @@ git version 2.7.4
 me@mypc:~$ 
 ```
 
+
 ## Windows
-
 版本 2.13.0(Git-2.13.0-64-bit.exe)
-
 - 更改安装路径 D:\Git(C:\Program Files\Git)
 
 
@@ -82,16 +80,25 @@ me@mypc:~$
 
 
 # 术语
+文件状态(https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository)
+- untracked - 既不在 last snapshot 中也不在 staging area 中。 `git add` 变为 staged
+- tracked - 在 last snapshot 中
+  - unmodified - 编辑文件则变为 modified ，删除文件则变为 untracked
+  - modified - `git add` 变为 staged
+  - staged - `git commit` 变为 unmodified
 
-文件状态
-- staged - 将要被 commit
-- unstaged - 文件虽然被更改但还没准备 commit
-- untracked - 新建的文件
-- deleted - 已删除，将要从 Git 中删除
 
+另可参见 https://try.github.io/levels/1/challenges/4
+
+
+另外还有些状态
+- unstaged - 应该就是 modified
+- deleted - 使用 `git rm` 删除文件后。也是 staged ，等待被提交。
+
+
+术语
 - staging area - 暂存区
 
 
 # Reference
-
 - https://git-scm.com/

@@ -272,3 +272,5 @@ Windows 下 vim 中定义了变量
 - [Linux 命令行大全](/Linux Command Line/12.md) - P119
 - vimtutor - D:\Vim\vim80\vimtutor.bat
 - :help user-manual
+- https://github.com/wsdjeg/vim-galore-zh_cn
+

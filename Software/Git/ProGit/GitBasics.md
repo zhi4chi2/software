@@ -1,14 +1,19 @@
 # 获取 Git 仓库
-
 ## 在现有目录中初始化仓库
+在 Linux 下
+```bash
+me@mypc:~/workspace$ mkdir test
+me@mypc:~/workspace$ cd test
+me@mypc:~/workspace/test$ git init
+Initialized empty Git repository in /home/me/workspace/test/.git/
+me@mypc:~/workspace/test$ ls -aF
+./  ../  .git/
+me@mypc:~/workspace/test$ 
+```
+
+
 在 Windows 下
 ```bash
-$ cd /G/TempWork/201705/20170523/workspace
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/workspace
-$ pwd
-/G/TempWork/201705/20170523/workspace
-
 bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/workspace
 $ git init
 Initialized empty Git repository in G:/TempWork/201705/20170523/workspace/.git/
@@ -21,189 +26,159 @@ bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/workspace (master)
 $
 ```
 
+
 ## 克隆现有的仓库
-在 Windows 下
 ```bash
-$ cd /G/TempWork/201705/20170523/remote-clone
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone
-$ git clone https://github.com/zhi4chi2/hello-world.git myfirst
-Cloning into 'myfirst'...
-remote: Counting objects: 23, done.
-Unpacking objects: 100% (23/23), done.
-remote: Total 23 (delta 0), reused 0 (delta 0), pack-reused 23
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone
-$
+me@mypc:~/workspace$ ls -aF
+./  ../  test/
+me@mypc:~/workspace$ git clone https://github.com/zhi4chi2/demo from-github
+Cloning into 'from-github'...
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+Checking connectivity... done.
+me@mypc:~/workspace$ ls -aF
+./  ../  from-github/  test/
+me@mypc:~/workspace$ cd from-github/
+me@mypc:~/workspace/from-github$ ls -aF
+./  ../  .git/  README.md
+me@mypc:~/workspace/from-github$ 
 ```
 
-clone 到了 G:\TempWork\201705\20170523\remote-clone\myfirst 目录下，库在 G:\TempWork\201705\20170523\remote-clone\myfirst\\.git
+
+clone 到了 /home/me/workspace/from-github 目录下（自动创建此目录），库在 /home/me/workspace/from-github/.git
+
+
+如果不指定文件夹名，则默认与远端库名相同，例如 `git clone https://github.com/zhi4chi2/demo.git` 则放在 demo 目录下。
+
+
+GitHub 的 git clone url 可以加 .git 也可以省略。
+
 
 除了 https:// 协议外还可以使用 git:// 或者使用 SSH 传输协议。
 
+
 # 记录每次更新到仓库
-
 ## 检查当前文件状态
-
-在 Windows 下
+在新初始化的库中
 ```bash
-$ cd myfirst/
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git status
+me@mypc:~/workspace/test$ git status
 On branch master
-Your branch is up-to-date with 'origin/master'.
-nothing to commit, working tree clean
 
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+Initial commit
+
+nothing to commit (create/copy files and use "git add" to track)
+me@mypc:~/workspace/test$ 
 ```
 
-在 Windows 下
+
+添加文件
 ```bash
-$ echo 'hello' > hello.txt
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ ls
-hello.txt  LICENSE  README.md
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git status
+me@mypc:~/workspace/test$ echo 'hello' > README
+me@mypc:~/workspace/test$ git status
 On branch master
-Your branch is up-to-date with 'origin/master'.
+
+Initial commit
+
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
-        hello.txt
+	README
 
 nothing added to commit but untracked files present (use "git add" to track)
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+me@mypc:~/workspace/test$ 
 ```
+
+
+Untracked files 表示文件状态是 untracked
+
 
 ## 跟踪新文件
-
-在 Windows 下
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git add hello.txt
-warning: LF will be replaced by CRLF in hello.txt.
-The file will have its original line endings in your working directory.
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git status
+me@mypc:~/workspace/test$ git add README 
+me@mypc:~/workspace/test$ git status
 On branch master
-Your branch is up-to-date with 'origin/master'.
+
+Initial commit
+
 Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
+  (use "git rm --cached <file>..." to unstage)
 
-        new file:   hello.txt
+	new file:   README
 
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+me@mypc:~/workspace/test$ 
 ```
+
+
+Changes to be committed 表示文件状态是 staged
+
 
 `git add` 命令使用文件或目录的路径作为参数；如果参数是目录的路径，该命令将递归地跟踪该目录下的所有文件。
 
+
 ## 暂存已修改文件
-
-在 Windows 下
+先提交使文件在 tracked 状态，然后再修改
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ echo 'hello' >> README.md
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git status
+me@mypc:~/workspace/test$ git commit -m "first commit"
+[master (root-commit) c249a5d] first commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README
+me@mypc:~/workspace/test$ echo 'world' >> README
+me@mypc:~/workspace/test$ git status
 On branch master
-Your branch is up-to-date with 'origin/master'.
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-        new file:   hello.txt
-
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-        modified:   README.md
+	modified:   README
 
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git add README.md
-warning: LF will be replaced by CRLF in README.md.
-The file will have its original line endings in your working directory.
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git status
-On branch master
-Your branch is up-to-date with 'origin/master'.
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-        modified:   README.md
-        new file:   hello.txt
-
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+no changes added to commit (use "git add" and/or "git commit -a")
+me@mypc:~/workspace/test$ 
 ```
 
-`git add` 是个多功能命令：可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等。 将这个命令理解为“添加内容到下一次提交中”而不是“将一个文件添加到项目中”要更加合适。
 
-在 Windows 下
+Changes not staged for commit 表示文件在 modified 状态(a file that is tracked has been modified in the working directory but not yet staged)
+
+
+再次调用 `git add` 使文件进入 staged 状态
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ echo 'world' >> README.md
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git status
+me@mypc:~/workspace/test$ git add README
+me@mypc:~/workspace/test$ git status
 On branch master
-Your branch is up-to-date with 'origin/master'.
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
-        modified:   README.md
-        new file:   hello.txt
+	modified:   README
 
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-        modified:   README.md
-
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+me@mypc:~/workspace/test$ 
 ```
+
+
+`git add` 是个多功能命令：可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等。将这个命令理解为“添加内容到下一次提交中”而不是“将一个文件添加到项目中”要更加合适。
+
 
 ## 状态简览
-
-在 Windows 下
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git status -s
-MM README.md
-A  hello.txt
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+me@mypc:~/workspace/test$ git status -s
+M  README
+me@mypc:~/workspace/test$ 
 ```
+
 
 含义
 - ?? - 未跟踪文件
 - A - 新添加到暂存区中的文件
 - M - 出现在右边的 M 表示该文件被修改了但是还没放入暂存区，出现在靠左边的 M 表示该文件被修改了并放入了暂存区。
 
-## 忽略文件
 
+## 忽略文件
 文件 .gitignore 的格式规范如下
 - 所有空行或者以 # 开头的行都会被 Git 忽略。
 - 可以使用标准的 glob 模式匹配
 - 匹配模式可以以 / 开头防止递归
 - 匹配模式可以以 / 结尾指定目录。
 - 不忽略指定模式的文件或目录，可以在模式前加上 ! 取反。
+
 
 glob 模式是指 shell 所使用的简化了的正则表达式。
 - \* 匹配零个或多个任意字符；
@@ -212,7 +187,9 @@ glob 模式是指 shell 所使用的简化了的正则表达式。
 - 如果在方括号中使用短划线分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如 [0-9] 表示匹配所有 0 到 9 的数字）。
 - 使用两个星号 \*\* 表示匹配任意中间目录，比如 `a/**/z` 可以匹配 a/z, a/b/z 或 a/b/c/z 等。
 
+
 GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文件列表，你可以在 https://github.com/github/gitignore 找到它
+
 
 例子
 ```
@@ -235,59 +212,43 @@ doc/*.txt
 doc/**/*.pdf
 ```
 
-## 查看已暂存和未暂存的修改
 
+## 查看已暂存和未暂存的修改
 `git diff` 可以知道具体修改了什么地方
 
 
 不加参数的 `git diff` 查看尚未暂存的文件更新了哪些部分
-
-在 Windows 下
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git diff
-warning: LF will be replaced by CRLF in README.md.
-The file will have its original line endings in your working directory.
-diff --git a/README.md b/README.md
-index caca183..3fdbb2a 100644
---- a/README.md
-+++ b/README.md
-@@ -1,2 +1,3 @@
- abc
- hello
-+world
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+me@mypc:~/workspace/test$ echo 'hello world!' > README
+me@mypc:~/workspace/test$ git diff
+diff --git a/README b/README
+index 94954ab..a042389 100644
+--- a/README
++++ b/README
+@@ -1,2 +1 @@
+-hello
+-world
++hello world!
+me@mypc:~/workspace/test$ 
 ```
+
 
 若要查看已暂存的将要添加到下次提交里的内容，可以用 `git diff --cached` 命令。（ Git 1.6.1 及更高版本还允许使用 git diff --staged ，效果是相同的，但更好记些。）
-
-在 Windows 下
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git diff --staged
-diff --git a/README.md b/README.md
-index 8baef1b..caca183 100644
---- a/README.md
-+++ b/README.md
+me@mypc:~/workspace/test$ git diff --staged
+diff --git a/README b/README
+index ce01362..94954ab 100644
+--- a/README
++++ b/README
 @@ -1 +1,2 @@
- abc
-+hello
-diff --git a/hello.txt b/hello.txt
-new file mode 100644
-index 0000000..ce01362
---- /dev/null
-+++ b/hello.txt
-@@ -0,0 +1 @@
-+hello
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+ hello
++world
+me@mypc:~/workspace/test$ 
 ```
 
 
-在本书中，我们使用 git diff 来分析文件差异。 但是，如果你喜欢通过图形化的方式或其它格式输出方式的话，可以使用 git difftool 命令来用 Araxis, emerge 或 vimdiff 等软件输出 diff 分析结果。 使用 git difftool --tool-help 命令来看你的系统支持哪些 Git Diff 插件。
+在本书中，我们使用 git diff 来分析文件差异。但是，如果你喜欢通过图形化的方式或其它格式输出方式的话，可以使用 git difftool 命令来用 Araxis, ecmerge 或 vimdiff 等软件输出 diff 分析结果。使用 git difftool --tool-help 命令来看你的系统支持哪些 Git Diff 插件。在 Linux 中默认使用 gvimdiff
+
 
 在 Windows 下
 ```bash
@@ -328,33 +289,67 @@ bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
 $
 ```
 
-## 提交更新
 
-在 Windows 下
+在 Linux 中
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git commit
-[master 80bb1ba] test first commit
- 2 files changed, 2 insertions(+)
- create mode 100644 hello.txt
+me@mypc:~/workspace/test$ git difftool --tool-help
+'git difftool --tool=<tool>' may be set to one of the following:
+		araxis
+		gvimdiff
+		gvimdiff2
+		gvimdiff3
+		vimdiff
+		vimdiff2
+		vimdiff3
 
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+The following tools are valid, but not currently available:
+		bc
+		bc3
+		codecompare
+		deltawalker
+		diffmerge
+		diffuse
+		ecmerge
+		emerge
+		kdiff3
+		kompare
+		meld
+		opendiff
+		p4merge
+		tkdiff
+		winmerge
+		xxdiff
+
+Some of the tools listed above only work in a windowed
+environment. If run in a terminal-only session, they will fail.
+me@mypc:~/workspace/test$ 
 ```
+
+
+## 提交更新
+```bash
+me@mypc:~/workspace/test$ git checkout -- README
+me@mypc:~/workspace/test$ git commit -m "second commit"
+[master 9f40edb] second commit
+ 1 file changed, 1 insertion(+)
+me@mypc:~/workspace/test$ 
+```
+
 
 其中表示
 - master - 分支
-- 80bb1ba - 校验和
-- 2 files changed - 多少文件被修改
-- 2 insertions(+) - 多少行添加和删改过
+- 9f40edb - 校验和
+- 1 file changed - 多少文件被修改
+- 1 insertion(+) - 多少行添加和删改过
+
 
 默认用 vi 编辑提交说明
 
-## 跳过使用暂存区域
 
+## 跳过使用暂存区域
 `git commit -a` 自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 git add 步骤
 
-在 Windows 下
+
 ```bash
 bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
 $ git status
