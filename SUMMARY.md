@@ -3,6 +3,7 @@
 - Application
   - [vim](/Software/vim/README.md)
     - [基本用法](/Software/vim/vim.md)
+  - [PasswordSafe](/Software/PasswordSafe/README.md)
 
 
 - Browser
