@@ -61,19 +61,7 @@ Windows 下的官方版本是一个名为 Git for Windows 的项目（中文版�
 
 
 # 初次运行 Git 前的配置
-`git config` 配置变量存储在
-- /etc/gitconfig - 使用 --system 选项
-- ~/.gitconfig 或 ~/.config/git/config - 使用 --global 选项
-- .git/config - 默认
-
-
-在 windows 下对应
-- D:\Git\etc\gitconfig
-- C:\Users\\$USER\.gitconfig
-- .git/config
-
-
-当使用 Git for Windows 2.x 时，在 Windows 下还有一个 system level config file 在 C:\ProgramData\Git\config 下，但只能通过 git config -f 修改。
+参见 [git config](/Software/Git/config.md)
 
 
 ## 用户
@@ -98,69 +86,9 @@ git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe
 
 
 ## 检查配置信息
-在 windows 下
-```bash
-bruce@bruce-PC MINGW64 ~
-$ git config --list
-core.symlinks=false
-core.autocrlf=true
-core.fscache=true
-color.diff=auto
-color.status=auto
-color.branch=auto
-color.interactive=true
-help.format=html
-rebase.autosquash=true
-http.sslcainfo=D:/Git/mingw64/ssl/certs/ca-bundle.crt
-diff.astextplain.textconv=astextplain
-filter.lfs.clean=git-lfs clean -- %f
-filter.lfs.smudge=git-lfs smudge -- %f
-filter.lfs.required=true
-filter.lfs.process=git-lfs filter-process
-credential.helper=manager
-user.name=me
-user.email=me@example.com
-
-bruce@bruce-PC MINGW64 ~
-$
-```
-
-
-在 Linux 下
-```bash
-me@mypc:~$ git config --list
-user.email=me@example.com
-user.name=me
-me@mypc:~$ 
-```
-
-
-Git 会从不同的文件中读取同一个配置，因此可能有重复的配置名，则将使用最后一个配置。可以使用 `git config key` 检查配置
-
-
-```bash
-me@mypc:~$ git config user.name
-me
-me@mypc:~$ git config user.email
-me@example.com
-me@mypc:~$ 
-```
+参见 [git config](/Software/Git/config.md)
 
 
 # 获取帮助
-有三种方式
-- `git help <verb>` - 例如 `git help config` 在 windows 下打开 file:///D:/Git/mingw64/share/doc/git-doc/git-config.html
-- `git <verb> --help` - 例如 `git config --help` 在 windows 下打开 file:///D:/Git/mingw64/share/doc/git-doc/git-config.html
-- `man git-<verb>` - 在 Windows 下不可用，提示 bash: man: command not found
-
-
-```bash
-me@mypc:~$ git help config
-me@mypc:~$ git config --help
-me@mypc:~$ man git-config
-me@mypc:~$ 
-```
-
-
-三种方式得到的帮助是一样的。
+参见 [git help](/Software/Git/help.md)
 
