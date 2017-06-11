@@ -1,364 +1,350 @@
-`git log` 查看提交历史
-
-在 Windows 下
+测试用库
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git log
-commit 503641d7e5515a1ef56734e6e7b4190fb6299373 (HEAD -> master)
-Author: me <me@example.com>
-Date:   Tue May 23 11:26:58 2017 +0800
-
-    commit second
-
-commit 80bb1bae9f5e8568dda37a99ab2500c373693677
-Author: me <me@example.com>
-Date:   Tue May 23 11:20:05 2017 +0800
-
-    test first commit
-
-commit f9eba7725452e13e8b66561106a52513f9c99d34 (origin/master, origin/HEAD)
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Apr 26 15:20:30 2017 +0800
-
-    Update README.md
-
-commit 83af367cbb1876fd9aaf8603da39d5a6fb6c13d0
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:10:34 2017 +0800
-
-    Update README.md
-
-commit a6b1e206cfbb0008a046ea58395aed495f51c5e9
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:10:08 2017 +0800
-
-    Update README.md
-
-commit 4defa8bcf2bb662c9be606de79423633ae1cec1f
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:05:31 2017 +0800
-
-    Update README.md
-
-commit b2f983942ebe43708814957cb2a448c7db193f0b
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:02:19 2017 +0800
-
-    Update README.md
-
-commit c405af2fe21583593b06b8ec00ea8b6821692154
-Merge: 8013063 6e3f0f9
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 14:43:08 2017 +0800
-
-    Merge pull request #1 from zhi4chi2/readme-edits
-
-    readme edits
-
-commit 6e3f0f9bc420517f068ae0772a919c4476c84a86
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Tue Jan 10 17:53:44 2017 +0800
-
-    finish edit readme
-
-commit 8013063b903fb5aef404f8e7bcb43913253ddb7d
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Tue Jan 10 17:45:08 2017 +0800
-
-    Initial commit
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
-```
-
-`git log -p` 显示每次提交的内容差异。
-
-`git log -p -2` 显示最近两次提交。
-
-在 Windows 下
-```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git log -p -2
-commit 503641d7e5515a1ef56734e6e7b4190fb6299373 (HEAD -> master)
-Author: me <me@example.com>
-Date:   Tue May 23 11:26:58 2017 +0800
-
-    commit second
-
-diff --git a/README.md b/README.md
-index caca183..3fdbb2a 100644
---- a/README.md
-+++ b/README.md
-@@ -1,2 +1,3 @@
- abc
- hello
-+world
-
-commit 80bb1bae9f5e8568dda37a99ab2500c373693677
-Author: me <me@example.com>
-Date:   Tue May 23 11:20:05 2017 +0800
-
-    test first commit
-
-diff --git a/README.md b/README.md
-index 8baef1b..caca183 100644
---- a/README.md
-+++ b/README.md
-@@ -1 +1,2 @@
- abc
-+hello
-diff --git a/hello.txt b/hello.txt
-new file mode 100644
-index 0000000..ce01362
---- /dev/null
-+++ b/hello.txt
-@@ -0,0 +1 @@
-+hello
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
-```
-
-`git log --stat` 每次提交的简略的统计信息
-
-在 Windows 下
-```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git log --stat
-commit 503641d7e5515a1ef56734e6e7b4190fb6299373 (HEAD -> master)
-Author: me <me@example.com>
-Date:   Tue May 23 11:26:58 2017 +0800
-
-    commit second
-
- README.md | 1 +
+me@mypc:~/test$ mkdir workspace
+me@mypc:~/test$ cd workspace
+me@mypc:~/test/workspace$ git init
+Initialized empty Git repository in /home/me/test/workspace/.git/
+me@mypc:~/test/workspace$ touch README
+me@mypc:~/test/workspace$ git add README
+me@mypc:~/test/workspace$ git commit -m 'init commit'
+[master (root-commit) 27d9a26] init commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 README
+me@mypc:~/test/workspace$ git config --global user.name eg
+me@mypc:~/test/workspace$ git config --global user.email eg@example.com
+me@mypc:~/test/workspace$ git checkout -b eg-branch
+Switched to a new branch 'eg-branch'
+me@mypc:~/test/workspace$ echo hello > README
+me@mypc:~/test/workspace$ git commit -a -m 'eg change README'
+[eg-branch 5a4f7f8] eg change README
  1 file changed, 1 insertion(+)
-
-commit 80bb1bae9f5e8568dda37a99ab2500c373693677
-Author: me <me@example.com>
-Date:   Tue May 23 11:20:05 2017 +0800
-
-    test first commit
-
- README.md | 1 +
- hello.txt | 1 +
- 2 files changed, 2 insertions(+)
-
-commit f9eba7725452e13e8b66561106a52513f9c99d34 (origin/master, origin/HEAD)
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Apr 26 15:20:30 2017 +0800
-
-    Update README.md
-
- README.md | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
-
-commit 83af367cbb1876fd9aaf8603da39d5a6fb6c13d0
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:10:34 2017 +0800
-
-    Update README.md
-
- README.md | 1 +
+me@mypc:~/test/workspace$ echo world >> README
+me@mypc:~/test/workspace$ git commit -a -m 'eg change README again'
+[eg-branch cf6c02a] eg change README again
  1 file changed, 1 insertion(+)
+me@mypc:~/test/workspace$ git config --global user.name me
+me@mypc:~/test/workspace$ git config --global user.email me@example.com
+me@mypc:~/test/workspace$ git checkout master
+Switched to branch 'master'
+me@mypc:~/test/workspace$ touch LICENSE
+me@mypc:~/test/workspace$ git add LICENSE
+me@mypc:~/test/workspace$ git commit -m 'add LICENSE'
+[master 56cc08e] add LICENSE
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 LICENSE
+me@mypc:~/test/workspace$ git merge eg-branch -m 'merge eg-branch'
+Merge made by the 'recursive' strategy.
+ README | 2 ++
+ 1 file changed, 2 insertions(+)
+me@mypc:~/test/workspace$ git branch -d eg-branch
+Deleted branch eg-branch (was cf6c02a).
+me@mypc:~/test/workspace$ echo 'hello world' > README
+me@mypc:~/test/workspace$ git commit -a -m 'me change README'
+[master 5a8da9e] me change README
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+me@mypc:~/test/workspace$ git log
+commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:12 2017 +0800
 
-commit a6b1e206cfbb0008a046ea58395aed495f51c5e9
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:10:08 2017 +0800
+    me change README
 
-    Update README.md
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
 
- README.md | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+    merge eg-branch
 
-commit 4defa8bcf2bb662c9be606de79423633ae1cec1f
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:05:31 2017 +0800
+commit 56cc08e9863eec5b34a70a5b8b32363c5b0e44a1
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
 
-    Update README.md
+    add LICENSE
 
- README.md | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+commit cf6c02a972281d1dfbe54b499c0835d893e5eccd
+Author: eg <eg@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
 
-commit b2f983942ebe43708814957cb2a448c7db193f0b
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:02:19 2017 +0800
+    eg change README again
 
-    Update README.md
+commit 27d9a261a591cdc2ce1578cc7fc7a2413ea1ca99
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
 
- README.md | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+    init commit
 
-commit c405af2fe21583593b06b8ec00ea8b6821692154
-Merge: 8013063 6e3f0f9
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 14:43:08 2017 +0800
+commit 5a4f7f85e89edee75d31d68fb9c69050103f5321
+Author: eg <eg@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
 
-    Merge pull request #1 from zhi4chi2/readme-edits
-
-    readme edits
-
-commit 6e3f0f9bc420517f068ae0772a919c4476c84a86
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Tue Jan 10 17:53:44 2017 +0800
-
-    finish edit readme
-
- README.md | 3 +++
- 1 file changed, 3 insertions(+)
-
-commit 8013063b903fb5aef404f8e7bcb43913253ddb7d
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Tue Jan 10 17:45:08 2017 +0800
-
-    Initial commit
-
- LICENSE   | 201 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- README.md |   2 +
- 2 files changed, 203 insertions(+)
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ 
+    eg change README
+me@mypc:~/test/workspace$ 
 ```
 
-另外一个常用的选项是 --pretty。 这个选项可以指定使用不同于默认格式的方式展示提交历史。这个选项有一些内建的子选项供你使用。比如用 oneline 将每个提交放在一行显示，查看的提交数很大时非常有用。 另外还有 short，full 和 fuller 可以用，展示的信息或多或少有些不同
 
-在 Windows 下
+# Commit Limiting
+git log 还有许多非常实用的限制输出长度的选项，也就是只输出部分提交信息。
+
+
+如果只关心某些文件或者目录的历史提交，可以在 git log 选项的最后指定它们的路径。因为是放在最后位置上的选项，所以用两个短划线(--)隔开之前的选项和后面限定的路径名。
+
+
+限制 git log 输出的选项参见原文档 https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
+
+
+## -n
+例如 -2 只显示最近的两条提交。其中的 n 可以是任何整数，表示仅显示最近的若干条提交。
+
+
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git log --pretty=oneline
-503641d7e5515a1ef56734e6e7b4190fb6299373 (HEAD -> master) commit second
-80bb1bae9f5e8568dda37a99ab2500c373693677 test first commit
-f9eba7725452e13e8b66561106a52513f9c99d34 (origin/master, origin/HEAD) Update README.md
-83af367cbb1876fd9aaf8603da39d5a6fb6c13d0 Update README.md
-a6b1e206cfbb0008a046ea58395aed495f51c5e9 Update README.md
-4defa8bcf2bb662c9be606de79423633ae1cec1f Update README.md
-b2f983942ebe43708814957cb2a448c7db193f0b Update README.md
-c405af2fe21583593b06b8ec00ea8b6821692154 Merge pull request #1 from zhi4chi2/readme-edits
-6e3f0f9bc420517f068ae0772a919c4476c84a86 finish edit readme
-8013063b903fb5aef404f8e7bcb43913253ddb7d Initial commit
+t 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:12 2017 +0800
 
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+    me change README
+
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
+
+    merge eg-branch
+me@mypc:~/test/workspace$ 
 ```
 
 
-但最有意思的是 format ，可以定制要显示的记录格式。这样的输出对后期提取分析格外有用。因为你知道输出的格式不会随着 Git 的更新而发生改变
+## --since and --until
+按照时间作限制的选项
 
-在 Windows 下
-```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git log --pretty=format:"%h - %an, %ar : %s"
-503641d - me, 2 hours ago : commit second
-80bb1ba - me, 2 hours ago : test first commit
-f9eba77 - zhi4chi2, 4 weeks ago : Update README.md
-83af367 - zhi4chi2, 4 months ago : Update README.md
-a6b1e20 - zhi4chi2, 4 months ago : Update README.md
-4defa8b - zhi4chi2, 4 months ago : Update README.md
-b2f9839 - zhi4chi2, 4 months ago : Update README.md
-c405af2 - zhi4chi2, 4 months ago : Merge pull request #1 from zhi4chi2/readme-edits
-6e3f0f9 - zhi4chi2, 4 months ago : finish edit readme
-8013063 - zhi4chi2, 4 months ago : Initial commit
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
-```
-
-git log --pretty=format 常用的选项参见文档 https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2
-
-
-作者指的是实际作出修改的人，提交者指的是最后将此工作成果提交到仓库的人。 所以，当你为某个项目发布补丁，然后某个核心成员将你的补丁并入项目时，你就是作者，而那个核心成员就是提交者。
-
-当 oneline 或 format 与另一个 log 选项 --graph 结合使用时尤其有用。这个选项添加了一些 ASCII 字符串来形象地展示你的分支、合并历史
-
-在 Windows 下
-```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git log --pretty=format:"%h %s" --graph
-* 503641d commit second
-* 80bb1ba test first commit
-* f9eba77 Update README.md
-* 83af367 Update README.md
-* a6b1e20 Update README.md
-* 4defa8b Update README.md
-* b2f9839 Update README.md
-*   c405af2 Merge pull request #1 from zhi4chi2/readme-edits
-|\
-| * 6e3f0f9 finish edit readme
-|/
-* 8013063 Initial commit
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
-```
-
-git log 的常用选项参见文档 https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2
-
-
-## 限制输出长度
-
-git log 还有许多非常实用的限制输出长度的选项，也就是只输出部分提交信息。例如 -2 只显示最近的两条提交。其中的 n 可以是任何整数，表示仅显示最近的若干条提交。
-
-
-另外还有按照时间作限制的选项，比如 --since 和 --until 也很有用。
 
 例如，下面的命令列出所有最近两周内的提交：
-
-在 Windows 下
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git log --since=2.weeks
-commit 503641d7e5515a1ef56734e6e7b4190fb6299373 (HEAD -> master)
-Author: me <me@example.com>
-Date:   Tue May 23 11:26:58 2017 +0800
-
-    commit second
-
-commit 80bb1bae9f5e8568dda37a99ab2500c373693677
-Author: me <me@example.com>
-Date:   Tue May 23 11:20:05 2017 +0800
-
-    test first commit
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+me@mypc:~/test/workspace$ git log --since=2.weeks --oneline
+5a8da9e me change README
+32e5ce5 merge eg-branch
+56cc08e add LICENSE
+cf6c02a eg change README again
+27d9a26 init commit
+5a4f7f8 eg change README
+me@mypc:~/test/workspace$ 
 ```
 
 
 这个命令可以在多种格式下工作，比如说具体的某一天 "2008-01-15" ，或者是相对地多久以前 "2 years 1 day 3 minutes ago" 。
 
-还可以给出若干搜索条件，列出符合的提交。用 --author 选项显示指定作者的提交，用 --grep 选项搜索提交说明中的关键字。 （请注意，如果要得到同时满足这两个选项搜索条件的提交，就必须用 --all-match 选项。否则，满足任意一个条件的提交都会被匹配出来）
 
-
-另一个非常有用的筛选选项是 -S ，可以列出那些添加或移除了某些字符串的提交。比如说，你想找出添加或移除了某一个特定函数的引用的提交，你可以这样使用：
-
-在 Windows 下
+## --author
+显示指定作者的提交
 ```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git log -Sworld
-commit 503641d7e5515a1ef56734e6e7b4190fb6299373 (HEAD -> master)
-Author: me <me@example.com>
-Date:   Tue May 23 11:26:58 2017 +0800
-
-    commit second
-
-commit 4defa8bcf2bb662c9be606de79423633ae1cec1f
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Wed Jan 11 15:05:31 2017 +0800
-
-    Update README.md
-
-commit 8013063b903fb5aef404f8e7bcb43913253ddb7d
-Author: zhi4chi2 <yu_huanchao@163.com>
-Date:   Tue Jan 10 17:45:08 2017 +0800
-
-    Initial commit
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
+me@mypc:~/test/workspace$ git log --oneline --author=eg
+cf6c02a eg change README again
+5a4f7f8 eg change README
+me@mypc:~/test/workspace$ 
 ```
 
-最后一个很实用的 git log 选项是路径(path)， 如果只关心某些文件或者目录的历史提交，可以在 git log 选项的最后指定它们的路径。 因为是放在最后位置上的选项，所以用两个短划线(--)隔开之前的选项和后面限定的路径名。
 
-限制 git log 输出的选项参见原文档
+## --grep
+搜索提交说明中的关键字
+```bash
+me@mypc:~/test/workspace$ git log --oneline --grep change
+5a8da9e me change README
+cf6c02a eg change README again
+5a4f7f8 eg change README
+me@mypc:~/test/workspace$ 
+```
+
+
+## --all-match
+如果要得到同时满足多个 --grep 搜索条件的提交，就必须用 --all-match 选项。否则，满足任意一个条件的提交都会被匹配
+```bash
+me@mypc:~/test/workspace$ git log --oneline --grep eg --grep change
+5a8da9e me change README
+32e5ce5 merge eg-branch
+cf6c02a eg change README again
+5a4f7f8 eg change README
+me@mypc:~/test/workspace$ git log --oneline --grep eg --grep change --all-match
+cf6c02a eg change README again
+5a4f7f8 eg change README
+me@mypc:~/test/workspace$ 
+```
+
+
+## -S
+-S 可以列出那些添加或移除了某些字符串的提交。比如说，你想找出添加或移除了某一个特定函数的引用的提交
+```bash
+me@mypc:~/test/workspace$ git log --oneline -Sworld
+cf6c02a eg change README again
+me@mypc:~/test/workspace$ 
+```
+
+
+# Commit Ordering
+默认 log 按照 reverse chronological order 排序，注意默认排序的 init commit 排在了 eg change README 之前！
+
+
+指定顺序
+```bash
+me@mypc:~/test/workspace$ git log --oneline --date-order
+5a8da9e me change README
+32e5ce5 merge eg-branch
+56cc08e add LICENSE
+cf6c02a eg change README again
+5a4f7f8 eg change README
+27d9a26 init commit
+me@mypc:~/test/workspace$ 
+```
+
+
+# COMMON DIFF OPTIONS
+## -p
+`git log -p` 显示每次提交的内容差异。
+```bash
+me@mypc:~/test/workspace$ git log -p -2
+commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:12 2017 +0800
+
+    me change README
+
+diff --git a/README b/README
+index 94954ab..3b18e51 100644
+--- a/README
++++ b/README
+@@ -1,2 +1 @@
+-hello
+-world
++hello world
+
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
+
+    merge eg-branch
+me@mypc:~/test/workspace$ 
+```
+
+
+## --stat
+`git log --stat` 每次提交的简略的统计信息
+```bash
+me@mypc:~/test/workspace$ git log --stat -2
+commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:12 2017 +0800
+
+    me change README
+
+ README | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
+
+    merge eg-branch
+me@mypc:~/test/workspace$ 
+```
+
+
+# Commit Formatting
+## --pretty
+这个选项可以指定使用不同于默认格式的方式展示提交历史。这个选项有一些内建的子选项供你使用。比如用 oneline 将每个提交放在一行显示，查看的提交数很大时非常有用。 另外还有 short，full 和 fuller 可以用，展示的信息或多或少有些不同
+```bash
+me@mypc:~/test/workspace$ git log --pretty=oneline
+5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546 me change README
+32e5ce54e340a114170b3192187c4aafcd4bd784 merge eg-branch
+56cc08e9863eec5b34a70a5b8b32363c5b0e44a1 add LICENSE
+cf6c02a972281d1dfbe54b499c0835d893e5eccd eg change README again
+27d9a261a591cdc2ce1578cc7fc7a2413ea1ca99 init commit
+5a4f7f85e89edee75d31d68fb9c69050103f5321 eg change README
+me@mypc:~/test/workspace$ git log --pretty=short -2
+commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author: me <me@example.com>
+
+    me change README
+
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author: me <me@example.com>
+
+    merge eg-branch
+me@mypc:~/test/workspace$ git log --pretty=full -2
+commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author: me <me@example.com>
+Commit: me <me@example.com>
+
+    me change README
+
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author: me <me@example.com>
+Commit: me <me@example.com>
+
+    merge eg-branch
+me@mypc:~/test/workspace$ git log --pretty=fuller -2
+commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author:     me <me@example.com>
+AuthorDate: Sun Jun 11 13:28:12 2017 +0800
+Commit:     me <me@example.com>
+CommitDate: Sun Jun 11 13:28:12 2017 +0800
+
+    me change README
+
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author:     me <me@example.com>
+AuthorDate: Sun Jun 11 13:28:11 2017 +0800
+Commit:     me <me@example.com>
+CommitDate: Sun Jun 11 13:28:11 2017 +0800
+
+    merge eg-branch
+me@mypc:~/test/workspace$ 
+```
+
+
+但最有意思的是 format ，可以定制要显示的记录格式。这样的输出对后期提取分析格外有用。因为你知道输出的格式不会随着 Git 的更新而发生改变
+```bash
+me@mypc:~/test/workspace$ git log --pretty=format:"%h - %an, %ar : %s"
+5a8da9e - me, 10 minutes ago : me change README
+32e5ce5 - me, 10 minutes ago : merge eg-branch
+56cc08e - me, 10 minutes ago : add LICENSE
+cf6c02a - eg, 10 minutes ago : eg change README again
+27d9a26 - me, 10 minutes ago : init commit
+5a4f7f8 - eg, 10 minutes ago : eg change README
+me@mypc:~/test/workspace$ 
+```
+
+
+git log --pretty=format 常用的选项参见文档 https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
+
+
+author 指的是实际作出修改的人， committer 指的是最后将此工作成果提交到仓库的人。 所以，当你为某个项目发布补丁，然后某个核心成员将你的补丁并入项目时，你就是作者，而那个核心成员就是提交者。
+
+
+# --graph
+当 --pretty=oneline 或 format 与另一个 log 选项 --graph 结合使用时尤其有用。这个选项添加了一些 ASCII 字符串来形象地展示你的分支、合并历史
+
+
+```bash
+me@mypc:~/test/workspace$ git log --pretty=format:"%h %s" --graph
+* 5a8da9e me change README
+*   32e5ce5 merge eg-branch
+|\  
+| * cf6c02a eg change README again
+| * 5a4f7f8 eg change README
+* | 56cc08e add LICENSE
+|/  
+* 27d9a26 init commit
+me@mypc:~/test/workspace$ 
+```
+
+
+git log 的常用选项参见文档 https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
+
+
+# Reference
+- https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
 
