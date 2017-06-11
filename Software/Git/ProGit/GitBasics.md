@@ -101,4 +101,13 @@ doc/**/*.pdf
 
 
 # Working with Remotes
-参见 [git remote](/Software/Git/remote.md), [git fetch](/Software/Git/fetch.md), [git push](/Software/Git/push.md)
+参见 [git remote](/Software/Git/remote.md), [git fetch](/Software/Git/fetch.md), [git push](/Software/Git/push.md), [git pull](/Software/Git/pull.md)
+
+
+# Tagging
+参见 [git tag](/Software/Git/tag.md), [git show](/Software/Git/show.md), [git push](/Software/Git/push.md), [git checkout](/Software/Git/checkout.md)
+
+
+# Git Aliases
+参见 [git config](/Software/Git/config.md)
+
