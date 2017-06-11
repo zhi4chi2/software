@@ -1,174 +1,27 @@
 # 获取 Git 仓库
 ## 在现有目录中初始化仓库
-在 Linux 下
-```bash
-me@mypc:~/workspace$ mkdir test
-me@mypc:~/workspace$ cd test
-me@mypc:~/workspace/test$ git init
-Initialized empty Git repository in /home/me/workspace/test/.git/
-me@mypc:~/workspace/test$ ls -aF
-./  ../  .git/
-me@mypc:~/workspace/test$ 
-```
-
-
-在 Windows 下
-```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/workspace
-$ git init
-Initialized empty Git repository in G:/TempWork/201705/20170523/workspace/.git/
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/workspace (master)
-$ ls -a
-./  ../  .git/
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/workspace (master)
-$
-```
+参见 [git init](/Software/Git/init.md)
 
 
 ## 克隆现有的仓库
-```bash
-me@mypc:~/workspace$ ls -aF
-./  ../  test/
-me@mypc:~/workspace$ git clone https://github.com/zhi4chi2/demo from-github
-Cloning into 'from-github'...
-remote: Counting objects: 3, done.
-remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-Unpacking objects: 100% (3/3), done.
-Checking connectivity... done.
-me@mypc:~/workspace$ ls -aF
-./  ../  from-github/  test/
-me@mypc:~/workspace$ cd from-github/
-me@mypc:~/workspace/from-github$ ls -aF
-./  ../  .git/  README.md
-me@mypc:~/workspace/from-github$ 
-```
-
-
-clone 到了 /home/me/workspace/from-github 目录下（自动创建此目录），库在 /home/me/workspace/from-github/.git
-
-
-如果不指定文件夹名，则默认与远端库名相同，例如 `git clone https://github.com/zhi4chi2/demo.git` 则放在 demo 目录下。
-
-
-GitHub 的 git clone url 可以加 .git 也可以省略。
-
-
-除了 https:// 协议外还可以使用 git:// 或者使用 SSH 传输协议。
+参见 [git clone](/Software/Git/clone.md)
 
 
 # 记录每次更新到仓库
 ## 检查当前文件状态
-在新初始化的库中
-```bash
-me@mypc:~/workspace/test$ git status
-On branch master
-
-Initial commit
-
-nothing to commit (create/copy files and use "git add" to track)
-me@mypc:~/workspace/test$ 
-```
-
-
-添加文件
-```bash
-me@mypc:~/workspace/test$ echo 'hello' > README
-me@mypc:~/workspace/test$ git status
-On branch master
-
-Initial commit
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	README
-
-nothing added to commit but untracked files present (use "git add" to track)
-me@mypc:~/workspace/test$ 
-```
-
-
-Untracked files 表示文件状态是 untracked
+参见 [git status](/Software/Git/status.md)
 
 
 ## 跟踪新文件
-```bash
-me@mypc:~/workspace/test$ git add README 
-me@mypc:~/workspace/test$ git status
-On branch master
-
-Initial commit
-
-Changes to be committed:
-  (use "git rm --cached <file>..." to unstage)
-
-	new file:   README
-
-me@mypc:~/workspace/test$ 
-```
-
-
-Changes to be committed 表示文件状态是 staged
-
-
-`git add` 命令使用文件或目录的路径作为参数；如果参数是目录的路径，该命令将递归地跟踪该目录下的所有文件。
+参见 [git status](/Software/Git/status.md)
 
 
 ## 暂存已修改文件
-先提交使文件在 tracked 状态，然后再修改
-```bash
-me@mypc:~/workspace/test$ git commit -m "first commit"
-[master (root-commit) c249a5d] first commit
- 1 file changed, 1 insertion(+)
- create mode 100644 README
-me@mypc:~/workspace/test$ echo 'world' >> README
-me@mypc:~/workspace/test$ git status
-On branch master
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	modified:   README
-
-no changes added to commit (use "git add" and/or "git commit -a")
-me@mypc:~/workspace/test$ 
-```
-
-
-Changes not staged for commit 表示文件在 modified 状态(a file that is tracked has been modified in the working directory but not yet staged)
-
-
-再次调用 `git add` 使文件进入 staged 状态
-```bash
-me@mypc:~/workspace/test$ git add README
-me@mypc:~/workspace/test$ git status
-On branch master
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-	modified:   README
-
-me@mypc:~/workspace/test$ 
-```
-
-
-`git add` 是个多功能命令：可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等。将这个命令理解为“添加内容到下一次提交中”而不是“将一个文件添加到项目中”要更加合适。
+参见 [git status](/Software/Git/status.md)
 
 
 ## 状态简览
-```bash
-me@mypc:~/workspace/test$ git status -s
-M  README
-me@mypc:~/workspace/test$ 
-```
-
-
-含义
-- ?? - 未跟踪文件
-- A - 新添加到暂存区中的文件
-- M - 出现在右边的 M 表示该文件被修改了但是还没放入暂存区，出现在靠左边的 M 表示该文件被修改了并放入了暂存区。
+参见 [git status](/Software/Git/status.md)
 
 
 ## 忽略文件
@@ -214,116 +67,10 @@ doc/**/*.pdf
 
 
 ## 查看已暂存和未暂存的修改
-`git diff` 可以知道具体修改了什么地方
+在本书中，我们使用 git diff 来分析文件差异。但是，如果你喜欢通过图形化的方式或其它格式输出方式的话，可以使用 git difftool 命令来用 Araxis, ecmerge 或 vimdiff 等软件输出 diff 分析结果。使用 git difftool --tool-help 命令来看你的系统支持哪些 Git Diff 插件。
 
 
-不加参数的 `git diff` 查看尚未暂存的文件更新了哪些部分
-```bash
-me@mypc:~/workspace/test$ echo 'hello world!' > README
-me@mypc:~/workspace/test$ git diff
-diff --git a/README b/README
-index 94954ab..a042389 100644
---- a/README
-+++ b/README
-@@ -1,2 +1 @@
--hello
--world
-+hello world!
-me@mypc:~/workspace/test$ 
-```
-
-
-若要查看已暂存的将要添加到下次提交里的内容，可以用 `git diff --cached` 命令。（ Git 1.6.1 及更高版本还允许使用 git diff --staged ，效果是相同的，但更好记些。）
-```bash
-me@mypc:~/workspace/test$ git diff --staged
-diff --git a/README b/README
-index ce01362..94954ab 100644
---- a/README
-+++ b/README
-@@ -1 +1,2 @@
- hello
-+world
-me@mypc:~/workspace/test$ 
-```
-
-
-在本书中，我们使用 git diff 来分析文件差异。但是，如果你喜欢通过图形化的方式或其它格式输出方式的话，可以使用 git difftool 命令来用 Araxis, ecmerge 或 vimdiff 等软件输出 diff 分析结果。使用 git difftool --tool-help 命令来看你的系统支持哪些 Git Diff 插件。在 Linux 中默认使用 gvimdiff
-
-
-在 Windows 下
-```bash
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$ git difftool --tool-help
-'git difftool --tool=<tool>' may be set to one of the following:
-                vimdiff
-                vimdiff2
-                vimdiff3
-
-The following tools are valid, but not currently available:
-                araxis
-                bc
-                bc3
-                codecompare
-                deltawalker
-                diffmerge
-                diffuse
-                ecmerge
-                emerge
-                examdiff
-                gvimdiff
-                gvimdiff2
-                gvimdiff3
-                kdiff3
-                kompare
-                meld
-                opendiff
-                p4merge
-                tkdiff
-                winmerge
-                xxdiff
-
-Some of the tools listed above only work in a windowed
-environment. If run in a terminal-only session, they will fail.
-
-bruce@bruce-PC MINGW64 /G/TempWork/201705/20170523/remote-clone/myfirst (master)
-$
-```
-
-
-在 Linux 中
-```bash
-me@mypc:~/workspace/test$ git difftool --tool-help
-'git difftool --tool=<tool>' may be set to one of the following:
-		araxis
-		gvimdiff
-		gvimdiff2
-		gvimdiff3
-		vimdiff
-		vimdiff2
-		vimdiff3
-
-The following tools are valid, but not currently available:
-		bc
-		bc3
-		codecompare
-		deltawalker
-		diffmerge
-		diffuse
-		ecmerge
-		emerge
-		kdiff3
-		kompare
-		meld
-		opendiff
-		p4merge
-		tkdiff
-		winmerge
-		xxdiff
-
-Some of the tools listed above only work in a windowed
-environment. If run in a terminal-only session, they will fail.
-me@mypc:~/workspace/test$ 
-```
+参见 [git diff](/Software/Git/diff.md), [git difftool](/Software/Git/difftool.md)
 
 
 ## 提交更新

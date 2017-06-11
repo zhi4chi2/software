@@ -143,3 +143,5 @@ git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe
 ```
 
 
+# Reference
+- https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
