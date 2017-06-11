@@ -97,7 +97,9 @@ me@mypc:~$
 
 
 术语
-- staging area - 暂存区
+- staging area/index - 暂存区
+- working tree/working directory - 本地工作目录
+- tree - 库中的 tree object
 
 
 # Reference
