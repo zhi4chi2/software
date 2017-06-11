@@ -94,5 +94,43 @@ me@mypc:~/test/workspace$
 ```
 
 
+# --amend
+```bash
+me@mypc:~/test$ mkdir workspace
+me@mypc:~/test$ cd workspace
+me@mypc:~/test/workspace$ git init
+Initialized empty Git repository in /home/me/test/workspace/.git/
+me@mypc:~/test/workspace$ touch README
+me@mypc:~/test/workspace$ git add README
+me@mypc:~/test/workspace$ git commit -m 'init commit'
+[master (root-commit) 8661fe7] init commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 README
+me@mypc:~/test/workspace$ git log
+commit 8661fe7b1e15a6f45c54043965aac74ff80e1ad7
+Author: me <me@example.com>
+Date:   Sun Jun 11 15:05:41 2017 +0800
+
+    init commit
+me@mypc:~/test/workspace$ touch LICENSE
+me@mypc:~/test/workspace$ git add LICENSE
+me@mypc:~/test/workspace$ git commit --amend -m 'init commit again'
+[master 8d7b0dc] init commit again
+ Date: Sun Jun 11 15:05:41 2017 +0800
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 LICENSE
+ create mode 100644 README
+me@mypc:~/test/workspace$ git log
+commit 8d7b0dc8203ef04eb4ab301af34eb49e0045ee45
+Author: me <me@example.com>
+Date:   Sun Jun 11 15:05:41 2017 +0800
+
+    init commit again
+me@mypc:~/test/workspace$ 
+```
+
+
 # Reference
 - https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository
+- https://git-scm.com/book/en/v2/Git-Basics-Undoing-Things
+

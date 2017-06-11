@@ -96,3 +96,9 @@ doc/**/*.pdf
 # 撤消操作
 注意，有些撤消操作是不可逆的。这是在使用 Git 的过程中，会因为操作失误而导致之前的工作丢失的少有的几个地方之一。
 
+
+参见 [git commit](/Software/Git/commit.md), [git reset](/Software/Git/reset.md), [git checkout](/Software/Git/checkout.md)
+
+
+# Working with Remotes
+参见 [git remote](/Software/Git/remote.md), [git fetch](/Software/Git/fetch.md), [git push](/Software/Git/push.md)
