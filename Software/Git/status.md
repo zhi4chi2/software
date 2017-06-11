@@ -16,8 +16,8 @@
 
 `git status` 的输出
 - Untracked files - untracked
-- Changes to be committed - tracked and staged to be committed 其下可能有 new file, modified, deleted
-- Changes not staged for commit - 之前 tracked 如今修改(modified)之后没有 staged 其下可能有 modified
+- Changes to be committed - tracked and staged to be committed 其下可能有 new file, modified, deleted, renamed
+- Changes not staged for commit - 之前 tracked 如今修改(modified)之后没有 staged 其下可能有 modified, deleted
 
 
 在新初始化的库中

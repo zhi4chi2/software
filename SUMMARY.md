@@ -45,6 +45,7 @@
     - [git remote](/Software/Git/remote.md)
     - [git reset](/Software/Git/reset.md)
     - [git rm](/Software/Git/rm.md)
+    - [git show](/Software/Git/show.md)
     - [git status](/Software/Git/status.md)
     - [git tag](/Software/Git/tag.md)
   - [GitHub](/Software/GitHub/README.md)

@@ -72,7 +72,7 @@ me@mypc:~/test/workspace$
 ```
 
 
-这时要注意不能修改并提交，因为 tag 不会移到。
+这时要注意不能修改并提交，因为 tag 不会移动。
 
 
 所以如果要修改代码并提交，则应该如下，在 checkout tag 时新建 branch

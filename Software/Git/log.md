@@ -84,7 +84,7 @@ me@mypc:~/test/workspace$
 
 
 # Commit Limiting
-git log 还有许多非常实用的限制输出长度的选项，也就是只输出部分提交信息。
+git log 有许多非常实用的限制输出长度的选项，也就是只输出部分提交信息。
 
 
 如果只关心某些文件或者目录的历史提交，可以在 git log 选项的最后指定它们的路径。因为是放在最后位置上的选项，所以用两个短划线(--)隔开之前的选项和后面限定的路径名。
@@ -340,6 +340,9 @@ me@mypc:~/test/workspace$ git log --pretty=format:"%h %s" --graph
 * 27d9a26 init commit
 me@mypc:~/test/workspace$ 
 ```
+
+
+注意输出的 graph 并不精确！ 56cc08e 的显示很容易造成误解，它并不是与 5a4f7f8, cf6c02a 同一分支。注意其前面是 | 而不是 *
 
 
 git log 的常用选项参见文档 https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
