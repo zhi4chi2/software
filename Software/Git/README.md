@@ -68,6 +68,11 @@ me@mypc:~$
 - 更改安装路径 D:\Git(C:\Program Files\Git)
 
 
+```bash
+FIXME
+```
+
+
 # 配置
 ```bash
 me@mypc:~$ git config --global user.name me

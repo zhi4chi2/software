@@ -37,3 +37,7 @@ Setting up passwordsafe-common (0.98.1+dfsg-3) ...
 Setting up passwordsafe (0.98.1+dfsg-3) ...
 me@mypc:~$ 
 ```
+
+
+# bugs
+- 在 Ubuntu 下输入主密码的特殊字符的键盘打不开
