@@ -101,6 +101,54 @@ me@mypc:~/test/workspace$
 ```
 
 
+# git checkout branch
+checkout 做两件事
+- 使 HEAD 指向 branch
+- 使 working directory 中的文件与 branch 的 snapshot 一致
+
+
+```bash
+FIXME
+git branch testing
+git log --oneline --decorate
+echo hello > README
+git commit -a -m 'modify README'
+git checkout testing
+git log --oneline --decorate
+cat README
+```
+
+
+如果
+- local branch name 不存在，且
+- 只在 only one remote 上有指定 branch name 的 remote branch
+则 `git checkout branch-name` 等价于 `git checkout -b branch-name --track remote/branch-name`
+
+
+## -b
+```bash
+FIXME
+git checkout -b testing
+git log --oneline --decorate
+```
+
+
+## --track
+其实 --track 是传给 `git branch` 命令的。此时如果不指定 -b 则使用 remote branch 的名字。
+
+
+--track 是默认行为，参见 `git branch` 的 --track 参数。
+
+
+```bash
+FIXME
+git branch
+git checkout --track origin/serverfix
+git branch
+```
+
+
 # Reference
 - https://git-scm.com/book/en/v2/Git-Basics-Undoing-Things
 - https://git-scm.com/book/en/v2/Git-Basics-Tagging
+- https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell

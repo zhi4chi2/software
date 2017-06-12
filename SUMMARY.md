@@ -38,6 +38,7 @@
     - [git init](/Software/Git/init.md)
     - [git log](/Software/Git/log.md)
     - [git merge](/Software/Git/merge.md)
+    - [git mergetool](/Software/Git/mergetool.md)
     - [git mv](/Software/Git/mv.md)
     - [git pull](/Software/Git/pull.md)
     - [git push](/Software/Git/push.md)

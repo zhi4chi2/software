@@ -83,6 +83,16 @@ me@mypc:~/test/workspace$
 ```
 
 
+# OPTIONS
+## --decorate
+```bash
+FIXME
+git log --decorate -1
+git checkout -b testing
+git log --decorate -1
+```
+
+
 # Commit Limiting
 git log 有许多非常实用的限制输出长度的选项，也就是只输出部分提交信息。
 
@@ -170,20 +180,21 @@ me@mypc:~/test/workspace$
 ```
 
 
-## -S
--S 可以列出那些添加或移除了某些字符串的提交。比如说，你想找出添加或移除了某一个特定函数的引用的提交
+## --all
+包含所有 refs(branches and tags)
 ```bash
-me@mypc:~/test/workspace$ git log --oneline -Sworld
-cf6c02a eg change README again
-me@mypc:~/test/workspace$ 
+FIXME
 ```
+
+
+# History Simplification
 
 
 # Commit Ordering
 默认 log 按照 reverse chronological order 排序，注意默认排序的 init commit 排在了 eg change README 之前！
 
 
-指定顺序
+## --date-order
 ```bash
 me@mypc:~/test/workspace$ git log --oneline --date-order
 5a8da9e me change README
@@ -196,59 +207,7 @@ me@mypc:~/test/workspace$
 ```
 
 
-# COMMON DIFF OPTIONS
-## -p
-`git log -p` 显示每次提交的内容差异。
-```bash
-me@mypc:~/test/workspace$ git log -p -2
-commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
-Author: me <me@example.com>
-Date:   Sun Jun 11 13:28:12 2017 +0800
-
-    me change README
-
-diff --git a/README b/README
-index 94954ab..3b18e51 100644
---- a/README
-+++ b/README
-@@ -1,2 +1 @@
--hello
--world
-+hello world
-
-commit 32e5ce54e340a114170b3192187c4aafcd4bd784
-Merge: 56cc08e cf6c02a
-Author: me <me@example.com>
-Date:   Sun Jun 11 13:28:11 2017 +0800
-
-    merge eg-branch
-me@mypc:~/test/workspace$ 
-```
-
-
-## --stat
-`git log --stat` 每次提交的简略的统计信息
-```bash
-me@mypc:~/test/workspace$ git log --stat -2
-commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
-Author: me <me@example.com>
-Date:   Sun Jun 11 13:28:12 2017 +0800
-
-    me change README
-
- README | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-commit 32e5ce54e340a114170b3192187c4aafcd4bd784
-Merge: 56cc08e cf6c02a
-Author: me <me@example.com>
-Date:   Sun Jun 11 13:28:11 2017 +0800
-
-    merge eg-branch
-me@mypc:~/test/workspace$ 
-```
-
-
+# Object Traversal
 # Commit Formatting
 ## --pretty
 这个选项可以指定使用不同于默认格式的方式展示提交历史。这个选项有一些内建的子选项供你使用。比如用 oneline 将每个提交放在一行显示，查看的提交数很大时非常有用。 另外还有 short，full 和 fuller 可以用，展示的信息或多或少有些不同
@@ -348,6 +307,72 @@ me@mypc:~/test/workspace$
 git log 的常用选项参见文档 https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
 
 
+# Diff Formatting
+# PRETTY FORMATS
+# COMMON DIFF OPTIONS
+## -p
+`git log -p` 显示每次提交的内容差异。
+```bash
+me@mypc:~/test/workspace$ git log -p -2
+commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:12 2017 +0800
+
+    me change README
+
+diff --git a/README b/README
+index 94954ab..3b18e51 100644
+--- a/README
++++ b/README
+@@ -1,2 +1 @@
+-hello
+-world
++hello world
+
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
+
+    merge eg-branch
+me@mypc:~/test/workspace$ 
+```
+
+
+## --stat
+`git log --stat` 每次提交的简略的统计信息
+```bash
+me@mypc:~/test/workspace$ git log --stat -2
+commit 5a8da9ea5c10d07f68bd83bf7c69c8934c5b8546
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:12 2017 +0800
+
+    me change README
+
+ README | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+commit 32e5ce54e340a114170b3192187c4aafcd4bd784
+Merge: 56cc08e cf6c02a
+Author: me <me@example.com>
+Date:   Sun Jun 11 13:28:11 2017 +0800
+
+    merge eg-branch
+me@mypc:~/test/workspace$ 
+```
+
+
+## -S
+-S 可以列出那些添加或移除了某些字符串的提交。比如说，你想找出添加或移除了某一个特定函数的引用的提交
+```bash
+me@mypc:~/test/workspace$ git log --oneline -Sworld
+cf6c02a eg change README again
+me@mypc:~/test/workspace$ 
+```
+
+
+# Generating patches with -p
+# combined diff format
 # Reference
 - https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
 

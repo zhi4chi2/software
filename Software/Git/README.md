@@ -105,6 +105,14 @@ me@mypc:~$
 - staging area/index - 暂存区
 - working tree/working directory - 本地工作目录
 - tree - 库中的 tree object
+- upstream branch - remote branch
+- tracking branch - local branch
+
+
+从 remote branch checkout 创建 local branch 后， local branch 叫做 tracking branch ， remote branch 叫做 upstream branch
+
+
+`git clone` 时自动创建 master branch track origin/master
 
 
 # Reference

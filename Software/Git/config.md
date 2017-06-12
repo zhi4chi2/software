@@ -143,6 +143,12 @@ git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe
 ```
 
 
+## credential.helper
+```bash
+FIXME
+```
+
+
 ## alias
 ```bash
 me@mypc:~/test/workspace$ git config --global alias.ci commit
@@ -183,3 +189,4 @@ me@mypc:~/test/workspace$
 # Reference
 - https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
 - https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases
+- https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches
