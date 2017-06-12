@@ -69,7 +69,12 @@ me@mypc:~$
 
 
 ```bash
-FIXME
+me@mypc MINGW64 ~/test
+$ git --version
+git version 2.13.0.windows.1
+
+me@mypc MINGW64 ~/test
+$
 ```
 
 
