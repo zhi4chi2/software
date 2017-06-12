@@ -77,9 +77,11 @@ FIXME
 ```bash
 me@mypc:~$ git config --global user.name me
 me@mypc:~$ git config --global user.email me@example.com
+me@mypc:~$ git config --global core.quotepath false
 me@mypc:~$ git config --list
 user.email=me@example.com
 user.name=me
+core.quotepath=false
 me@mypc:~$ 
 ```
 

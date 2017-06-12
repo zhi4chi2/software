@@ -130,6 +130,10 @@ error: key does not contain a section: x
 - user.email
 
 
+## core.quotepath
+用以显示中文文件名。
+
+
 ## core.editor
 默认使用 vim ，可以修改为 emacs
 ```bash
