@@ -54,7 +54,7 @@
     - [Github Pages](/software/github/github-pages.md)
     - [Github Guide](/software/github/github-guide.md)
     - [GithubHelp](/software/github/github-help/README.md)
-      - [Helping people contribute to your project](/software/github/githubHelp/contribute.md)
+      - [Helping people contribute to your project](/software/github/github-help/contribute.md)
 
 
 - 测试工具
