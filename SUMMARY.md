@@ -1,75 +1,75 @@
 # Summary
 
 - Application
-  - [vim](/Software/vim/README.md)
-    - [基本用法](/Software/vim/vim.md)
-  - [PasswordSafe](/Software/PasswordSafe/README.md)
+  - [vim](/software/vim/README.md)
+    - [基本用法](/software/vim/vim.md)
+  - [PasswordSafe](/software/passwordsafe/README.md)
 
 
 - Browser
-  - [Chrome](/Software/Chrome/README.md)
-  - [Firefox](/Software/Firefox/README.md)
+  - [Chrome](/software/chrome/README.md)
+  - [Firefox](/software/firefox/README.md)
 
 
 - IDE
-  - [Eclipse](/Software/Eclipse/README.md)
+  - [Eclipse](/software/eclipse/README.md)
 
 
 - 构建工具
-  - [Maven](/Software/Maven/README.md)
-  - [Gradle](/Software/Gradle/README.md)
+  - [Maven](/software/maven/README.md)
+  - [Gradle](/software/gradle/README.md)
 
 
 - SCM
-  - [Git](/Software/Git/README.md)
-    - [ProGit](/Software/Git/ProGit/README.md)
-      - [Getting Started](/Software/Git/ProGit/GettingStarted.md)
-      - [Git Basics](/Software/Git/ProGit/GitBasics.md)
-    - [git add](/Software/Git/add.md)
-    - [git branch](/Software/Git/branch.md)
-    - [git checkout](/Software/Git/checkout.md)
-    - [git clone](/Software/Git/clone.md)
-    - [git commit](/Software/Git/commit.md)
-    - [git config](/Software/Git/config.md)
-    - [git diff](/Software/Git/diff.md)
-    - [git difftool](/Software/Git/difftool.md)
-    - [git fetch](/Software/Git/fetch.md)
-    - [git help](/Software/Git/help.md)
-    - [git init](/Software/Git/init.md)
-    - [git log](/Software/Git/log.md)
-    - [git merge](/Software/Git/merge.md)
-    - [git mergetool](/Software/Git/mergetool.md)
-    - [git mv](/Software/Git/mv.md)
-    - [git pull](/Software/Git/pull.md)
-    - [git push](/Software/Git/push.md)
-    - [git rebase](/Software/Git/rebase.md)
-    - [git remote](/Software/Git/remote.md)
-    - [git reset](/Software/Git/reset.md)
-    - [git rm](/Software/Git/rm.md)
-    - [git show](/Software/Git/show.md)
-    - [git status](/Software/Git/status.md)
-    - [git tag](/Software/Git/tag.md)
-  - [GitHub](/Software/GitHub/README.md)
-    - [GitHubDesktop](/Software/GitHub/GitHubDesktop/README.md)
-    - [GitHub Pages](/Software/GitHub/GitHubPages.md)
-    - [GitHub Guide](/Software/GitHub/GitHubGuide.md)
-    - [GitHubHelp](/Software/GitHub/GitHubHelp/README.md)
-      - [Helping people contribute to your project](/Software/GitHub/GitHubHelp/contribute.md)
+  - [git](/software/git/README.md)
+    - [progit](/software/git/progit/README.md)
+      - [Getting Started](/software/git/progit/getting-started.md)
+      - [git Basics](/software/git/progit/git-basics.md)
+    - [git add](/software/git/add.md)
+    - [git branch](/software/git/branch.md)
+    - [git checkout](/software/git/checkout.md)
+    - [git clone](/software/git/clone.md)
+    - [git commit](/software/git/commit.md)
+    - [git config](/software/git/config.md)
+    - [git diff](/software/git/diff.md)
+    - [git difftool](/software/git/difftool.md)
+    - [git fetch](/software/git/fetch.md)
+    - [git help](/software/git/help.md)
+    - [git init](/software/git/init.md)
+    - [git log](/software/git/log.md)
+    - [git merge](/software/git/merge.md)
+    - [git mergetool](/software/git/mergetool.md)
+    - [git mv](/software/git/mv.md)
+    - [git pull](/software/git/pull.md)
+    - [git push](/software/git/push.md)
+    - [git rebase](/software/git/rebase.md)
+    - [git remote](/software/git/remote.md)
+    - [git reset](/software/git/reset.md)
+    - [git rm](/software/git/rm.md)
+    - [git show](/software/git/show.md)
+    - [git status](/software/git/status.md)
+    - [git tag](/software/git/tag.md)
+  - [GitHub](/software/github/README.md)
+    - [GithubDesktop](/software/github/githubdesktop/README.md)
+    - [Github Pages](/software/github/github-pages.md)
+    - [Github Guide](/software/github/github-guide.md)
+    - [GithubHelp](/software/github/github-help/README.md)
+      - [Helping people contribute to your project](/software/github/githubHelp/contribute.md)
 
 
 - 测试工具
-  - [Postman](/Software/Postman/README.md)
-  - [JMeter](/Software/JMeter/README.md))
+  - [Postman](/software/postman/README.md)
+  - [JMeter](/software/jmeter/README.md))
 
 
 - DB
-  - [Postgres](/Software/Postgres/README.md)
+  - [Postgres](/software/postgres/README.md)
 
  
 - 其它
-  - [百度](/Software/baidu/README.md)
-    - [搜索引擎](/Software/baidu/se.md)
-    - [贴吧](/Software/baidu/tieba.md)
-  - [CSDN](/Software/CSDN/README.md)
-  - [VPN](/Software/VPN/README.md)
-    - [GreenVPN](/Software/VPN/GreenVPN.md)
+  - [百度](/software/baidu/README.md)
+    - [搜索引擎](/software/baidu/se.md)
+    - [贴吧](/software/baidu/tieba.md)
+  - [CSDN](/software/csdn/README.md)
+  - [VPN](/software/vpn/README.md)
+    - [GreenVPN](/software/vpn/greenvpn.md)
