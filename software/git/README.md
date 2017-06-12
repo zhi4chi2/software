@@ -91,6 +91,13 @@ me@mypc:~$
 ```
 
 
+在 Windows 下配置显示中文(git diff 下不乱码)
+- 打开 git bash
+- 右键 Options
+- Text
+- Locale 选择 zh_CN, Character set 选择 UTF-8
+
+
 # 术语
 文件状态(https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository)
 - untracked - 既不在 last snapshot 中也不在 staging area 中。 `git add` 变为 staged
