@@ -1,0 +1,29 @@
+# 前言
+- DocBook
+- reStructuredText - http://docutils.sourceforge.net/rst.html
+- TopGit - https://github.com/greenrd/topgit
+- MoinMoin - https://moinmo.in/MoinMoin
+- Mailman - http://www.list.org/
+- Gitolite - http://gitolite.com/gitolite/index.html
+- Git + Repo + Gerrit
+- etckeeper
+- Gistore - https://github.com/jiangxin/gistore
+
+
+# 初识 Git
+- [版本控制的前世今生](/software/git/gotgit/01.md)
+- [爱上 Git 的理由](/software/git/gotgit/02.md)
+- [Git 的安装和使用](/software/git/gotgit/03.md)
+
+
+# Git 独奏
+- [Git 初始化](/software/git/gotgit/04.md)
+- [Git 暂存区](/software/git/gotgit/05.md)
+
+
+# Reference
+- Git 权威指南 - 蒋鑫, 2011
+- http://www.worldhello.net/gotgit/ - 电子版
+- https://github.com/gotgit/gotgit - 电子版源码，好像还不如 Kindle 电子书更新！
+- http://www.worldhello.net/ - 蒋鑫的个人网站和 Blog
+- https://github.com/jiangxin - 蒋鑫的 GitHub

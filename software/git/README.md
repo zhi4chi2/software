@@ -80,6 +80,13 @@ $
 
 # 配置
 ```bash
+git config --global user.name me
+git config --global user.email me@example.com
+git config --global core.quotepath false
+git config --list
+```
+结果
+```bash
 me@mypc:~$ git config --global user.name me
 me@mypc:~$ git config --global user.email me@example.com
 me@mypc:~$ git config --global core.quotepath false
@@ -117,7 +124,7 @@ me@mypc:~$
 
 术语
 - staging area/index - 暂存区
-- working tree/working directory - 本地工作目录
+- working tree/working directory - 本地工作目录，工作区
 - tree - 库中的 tree object
 - upstream branch - remote branch
 - tracking branch - local branch
