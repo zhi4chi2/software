@@ -65,5 +65,17 @@ me@mypc:~/test/workspace$
 ```
 
 
+# hunk header
+```bash
+@@ -k,l +n,m @@ TEXT
+```
+这叫做 hunk header 。其中的 TEXT 可以定制，参见
+- https://git-scm.com/docs/gitattributes#_defining_a_custom_hunk_header
+- https://stackoverflow.com/questions/28111035/where-does-the-excerpt-in-the-git-diff-hunk-header-come-from
+
+
+好像不能不显示 hunk header 中的 TEXT ，参见 https://stackoverflow.com/questions/8614134/how-to-avoid-git-diff-putting-code-block-name-in-hunk-header
+
+
 # Reference
 - https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository
