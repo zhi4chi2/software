@@ -73,3 +73,4 @@
   - [CSDN](/software/csdn/README.md)
   - [VPN](/software/vpn/README.md)
     - [GreenVPN](/software/vpn/greenvpn.md)
+  - [Kindle](/software/kindle/README.md)
