@@ -65,7 +65,11 @@
 - DB
   - [Postgres](/software/postgres/README.md)
 
- 
+
+- Windows(/software/windows/README.md)
+  - [使用中遇到的问题](/software/windows/usage.md)
+
+
 - 其它
   - [百度](/software/baidu/README.md)
     - [搜索引擎](/software/baidu/se.md)
