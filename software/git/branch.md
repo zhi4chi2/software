@@ -79,6 +79,8 @@ git branch -d testing
 # -u/--set-upstream-to
 ```bash
 FIXME
+git push origin next
+git branch -u origin/next
 ```
 
 

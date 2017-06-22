@@ -136,5 +136,11 @@ me@mypc:~$
 `git clone` 时自动创建 master branch track origin/master
 
 
+help 中的术语
+- refspec - 例如 refs/heads/serverfix:refs/heads/serverfix 参见 [git push](/Software/Git/push.md)
+- refname - 例如 refs/heads/serverfix 参见 [git push](/Software/Git/push.md)
+- start-point - a branch name, a commit-id, or a tag. 例如 origin/master 参见 [git branch](/Software/Git/branch.md)
+
+
 # Reference
 - https://git-scm.com/
