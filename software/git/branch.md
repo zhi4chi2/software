@@ -76,6 +76,11 @@ git branch -d testing
 当 start point 是 remote branch 时， --tracked 是默认行为。通过设置 branch.autoSetupMerge = false 可以改变为 --no-track 。如果设为 always 则不论 start point 是 local/remote branch 都 tracked
 
 
+```bash
+git branch --track next origin/next
+```
+
+
 # -u/--set-upstream-to
 ```bash
 FIXME
