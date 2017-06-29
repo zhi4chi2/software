@@ -68,7 +68,7 @@
 
 
 - Development Tool
-  - [json2pojo](/software/json2pojo/README.md)
+  - [jsonschema2pojo](/software/jsonschema2pojo/README.md)
 
 
 - Windows(/software/windows/README.md)
