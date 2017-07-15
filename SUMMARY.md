@@ -65,6 +65,7 @@
 
 - DB
   - [Postgres](/software/postgres/README.md)
+  - [redis](/software/redis/README.md)
 
 
 - Development Tool
