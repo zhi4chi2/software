@@ -92,6 +92,9 @@ FIXME
   - outdated - repeatable migrations whose checksum has changed since they are last applied
 
 
+# Basic Practice
+- 当使用 java repeatable migration 时，应该实现 MigrationChecksumProvider 接口，并且当需要重新执行(repeat)时，修改 getChecksum() 的返回值。否则 flyway 不知道该 java 类有没有更改过，因此不会 repeat 执行。而 flyway 对 sql migration 可以自动计算 checksum
+
 
 # Reference
 - https://flywaydb.org/
