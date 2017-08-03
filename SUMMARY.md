@@ -17,6 +17,8 @@
 
 - 构建工具
   - [Maven](/software/maven/README.md)
+    - mine
+      - [dependencyManagement.dependencies.dependency.scope 也会传入子 pom](/software/maven/dependencyManagement-scope.md)
   - [Gradle](/software/gradle/README.md)
   - [Gulp](/software/gulp/README.md)
 
