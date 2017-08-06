@@ -17,18 +17,18 @@ https://help.github.com/articles/basic-writing-and-formatting-syntax/
 如果在 comment 中包含 URL 则 GitHub 会自动创建 links 。
 
 
-在行前缩进两个空白创建嵌套列表
+在行前缩进**四**个空白创建嵌套列表
 ```markdown
 1. Make my changes
-  * Fix bug
-  - Improve formatting
+    * Fix bug
+    - Improve formatting
 ```
 
 
 实际效果
 1. Make my changes
-  * Fix bug
-  - Improve formatting
+    * Fix bug
+    - Improve formatting
 
 
 与 - / * 一起使用 [ ] 创建 task list ，使用 [x] 表示 task 已完成
@@ -55,16 +55,16 @@ https://help.github.com/articles/basic-writing-and-formatting-syntax/
 - [ ] (Optional) Open a followup issue
 
 
-早期第二行显示不正确， [ ] (Optional) 都不显示，可能是与 link 语法冲突的原因。如今两行都可以正确显示！
+早期第二行显示不正确， \[ \] \(Optional\) 都不显示，可能是与 link 语法冲突的原因。如今两行都可以正确显示！
 
 
-通过 @ 会给某人或某个 team 全体成员发 notification
+在 issue, pull request, comment 中通过 @ 会给某人或某个 team (包括 child teams)全体成员发 notification
 ```markdown
 @github/support What do you think about these updates?
 ```
 
 
-实际效果 @github/support What do you think about these updates?
+实际效果(要在 issue, pull request, comment 中测试) @github/support What do you think about these updates?
 
 
 通过 # 加 issue or PR number or title 引用 issues and pull requests
@@ -178,10 +178,10 @@ https://help.github.com/articles/autolinked-references-and-urls/
 
 
 指向某个提交的 SHA hash 会自动转为短链接
-- https://github.com/jlord/sheetsee.js/commit/a5c3785ed8d6a35868bc169f07e40e889087fd2e - 转为 a5c3785
-- a5c3785ed8d6a35868bc169f07e40e889087fd2e - 转为 a5c3785 加链接
-- User@SHA - 例如 jlord@a5c3785ed8d6a35868bc169f07e40e889087fd2e 转为 jlord@a5c3785 加链接
-- Username/Repository@SHA - 例如 User/Repository@SHA: jlord/sheetsee.js@a5c3785ed8d6a35868bc169f07e40e889087fd2e 转为 jlord/sheetsee.js@a5c3785 加链接
+- https://github.com/zhi4chi2/software/commit/9759c4cbe4110a7d3ed0d092b63c94f96df66939 - 转为 https://github.com/zhi4chi2/software/commit/9759c4cbe4110a7d3ed0d092b63c94f96df66939
+- 9759c4cbe4110a7d3ed0d092b63c94f96df66939 - 转为 9759c4cbe4110a7d3ed0d092b63c94f96df66939 加链接
+- User@SHA - 例如 zhi4chi2@9759c4cbe4110a7d3ed0d092b63c94f96df66939 转为 zhi4chi2@9759c4cbe4110a7d3ed0d092b63c94f96df66939 加链接
+- Username/Repository@SHA - 例如 User/Repository@SHA: zhi4chi2/software@9759c4cbe4110a7d3ed0d092b63c94f96df66939 转为 zhi4chi2/software@9759c4cbe4110a7d3ed0d092b63c94f96df66939 加链接
 
 
 # Mastering Markdown
