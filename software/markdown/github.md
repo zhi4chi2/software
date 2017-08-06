@@ -67,8 +67,7 @@ https://help.github.com/articles/basic-writing-and-formatting-syntax/
 实际效果(要在 issue, pull request, comment 中测试) @github/support What do you think about these updates?
 
 
-通过 # 加 issue or PR number or title 引用 issues and pull requests 例如
-- #1
+在 issue, pull request, comment 中通过 # 加 issue or PR number or title 引用 issues and pull requests ，参见 https://github.com/zhi4chi2/software/pull/2
 
 
 使用 :EMOJICODE: 添加 emoji 参见 http://emoji-cheat-sheet.com/
@@ -171,18 +170,18 @@ language_id: 181
 https://help.github.com/articles/autolinked-references-and-urls/
 
 
-在 repositories 中的指向 issues and pull requests 的引用会被转为短 link
-- https://github.com/zhi4chi2/software/issues/1 - 转为 https://github.com/zhi4chi2/software/issues/1
-- \#1 - 自动加链接，例如 #1
-- GH-1 - 自动加链接，例如 GH-1
-- Username/Repository\#26 - 自动加链接，例如 zhi4chi2/software#1
+在 issue, pr, comment 中指向 issues and pull requests 的引用会被转为短 link ，参见 https://github.com/zhi4chi2/software/pull/2
+- https://github.com/zhi4chi2/software/issues/1 - 转为 #1 并自动加链接
+- #1 - 自动加链接
+- GH-1 - 自动加链接
+- zhi4chi2/software#1 - 自动加链接
 
 
 在 issue, pr, comment 中指向某个提交的 SHA hash 会自动转为短链接，参见 https://github.com/zhi4chi2/software/issues/1
 - https://github.com/zhi4chi2/software/commit/9759c4cbe4110a7d3ed0d092b63c94f96df66939 - 转为 9759c4c 加链接
 - 9759c4cbe4110a7d3ed0d092b63c94f96df66939 - 转为 9759c4c 加链接
-- User@SHA - 例如 zhi4chi2@9759c4cbe4110a7d3ed0d092b63c94f96df66939 转为 9759c4c 加链接
-- Username/Repository@SHA - 例如 zhi4chi2/software@9759c4cbe4110a7d3ed0d092b63c94f96df66939 转为 9759c4c 加链接
+- zhi4chi2@9759c4cbe4110a7d3ed0d092b63c94f96df66939 - 转为 9759c4c 加链接
+- zhi4chi2/software@9759c4cbe4110a7d3ed0d092b63c94f96df66939 - 转为 9759c4c 加链接
 
 
 # Mastering Markdown
