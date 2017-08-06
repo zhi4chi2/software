@@ -25,6 +25,12 @@ https://help.github.com/articles/basic-writing-and-formatting-syntax/
 ```
 
 
+实际效果
+1. Make my changes
+  * Fix bug
+  - Improve formatting
+
+
 与 - / * 一起使用 [ ] 创建 task list ，使用 [x] 表示 task 已完成
 ```markdown
 - [x] Finish my changes
@@ -49,7 +55,7 @@ https://help.github.com/articles/basic-writing-and-formatting-syntax/
 - [ ] (Optional) Open a followup issue
 
 
-第二行显示不正确， [ ] (Optional) 都不显示，可能是与 link 语法冲突的原因。
+早期第二行显示不正确， [ ] (Optional) 都不显示，可能是与 link 语法冲突的原因。如今两行都可以正确显示！
 
 
 通过 @ 会给某人或某个 team 全体成员发 notification
@@ -91,6 +97,7 @@ https://help.github.com/articles/organizing-information-with-tables/
 
 
 实际效果
+
 | Command | Description |
 | --- | --- |
 | git status | List all new or modified files |
@@ -98,7 +105,7 @@ https://help.github.com/articles/organizing-information-with-tables/
 
 
 注意
-- - 分隔 header ，至少要有三个 -
+- \- 分隔 header ，至少要有三个 \-
 - 两边的 | 可以省略
 - 列宽不需要一样
 
@@ -113,6 +120,7 @@ https://help.github.com/articles/organizing-information-with-tables/
 
 
 实际效果
+
 | Left-aligned | Center-aligned | Right-aligned |
 | :---         |     :---:      |          ---: |
 | git status   | git status     | git status    |
@@ -196,6 +204,7 @@ GitHub Flavored Markdown 的某些特性仅用于 descriptions and comments of I
 
 
 实际效果
+
     function fancyAlert(arg) {
       if(arg) {
         $.facebox({div:'#foo'})
