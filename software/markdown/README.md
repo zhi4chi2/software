@@ -21,7 +21,7 @@ Markdown 文档中可以使用 &, < 字符，不需要 escape 。即可以在 ma
 &copy;
 AT&T
 4 < 5
-<a>
+<a>xx</a>
 ```
 
 
@@ -45,8 +45,8 @@ markdown 不会将换行转为 &lt;br> ，如果确实需要 br 则要在行尾�
 
 ## Headers
 有两种 header 样式：
-*Setext - =/- 的数目无所谓
-*atx - 可以 close header
+- Setext - =/- 的数目无所谓
+- atx - 可以 close header
 
 
 Setext 例子
@@ -128,7 +128,7 @@ List markers typically start at the left margin, but may be indented by up to th
 
 
 将生成
-<syntaxhighlight lang="html5" line="GESHI_NORMAL_LINE_NUMBERS">
+```html
 <ul>
 <li><p>Bird</p></li>
 <li><p>Magic</p></li>
@@ -158,6 +158,18 @@ List markers typically start at the left margin, but may be indented by up to th
 
         <code goes here>
 ```
+
+
+在每行前加数字（还要有个 "." ）创建有序列表
+```markdown
+1. James Madison
+2. James Monroe
+4. John Quincy Adams
+```
+实际显示为 1,2,3 即 `4. John Quincy Adams` 显示为 `3. John Quincy Adams` 。这是因为实际转为 html ol tag 因此值由 html 重新计算。但是注意第一项必须从 1 开始！
+
+
+If you do use lazy list numbering, however, you should still start the list with the number 1.
 
 
 ## Code Blocks
@@ -239,6 +251,28 @@ Visit [Daring Fireball][] for more information.
 如果 * or _ 两侧是空白，则认为是字面量，而不是表示加粗或斜体。
 
 
+- 使用 \*\* / \_\_ 表示加粗
+- 使用 \* / \_ 表示斜体
+- 使用 \*\*, \_ 表示加粗斜体
+
+
+```markdown
+**This is bold text**
+__This is bold text also__
+*This text is italicized*
+_This text is italicized also_
+**This text is _extremely_ important**
+```
+
+
+实际效果
+- **This is bold text**
+- __This is bold text also__
+- *This text is italicized*
+- _This text is italicized also_
+- **This text is _extremely_ important**
+
+
 ## Code
 如果要在 code span 中使用 \` 则可以用两个 \` 包围 code span
 ```markdown
@@ -246,7 +280,7 @@ Visit [Daring Fireball][] for more information.
 ```
 
 
-code span 两侧的 ` 需要与 code span 之间有空格。这样可以在 code span 的最开始和最后有 ` 字符。
+code span 两侧的 \` 需要与 code span 之间有空格。这样可以在 code span 的最开始和最后有 \` 字符。
 ```markdown
 A single backtick in a code span: `` ` ``
 
@@ -321,6 +355,13 @@ _   underscore
 
 
 其中 {} 好像没有在 markdown 中用到。
+
+
+# 不足
+可能有些插件能办到
+- 没有 TOC
+- 显示代码无法显示行号，无法高亮某行
+- 没有定义引用列表(du/dl)的方式
 
 
 # Reference
