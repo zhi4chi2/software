@@ -255,8 +255,9 @@ List markers typically start at the left margin, but may be indented by up to th
 
 <span id="list-item-problem">
 这会导致一个问题，如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分
-</span>，
-例如
+</span>
+，例如
+
 ```markdown
 - x
 
