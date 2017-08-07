@@ -2,11 +2,17 @@
 - block-level HTML tags - div, table, p, pre, etc.
 - span-level HTML tags - span, cite, del, a, img
 - hard-wrapped/hard breaks - Markdown supports hard-wrapped text paragraphs, 即将连续的多行视为一行，不会将每行的换行视为 br tag 。副作用是对于 block-level elements 需要在前后都加上空行。
+- code block - 用三个 \` 包含的代码块，会解释为 &lt;pre> and &lt;code> tag
+- code span - 用一个 \` 包含的代码，会解释为 &lt;code> tag
+- 4 spaces or one tab - markdown 中大量使用 4 spaces or one tab 表示一层缩进。例如表示 code block, 表示 list item 中的 subsequent paragraph
 
 
 # Overview
 ## Inline HTML
 markdown 文档中可以使用 HTML tag ，但是 block-level HTML elements(div, table, p, pre, etc.) 需要在前后加上空行，并且 the start and end tags 前后不能有 tabs or spaces 。
+
+
+The only restrictions are that block-level HTML elements — e.g. &lt;div>, &lt;table>, &lt;pre>, &lt;p>, etc. — must be separated from surrounding content by blank lines, and the start and end tags of the block should not be indented with tabs or spaces.
 
 
 block-level HTML tags 中不能使用 markdow 语法。
@@ -35,30 +41,27 @@ Markdown 文档中可以使用 &, < 字符，不需要 escape 。即可以在 ma
 但是，在 Markdown code spans and blocks 中， &, < 字符将总是被 encoded 。这方便 markdown 写 HTML code
 
 
-# Block Elements
+Block Elements
+=
 ## Paragraphs and Line Breaks
-段落不能用 spaces or tabs 缩进。段落用空行分隔。只包含 spaces or tabs 的行认为是空行。
+段落不能用 spaces or tabs 缩进（否则可能认为是 code block ）。段落用空行分隔。只包含 spaces or tabs 的行认为是空行。
+
+
+Normal paragraphs should not be indented with spaces or tabs.
 
 
 markdown 不会将换行转为 &lt;br> ，如果确实需要 br 则要在行尾加上两个以上的空格，然后再换行。
 
 
 Headers
-======
+-
 
 有两种 header 样式：
-- Setext - =/- 的数目无所谓，只能表示 h1 ，相当于 #
-- atx - 可以 close header
+- Setext - =/- 的数目无所谓。但 = 只能表示 h1 ，相当于 #。 - 只能表示 h2 ，相当于 ##
+- atx - 可以(Optionally) close header
 
 
-Setext 例子
-```markdown
-This is an H1
-=============
-
-This is an H2
--------------
-```
+Setext 例子参见上面的 [Block Elements](#block-elements), [Headers](#headers)
 
 
 atx close header 的例子
@@ -143,23 +146,22 @@ Blockquotes 中可以包含 markdown elements, including headers, lists, and cod
 ## Lists
 列表可以使用 *, +, -
 ```markdown
-   +    Red
+   +     Red
  +   Green
  +   Blue
 ```
 
 
 实际效果
-
-   +    Red
+   +     Red
  +   Green
  +   Blue
 
 
-List markers typically start at the left margin, but may be indented by up to three spaces. List markers must be followed by one or more spaces or a tab.
+List markers typically start at the left margin, but may be indented by up to three spaces(因为 4 个空格就认为是 code block 了). List markers must be followed by one or more spaces or a tab.
 
 
-注意，如果 list markers 后面有 4 个以上空格，则认为是 code span ，如例子中的 Red
+注意，如果 list markers 后面有 4 个以上(>4)空格，则认为是 code span ，如例子中(5 个空格)的 Red
 
 
 如果列表项间有空行
@@ -180,7 +182,6 @@ List markers typically start at the left margin, but may be indented by up to th
 
 
 实际效果
-
 *   Bird
 
 *   Magic
@@ -253,11 +254,17 @@ If you do use lazy list numbering, however, you should still start the list with
 
 
 ## Code Blocks
+One level of indentation — 4 spaces or 1 tab — is removed from each line of the code block. 即 code block 用 4 spaces or 1 tab 缩进。
+
+
+A code block continues until it reaches a line that is not indented (or the end of the article).
+
+
 code blocks 中不能使用 markdown syntax
 
 
 ## Horizontal Rules
-在一行中使用三个以上的 *, -, _  制造横线(hr), If you wish, you may use spaces between the hyphens or asterisks.
+在一行中使用三个以上的 \*, -, _  制造横线(hr), If you wish, you may use spaces between the hyphens or asterisks.
 ```markdown
 *****
 
@@ -356,7 +363,8 @@ some other text
 ```
 
 
-实际效果(GitHub 不支持)
+实际效果
+
 Visit [Daring Fireball][] for more information.
 
 some other text
@@ -377,11 +385,12 @@ some other text
 
 
 ```markdown
-**This is bold text**
-__This is bold text also__
-*This text is italicized*
-_This text is italicized also_
-**This text is _extremely_ important**
+- **This is bold text**
+- __This is bold text also__
+- *This text is italicized*
+- _This text is italicized also_
+- **This text is _extremely_ important**
+- ** this text is normal, because around spaces **
 ```
 
 
@@ -391,6 +400,7 @@ _This text is italicized also_
 - *This text is italicized*
 - _This text is italicized also_
 - **This text is _extremely_ important**
+- ** this text is normal, because around spaces **
 
 
 ## Code
@@ -404,7 +414,7 @@ _This text is italicized also_
 ``There is a literal backtick (`) here.``
 
 
-code span 两侧的 \` 需要与 code span 之间有空格。这样可以在 code span 的最开始和最后有 \` 字符。
+code span 两侧的 \` 可以与 code span 之间有空格。这样可以在 code span 的最开始和最后有 \` 字符。
 ```markdown
 A single backtick in a code span: `` ` ``
 
