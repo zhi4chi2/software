@@ -1,10 +1,79 @@
 术语
 - block-level HTML tags - div, table, p, pre, etc.
 - span-level HTML tags - span, cite, del, a, img
-- hard-wrapped/hard breaks - Markdown supports hard-wrapped text paragraphs, 即将连续的多行视为一行，不会将每行的换行视为 br tag 。副作用是对于 block-level elements 需要在前后都加上空行（当前好像只有 code block 需要， Headers, Blockquotes, Lists, Horizontal Rules 好像都不需要前后加空行，但最好还是加上）。
+- hard-wrapped/hard breaks - Markdown supports hard-wrapped text paragraphs, 即将连续的多行视为一行，不会将每行的换行视为 br tag 。副作用是对于 block-level elements 需要在后面都加上空行。
 - code block - 用 4 spaces or one tab 缩进的代码块，会解释为 &lt;pre> and &lt;code> tag
 - code span - 用一个 \` 包含的代码，会解释为 &lt;code> tag
 - 4 spaces or one tab - markdown 中大量使用 4 spaces or one tab 表示一层缩进。例如表示 code block, 或者表示 list item 中的 subsequent paragraph
+
+
+Block Elements
+- Paragraphs and Line Breaks
+- Headers
+- Blockquotes
+- Lists
+- Code Blocks
+- Horizontal Rules
+
+
+当前测试结果
+- blockquotes 后需要有空行
+- list 后需要有空行，且下一行要从行首开始，不然仍认为是 list item 的一部分，参见 [list item 空行问题](#list-item-problem)
+- code block 前需要有空行，否则成为前一个段落的一部分
+- Paragraphs 前后都需要空行
+
+
+Headers, Blockquotes, List, Horizontal Rules 前不需要空行是因为它们都由特定的字符开头。
+
+
+Headers, Horizontal Rules 后不需要空行，是因为它们不会跨行。 code block 后不需要空行，是因为 code block 每行都必须以 4 spaces or one tab 开头。
+
+
+```markdown
+some text
+# header
+some text
+> blockquotes
+
+some text
+- x
+- y
+
+some text
+
+    function(){
+    }
+some text
+***
+some text
+```
+
+
+实际效果
+
+some text
+# header
+some text
+> blockquotes
+
+some text
+- x
+- y
+
+some text
+
+    function(){
+    }
+some text
+***
+some text
+
+
+Span Elements
+- Links
+- Emphasis
+- Code
+- Images
 
 
 # Overview
@@ -184,7 +253,9 @@ List markers typically start at the left margin, but may be indented by up to th
 *   Magic
 
 
-这会导致一个问题，如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分，例如
+<div id="list-item-problem">
+这会导致一个问题，如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分
+</div>，例如
 ```markdown
 - x
 
