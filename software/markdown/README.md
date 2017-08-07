@@ -253,11 +253,8 @@ List markers typically start at the left margin, but may be indented by up to th
 *   Magic
 
 
-<span id="list-item-problem">
-这会导致一个问题，如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分
-</span>
-，例如
-
+### list item problem
+这会导致一个问题，如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分，例如
 ```markdown
 - x
 
@@ -607,6 +604,10 @@ _   underscore
 - 没有 TOC
 - 显示代码无法显示行号，无法高亮某行
 - 没有定义引用列表(du/dl)的方式
+
+
+bug
+- 不能在 markdown 文档中用 `<span id="list-item-problem"></span>` 方式插入锚点，生成的 HTML 会把 id 去除。用 a 标签也不行， a 标签的 id 会被替换。
 
 
 # Reference
