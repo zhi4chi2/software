@@ -161,7 +161,7 @@ Blockquotes 中可以包含 markdown elements, including headers, lists, and cod
 List markers typically start at the left margin, but may be indented by up to three spaces(因为 4 个空格就认为是 code block 了). List markers must be followed by one or more spaces or a tab.
 
 
-注意，如果 list markers 后面有 4 个以上(>4)空格，则认为是 code span ，如例子中(5 个空格)的 Red
+注意，如果 list markers 后面有 4 个以上(>4, 因为 list marker 后需要至少一个空格才能接 item 值)空格，则认为是 code span ，如例子中(5 个空格)的 Red
 
 
 如果列表项间有空行
@@ -411,6 +411,7 @@ some other text
 
 
 实际效果
+
 ``There is a literal backtick (`) here.``
 
 
@@ -423,6 +424,7 @@ A backtick-delimited string in a code span: `` `foo` ``
 
 
 实际效果
+
 A single backtick in a code span: `` ` ``
 
 A backtick-delimited string in a code span: `` `foo` ``
@@ -432,6 +434,11 @@ code span 中可以使用 &, < 不需要转义
 ```markdown
 Please don't use any `<blink>` tags.
 ```
+
+
+实际效果
+
+Please don't use any `<blink>` tags.
 
 
 ## Images
