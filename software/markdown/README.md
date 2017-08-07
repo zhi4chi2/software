@@ -1,7 +1,7 @@
 术语
 - block-level HTML tags - div, table, p, pre, etc.
 - span-level HTML tags - span, cite, del, a, img
-- hard-wrapped/hard breaks - Markdown supports hard-wrapped text paragraphs, 即将连续的多行视为一行，不会将每行的换行视为 br tag
+- hard-wrapped/hard breaks - Markdown supports hard-wrapped text paragraphs, 即将连续的多行视为一行，不会将每行的换行视为 br tag 。副作用是对于 block-level elements 需要在前后都加上空行。
 
 
 # Overview
@@ -17,19 +17,19 @@ Span-level HTML tags(span, cite, del, a, img)可以与 markdown 一起使用。�
 
 ## Automatic Escaping for Special Characters
 Markdown 文档中可以使用 &, < 字符，不需要 escape 。即可以在 markdown 文档中
-```
-&copy;
-AT&T
-4 < 5
-<a>xx</a>
-```
-
-
-结果
+```markdown
 - &copy;
 - AT&T
 - 4 < 5
-- <a>xx</a>
+- <a id="xx">xx</a>
+```
+
+
+实际效果
+- &copy;
+- AT&T
+- 4 < 5
+- <a id="xx">xx</a>
 
 
 但是，在 Markdown code spans and blocks 中， &, < 字符将总是被 encoded 。这方便 markdown 写 HTML code
@@ -43,9 +43,11 @@ AT&T
 markdown 不会将换行转为 &lt;br> ，如果确实需要 br 则要在行尾加上两个以上的空格，然后再换行。
 
 
-## Headers
+Headers
+======
+
 有两种 header 样式：
-- Setext - =/- 的数目无所谓
+- Setext - =/- 的数目无所谓，只能表示 h1 ，相当于 #
 - atx - 可以 close header
 
 
@@ -84,6 +86,16 @@ id sem consectetuer libero luctus adipiscing.
 ```
 
 
+实际效果
+
+> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+id sem consectetuer libero luctus adipiscing.
+
+
 嵌套 Blockquotes
 ```markdown
 > This is the first level of quoting.
@@ -92,6 +104,15 @@ id sem consectetuer libero luctus adipiscing.
 >
 > Back to the first level.
 ```
+
+
+实际效果
+
+> This is the first level of quoting.
+>
+> > This is nested blockquote.
+>
+> Back to the first level.
 
 
 Blockquotes 中可以包含 markdown elements, including headers, lists, and code blocks:
@@ -107,16 +128,38 @@ Blockquotes 中可以包含 markdown elements, including headers, lists, and cod
 ```
 
 
+实际效果
+
+> ## This is a header.
+> 
+> 1.   This is the first list item.
+> 2.   This is the second list item.
+> 
+> Here's some example code:
+> 
+>     return shell_exec("echo $input | $markdown_script");
+
+
 ## Lists
 列表可以使用 *, +, -
 ```markdown
-+   Red
-+   Green
-+   Blue
+   +    Red
+ +   Green
+ +   Blue
 ```
 
 
+实际效果
+
+   +    Red
+ +   Green
+ +   Blue
+
+
 List markers typically start at the left margin, but may be indented by up to three spaces. List markers must be followed by one or more spaces or a tab.
+
+
+注意，如果 list markers 后面有 4 个以上空格，则认为是 code span ，如例子中的 Red
 
 
 如果列表项间有空行
@@ -136,15 +179,22 @@ List markers typically start at the left margin, but may be indented by up to th
 ```
 
 
+实际效果
+
+*   Bird
+
+*   Magic
+
+
 如果列表中某项有多个段落，则第二个及以后的段落要缩进 4 spaces or one tab
 ```markdown
 1.  This is a list item with two paragraphs. Lorem ipsum dolor
-    sit amet, consectetuer adipiscing elit. Aliquam hendrerit
-    mi posuere lectus.
+sit amet, consectetuer adipiscing elit. Aliquam hendrerit
+mi posuere lectus.
 
     Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
-    sit amet velit.
+vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
+sit amet velit.
 
     > This is a blockquote
     > inside a list item.
@@ -152,12 +202,34 @@ List markers typically start at the left margin, but may be indented by up to th
 ```
 
 
+实际效果
+1.  This is a list item with two paragraphs. Lorem ipsum dolor
+sit amet, consectetuer adipiscing elit. Aliquam hendrerit
+mi posuere lectus.
+
+    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
+sit amet velit.
+
+    > This is a blockquote
+    > inside a list item.
+2.  Suspendisse id sem consectetuer libero luctus adipiscing.
+
+
 如果列表中某项有 code block 则 code block 要缩进两次，即 8 spaces or two tabs
 ```markdown
 *   A list item with a code block:
 
-        <code goes here>
+        function test(){
+        }
 ```
+
+
+实际效果
+*   A list item with a code block:
+
+        function test(){
+        }
 
 
 在每行前加数字（还要有个 "." ）创建有序列表
@@ -166,6 +238,14 @@ List markers typically start at the left margin, but may be indented by up to th
 2. James Monroe
 4. John Quincy Adams
 ```
+
+
+实际效果
+1. James Madison
+2. James Monroe
+4. John Quincy Adams
+
+
 实际显示为 1,2,3 即 `4. John Quincy Adams` 显示为 `3. John Quincy Adams` 。这是因为实际转为 html ol tag 因此值由 html 重新计算。但是注意第一项必须从 1 开始！
 
 
@@ -185,6 +265,14 @@ code blocks 中不能使用 markdown syntax
 
 ---------------------------------------
 ```
+
+
+实际效果
+*****
+
+- - -
+
+---------------------------------------
 
 
 # Span Elements
@@ -223,6 +311,27 @@ You can optionally use a space to separate the sets of brackets, 即 an example 
 ```
 
 
+例子
+```markdown
+This is [an example] [id] reference-style link.
+
+some other text
+
+[ID]: http://example.com/longish/path/to/resource/here
+    "Optional Title Here"
+```
+
+
+实际效果
+
+This is [an example] [id] reference-style link.
+
+some other text
+
+[ID]: http://example.com/longish/path/to/resource/here
+    "Optional Title Here"
+
+
 注意
 - Square brackets containing the link identifier (optionally indented from the left margin using up to three spaces);
 - : 后面 followed by one or more spaces (or tabs);
@@ -240,8 +349,19 @@ Link definitions are only used for creating links during Markdown processing, an
 implicit link name 使用 link text 作为 link name
 ```markdown
 Visit [Daring Fireball][] for more information.
+
+some other text
+
 [Daring Fireball]: http://daringfireball.net/
 ```
+
+
+实际效果(GitHub 不支持)
+Visit [Daring Fireball][] for more information.
+
+some other text
+
+[Daring Fireball]: http://daringfireball.net/
 
 
 使用 reference-style links 文档更可读。
@@ -280,12 +400,22 @@ _This text is italicized also_
 ```
 
 
+实际效果
+``There is a literal backtick (`) here.``
+
+
 code span 两侧的 \` 需要与 code span 之间有空格。这样可以在 code span 的最开始和最后有 \` 字符。
 ```markdown
 A single backtick in a code span: `` ` ``
 
 A backtick-delimited string in a code span: `` `foo` ``
 ```
+
+
+实际效果
+A single backtick in a code span: `` ` ``
+
+A backtick-delimited string in a code span: `` `foo` ``
 
 
 code span 中可以使用 &, < 不需要转义
@@ -321,6 +451,10 @@ automatic links
 ```
 
 
+实际效果
+<http://example.com/>
+
+
 Automatic links for email addresses
 ```markdown
 <address@example.com>
@@ -334,6 +468,10 @@ Automatic links for email addresses
 <a href="mailto:address@example.com">address@example.com</a>
 ```
 这可以逃避垃圾邮件检查。
+
+
+实际效果
+<address@example.com>
 
 
 ## Backslash Escapes
