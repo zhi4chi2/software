@@ -17,7 +17,10 @@ https://help.github.com/articles/basic-writing-and-formatting-syntax/
 如果在 comment 中包含 URL 则 GitHub 会自动创建 links 。
 
 
-在行前缩进**四**个空白创建嵌套列表
+You can create nested ordered and unordered combination lists by indenting lines by four spaces.
+
+
+在行前缩进**四**个空白创建**混合 ordered and unordered** 的嵌套列表
 ```markdown
 1. Make my changes
     * Fix bug
@@ -29,6 +32,32 @@ https://help.github.com/articles/basic-writing-and-formatting-syntax/
 1. Make my changes
     * Fix bug
     - Improve formatting
+
+
+注意，如果 parent list 是 unordered 的嵌套列表，可以只缩进两个空格。
+```markdown
+- x
+  1. y
+  1. z
+```
+
+
+实际效果
+- x
+  1. y
+  1. z
+
+
+只有 parent list 是 ordered 的嵌套列表，才必须缩进四个空格。
+```markdown
+1. x
+    1. y
+```
+
+
+实际效果
+1. x
+    1. y
 
 
 与 - / * 一起使用 [ ] 创建 task list ，使用 [x] 表示 task 已完成
@@ -64,7 +93,7 @@ https://help.github.com/articles/basic-writing-and-formatting-syntax/
 ```
 
 
-实际效果(要在 issue, pull request, comment 中测试) @github/support What do you think about these updates?
+实际效果参见 https://github.com/zhi4chi2/software/issues/1
 
 
 在 issue, pull request, comment 中通过 # 加 issue or PR number or title 引用 issues and pull requests ，参见 https://github.com/zhi4chi2/software/pull/2
@@ -193,23 +222,19 @@ GitHub Flavored Markdown 的某些特性仅用于 descriptions and comments of I
 - references to SHA-1 hashes, Issues, and Pull Requests
 
 
-除了使用 \`\`\` 引用代码之外，还可以使用四个空白
-```markdown
-    function fancyAlert(arg) {
-      if(arg) {
-        $.facebox({div:'#foo'})
-      }
-    }
-```
+Task Lists are also available in Gist comments and in Gist Markdown files.
 
 
-实际效果
-
-    function fancyAlert(arg) {
-      if(arg) {
-        $.facebox({div:'#foo'})
-      }
-    }
+GitHub Flavored Markdown 增加的特性
+- Syntax highlighting
+- Task Lists
+- Tables
+- SHA references
+- Issue references within a repository
+- Username @mentions
+- Automatic linking for URLs - Any URL (like http://www.github.com/) will be automatically converted into a clickable link.
+- Strikethrough
+- Emoji
 
 
 支持的 emoji 列表在 http://www.emoji-cheat-sheet.com/

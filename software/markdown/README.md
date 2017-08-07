@@ -1,10 +1,10 @@
 术语
 - block-level HTML tags - div, table, p, pre, etc.
 - span-level HTML tags - span, cite, del, a, img
-- hard-wrapped/hard breaks - Markdown supports hard-wrapped text paragraphs, 即将连续的多行视为一行，不会将每行的换行视为 br tag 。副作用是对于 block-level elements 需要在前后都加上空行。
-- code block - 用三个 \` 包含的代码块，会解释为 &lt;pre> and &lt;code> tag
+- hard-wrapped/hard breaks - Markdown supports hard-wrapped text paragraphs, 即将连续的多行视为一行，不会将每行的换行视为 br tag 。副作用是对于 block-level elements 需要在前后都加上空行（当前好像只有 code block 需要， Headers, Blockquotes, Lists, Horizontal Rules 好像都不需要前后加空行，但最好还是加上）。
+- code block - 用 4 spaces or one tab 缩进的代码块，会解释为 &lt;pre> and &lt;code> tag
 - code span - 用一个 \` 包含的代码，会解释为 &lt;code> tag
-- 4 spaces or one tab - markdown 中大量使用 4 spaces or one tab 表示一层缩进。例如表示 code block, 表示 list item 中的 subsequent paragraph
+- 4 spaces or one tab - markdown 中大量使用 4 spaces or one tab 表示一层缩进。例如表示 code block, 或者表示 list item 中的 subsequent paragraph
 
 
 # Overview
@@ -90,7 +90,6 @@ id sem consectetuer libero luctus adipiscing.
 
 
 实际效果
-
 > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
 consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
 Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
@@ -110,7 +109,6 @@ id sem consectetuer libero luctus adipiscing.
 
 
 实际效果
-
 > This is the first level of quoting.
 >
 > > This is nested blockquote.
@@ -132,7 +130,6 @@ Blockquotes 中可以包含 markdown elements, including headers, lists, and cod
 
 
 实际效果
-
 > ## This is a header.
 > 
 > 1.   This is the first list item.
@@ -161,7 +158,7 @@ Blockquotes 中可以包含 markdown elements, including headers, lists, and cod
 List markers typically start at the left margin, but may be indented by up to three spaces(因为 4 个空格就认为是 code block 了). List markers must be followed by one or more spaces or a tab.
 
 
-注意，如果 list markers 后面有 4 个以上(>4, 因为 list marker 后需要至少一个空格才能接 item 值)空格，则认为是 code span ，如例子中(5 个空格)的 Red
+注意，如果 list markers 后面有 4 个以上(>4, 因为 list marker 后需要至少一个空格才能接 item 值)空格，则认为是 code block ，如例子中(5 个空格)的 Red
 
 
 如果列表项间有空行
@@ -185,6 +182,26 @@ List markers typically start at the left margin, but may be indented by up to th
 *   Bird
 
 *   Magic
+
+
+这会导致一个问题，如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分，例如
+```markdown
+- x
+
+
+    function(){
+    }
+```
+
+
+实际效果为
+- x
+
+
+    function(){
+    }
+
+可以看到本意是希望 function 是 code block ，但实际显示为 list item 的一部分。 list item 直到遇到新的段落开始（前一行是空白，本行从行开头就有字符）才结束。
 
 
 如果列表中某项有多个段落，则第二个及以后的段落要缩进 4 spaces or one tab
