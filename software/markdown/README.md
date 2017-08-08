@@ -23,7 +23,10 @@ Block Elements
 - Paragraphs 前后都需要空行
 
 
-Headers, Blockquotes, List, Horizontal Rules 前不需要空行是因为它们都由特定的字符开头。
+Headers, Blockquotes, List, Horizontal Rules 前不需要空行是因为它们都由特定的字符开头。 Setext 风格的 Header 前也不需要空行。
+
+
+如果使用 - 表示 Horizontal Rules 则前需要空行，否则将表示 Setext 风格的 Header ！
 
 
 Headers, Horizontal Rules 后不需要空行，是因为它们不会跨行。 code block 后不需要空行，是因为 code block 每行都必须以 4 spaces or one tab 开头。
@@ -46,6 +49,8 @@ some text
 some text
 ***
 some text
+
+---
 ```
 
 
@@ -67,6 +72,8 @@ some text
 some text
 ***
 some text
+
+---
 
 
 Span Elements
