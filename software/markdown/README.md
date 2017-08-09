@@ -588,22 +588,30 @@ Automatic links for email addresses
 ## Backslash Escapes
 Markdown 可以使用 \ escape
 ```markdown
-\   backslash
-`   backtick
-*   asterisk
-_   underscore
-{}  curly braces
-[]  square brackets
-()  parentheses
-#   hash mark
-+   plus sign
--   minus sign (hyphen)
-.   dot
-!   exclamation mark
+\   escape
+`   code span
+*   lists, hr, emphasis
+_   hr, emphasis
+{}
+[]  links, images
+()  links, images
+#   headers
++   lists
+-   lists, hr, headers
+.   order lists
+!   images
 ```
 
 
-其中 {} 好像没有在 markdown 中用到。
+有些特殊字符重复了，可以只使用 - 表示 list, _ 表示 hr, * 表示 emphasis 避免歧义。
+
+
+其中 \{\} 好像没有在 markdown 中用到。
+
+
+另外还有特殊字符没有说能不能 escape
+- = - header
+- > - block quote
 
 
 # 不足
