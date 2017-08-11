@@ -81,6 +81,7 @@
 
 - 文档
   - [markdown](/software/markdown/README.md)
+  - [gitbook](/software/gitbook/README.md)
 
 
 - Windows(/software/windows/README.md)
