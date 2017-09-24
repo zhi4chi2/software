@@ -98,4 +98,5 @@
   - [VPN](/software/vpn/README.md)
     - [GreenVPN](/software/vpn/greenvpn.md)
   - [Kindle](/software/kindle/README.md)
+  - [微博](/software/sina/weibo.md)
   - [搜狗输入法](/software/sogou/README.md)
