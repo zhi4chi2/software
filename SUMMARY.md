@@ -100,3 +100,4 @@
   - [Kindle](/software/kindle/README.md)
   - [微博](/software/sina/weibo.md)
   - [搜狗输入法](/software/sogou/README.md)
+  - [小米运动](/software/mi/sport.md)
