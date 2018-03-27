@@ -8,4 +8,4 @@
 
 
 1. 属性-高级-自定义短语设置
-1. 添加新定义 sj, 内容 #$year-$month_mm-$day_dd $fullhour:$minute:$second
+1. 添加新定义 sj, 内容 #$fullhour:$minute:$second
