@@ -16,66 +16,6 @@ Block Elements
 - Horizontal Rules
 
 
-当前测试结果
-- blockquotes 后需要有空行
-- list 后需要有空行，且下一行要从行首开始，不然仍认为是 list item 的一部分，参见 [list item 空行问题](#list-item-problem)
-- code block 前需要有空行，否则成为前一个段落的一部分
-- Paragraphs 前后都需要空行
-
-
-Headers, Blockquotes, List, Horizontal Rules 前不需要空行是因为它们都由特定的字符开头。 Setext 风格的 Header 前也不需要空行。
-
-
-如果使用 - 表示 Horizontal Rules 则前需要空行，否则将表示 Setext 风格的 Header ！
-
-
-Headers, Horizontal Rules 后不需要空行，是因为它们不会跨行。 code block 后不需要空行，是因为 code block 每行都必须以 4 spaces or one tab 开头。
-
-
-```markdown
-some text
-# header
-some text
-> blockquotes
-
-some text
-- x
-- y
-
-some text
-
-    function(){
-    }
-some text
-***
-some text
-
----
-```
-
-
-实际效果
-
-some text
-# header
-some text
-> blockquotes
-
-some text
-- x
-- y
-
-some text
-
-    function(){
-    }
-some text
-***
-some text
-
----
-
-
 Span Elements
 - Links
 - Emphasis
@@ -114,6 +54,11 @@ Markdown 文档中可以使用 &, < 字符，不需要 escape 。即可以在 ma
 - <a id="xx">xx</a>
 
 
+规则是：
+- If you use an ampersand(&) as part of an HTML entity, it remains unchanged; otherwise it will be translated into &amp;amp;.
+- if you use angle brackets(<) as delimiters for HTML tags, Markdown will treat them as such. otherwise it will be translated into &amp;lt;.
+
+
 但是，在 Markdown code spans and blocks 中， &, < 字符将总是被 encoded 。这方便 markdown 写 HTML code
 
 
@@ -127,6 +72,9 @@ Normal paragraphs should not be indented with spaces or tabs.
 
 
 markdown 不会将换行转为 &lt;br> ，如果确实需要 br 则要在行尾加上两个以上的空格，然后再换行。
+
+
+markdown 的这种(hard-wrapped)方式，使得 blockquoting and multi-paragraph list items work best — and look better
 
 
 Headers
@@ -174,6 +122,9 @@ Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
 id sem consectetuer libero luctus adipiscing.
 
 
+但在每一行都加 > 标记会比较好看(looks best)。
+
+
 嵌套 Blockquotes
 ```markdown
 > This is the first level of quoting.
@@ -218,6 +169,31 @@ Blockquotes 中可以包含 markdown elements, including headers, lists, and cod
 
 ## Lists
 列表可以使用 *, +, -
+
+
+在每行前加数字（还要有个 "." ）创建有序列表
+```markdown
+1. James Madison
+2. James Monroe
+4. John Quincy Adams
+```
+
+
+实际效果
+1. James Madison
+2. James Monroe
+4. John Quincy Adams
+
+
+实际显示为 1,2,3 即 `4. John Quincy Adams` 显示为 `3. John Quincy Adams` 。这是因为实际转为 html ol tag 因此值由 html 重新计算。但是注意第一项必须从 1 开始！
+
+
+If you do use lazy list numbering, however, you should still start the list with the number 1.
+
+
+List markers typically start at the left margin, but may be indented by up to three spaces(因为 4 个空格就认为是 code block 了). List markers must be followed by one or more spaces or a tab.
+
+
 ```markdown
    +     Red
  +   Green
@@ -229,9 +205,6 @@ Blockquotes 中可以包含 markdown elements, including headers, lists, and cod
    +     Red
  +   Green
  +   Blue
-
-
-List markers typically start at the left margin, but may be indented by up to three spaces(因为 4 个空格就认为是 code block 了). List markers must be followed by one or more spaces or a tab.
 
 
 注意，如果 list markers 后面有 4 个以上(>4, 因为 list marker 后需要至少一个空格才能接 item 值)空格，则认为是 code block ，如例子中(5 个空格)的 Red
@@ -260,28 +233,7 @@ List markers typically start at the left margin, but may be indented by up to th
 *   Magic
 
 
-### list item problem
-这会导致一个问题，如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分，例如
-```markdown
-- x
-
-
-    function(){
-    }
-```
-
-
-实际效果为
-- x
-
-
-    function(){
-    }
-
-可以看到本意是希望 function 是 code block ，但实际显示为 list item 的一部分。 list item 直到遇到新的段落开始（前一行是空白，本行从行开头就有字符）才结束。
-
-
-如果列表中某项有多个段落，则第二个及以后的段落要缩进 4 spaces or one tab
+如果列表中某项有多个段落(即 li 中有多个 p)，则第二个及以后的段落要缩进 4 spaces or one tab
 ```markdown
 1.  This is a list item with two paragraphs. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit. Aliquam hendrerit
@@ -309,6 +261,19 @@ sit amet velit.
     > This is a blockquote
     > inside a list item.
 2.  Suspendisse id sem consectetuer libero luctus adipiscing.
+
+
+每一行都 hanging indents 会比较好看(look nice)，即
+1.  This is a list item with two paragraphs. Lorem ipsum dolor
+    sit amet, consectetuer adipiscing elit. Aliquam hendrerit
+    mi posuere lectus.
+
+    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
+    sit amet velit.
+
+2.  Suspendisse id sem consectetuer libero luctus adipiscing.
+
 
 
 如果列表中某项有 code block 则 code block 要缩进两次，即 8 spaces or two tabs
@@ -325,26 +290,6 @@ sit amet velit.
 
         function test(){
         }
-
-
-在每行前加数字（还要有个 "." ）创建有序列表
-```markdown
-1. James Madison
-2. James Monroe
-4. John Quincy Adams
-```
-
-
-实际效果
-1. James Madison
-2. James Monroe
-4. John Quincy Adams
-
-
-实际显示为 1,2,3 即 `4. John Quincy Adams` 显示为 `3. John Quincy Adams` 。这是因为实际转为 html ol tag 因此值由 html 重新计算。但是注意第一项必须从 1 开始！
-
-
-If you do use lazy list numbering, however, you should still start the list with the number 1.
 
 
 ## Code Blocks
@@ -484,7 +429,7 @@ some other text
 - *This text is italicized*
 - _This text is italicized also_
 - **This text is _extremely_ important**
-- ** this text is normal, because around spaces **
+- ** 第二个星号不紧邻文字，而是之间有空格间隔，则视为字面量，只显示为斜体 **
 ```
 
 
@@ -494,7 +439,7 @@ some other text
 - *This text is italicized*
 - _This text is italicized also_
 - **This text is _extremely_ important**
-- ** this text is normal, because around spaces **
+- ** 第二个星号不紧邻文字，而是之间有空格间隔，则视为字面量，只显示为斜体 **
 
 
 ## Code
@@ -527,12 +472,16 @@ A backtick-delimited string in a code span: `` `foo` ``
 code span 中可以使用 &, < 不需要转义
 ```markdown
 Please don't use any `<blink>` tags.
+
+`&#8212;` is the decimal-encoded equivalent of `&mdash;`.
 ```
 
 
 实际效果
 
 Please don't use any `<blink>` tags.
+
+`&#8212;` is the decimal-encoded equivalent of `&mdash;`.
 
 
 ## Images
@@ -614,8 +563,23 @@ _   hr, emphasis
 - > - block quote
 
 
+# 最佳实践
+- 可以只使用 - 表示 list, _ 表示 hr, * 表示 emphasis 避免歧义。
+- 对 Block Elements 前后都加上空行！！！
+- 如果 Blockquotes 有多行，可以在每行前加 > ，会比较好看(looks best)。英文单词间本就有空格，但中文的话会导致添加额外的空格
+- 如果 List item 有多行，可以悬挂缩进，会 look nice 。英文单词间本就有空格，但中文的话会导致添加额外的空格
+- 如果 List item 有多个段落，可以每行都缩进， looks nice 。英文单词间本就有空格，但中文的话会导致添加额外的空格
+- 尽量使用 Reference-style links 而不是 inline link
+
+
 # 不足
+Markdown's formatting syntax only addresses issues that can be conveyed in plain text.
+
+Markdown 只做可以用纯字符表达的格式。
+
+
 可能有些插件能办到
+- 不能表示嵌套列表(GitHub Flavored Markdown 可以)
 - 没有 TOC
 - 显示代码无法显示行号，无法高亮某行
 - 没有定义引用列表(du/dl)的方式
@@ -625,5 +589,88 @@ bug
 - 不能在 markdown 文档中用 `<span id="list-item-problem"></span>` 方式插入锚点，生成的 HTML 会把 id 去除。用 a 标签也不行， a 标签的 id 会被替换。
 
 
+# 测试
+## Block Elements 前后的空行
+**最佳实践：对 Block Elements 前后都加上空行！！！**
+
+
+当前测试结果
+- Paragraphs 前后都需要空行
+- Headers 前后都不需要空行。前不需要空行是因为它们都由特定的字符开头。 Setext 风格的 Header 前也不需要空行。后不需要空行，是因为它们不会跨行。
+- Blockquotes **后需要有空行**。前不需要空行是因为它们都由特定的字符开头。
+- Lists **后需要有空行，且下一行要从行首开始，不然仍认为是 list item 的一部分**，参见 [list item 空行问题](#list-item-problem)。前不需要空行是因为它们都由特定的字符开头。
+- Code Blocks **前需要有空行**，否则成为前一个段落的一部分。后不需要空行，是因为 code block 每行都必须以 4 spaces or one tab 开头。
+- Horizontal Rules 前后都不需要空行。前不需要空行是因为它们都由特定的字符开头。后不需要空行，是因为它们不会跨行。如果使用 - 表示 Horizontal Rules 则前需要空行，否则将表示 Setext 风格的 Header ！
+
+
+测试在 https://daringfireball.net/projects/markdown/dingus 中 Lists 前需要空行！在 GitHub Flavored Markdown 中前面可以不需要空行。
+
+
+```markdown
+some text
+# header
+some text
+> blockquotes
+
+some text
+- x
+- y
+
+some text
+
+    function(){
+    }
+some text
+***
+some text
+
+---
+```
+
+
+实际效果
+
+some text
+# header
+some text
+> blockquotes
+
+some text
+- x
+- y
+
+some text
+
+    function(){
+    }
+some text
+***
+some text
+
+---
+
+
+### list item problem
+如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分，例如
+```markdown
+- x
+
+
+    function(){
+    }
+```
+
+
+实际效果为
+- x
+
+
+    function(){
+    }
+
+本意是希望 function 是 code block ，但实际显示为 list item 的一部分。 list item 直到遇到新的段落开始（前一行是空白，本行从行开头就有字符）才结束。
+
+
 # Reference
 - https://daringfireball.net/projects/markdown/syntax
+- https://daringfireball.net/projects/markdown/dingus 试验语法效果
