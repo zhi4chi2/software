@@ -46,7 +46,6 @@ Markdown 文档中可以使用 &, < 字符，不需要 escape 。即可以在 ma
     - 4 < 5
     - <a id="xx" href="#">xx</a>
 
-
 **实际效果**
 
 - &copy;
@@ -208,7 +207,6 @@ Blockquotes 中可以包含 markdown elements, including headers, lists, and cod
     1. James Madison
     2. James Monroe
     4. John Quincy Adams
-
 
 **实际效果**
 
@@ -385,7 +383,6 @@ code blocks 中不能使用 markdown syntax
     
     ---------------------------------------
 
-
 **实际效果**
 
 *****
@@ -416,6 +413,7 @@ See my [About](/about/) page for details.
 
 
 ### Reference-style links
+使用 reference-style links 文档更可读。
 
     This is [an example][id] reference-style link.
 
@@ -463,7 +461,6 @@ link definition name(例子中的 id)不区分大小写
     [ID]: http://example.com/longish/path/to/resource/here
         "Optional Title Here"
 
-
 **实际效果**
 
 This is [an example] [id] reference-style link.
@@ -473,8 +470,17 @@ some other text
 [ID]: http://example.com/longish/path/to/resource/here
     "Optional Title Here"
 
+注意： **Link definitions 需要与之前的段落用空行隔开。**
 
-这个例子在 Github 中显示不正常！
+
+这个例子在 Github 中显示不正常！去掉 brackets 之间的空格则正常
+
+This is [an example][id] reference-style link.
+
+some other text
+
+[ID]: http://example.com/longish/path/to/resource/here
+    "Optional Title Here"
 
 
 ### implicit link name
@@ -486,7 +492,6 @@ implicit link name 使用 link text 作为 link name
     
     [Daring Fireball]: http://daringfireball.net/
 
-
 **实际效果**
 
 Visit [Daring Fireball][] for more information.
@@ -494,9 +499,6 @@ Visit [Daring Fireball][] for more information.
 some other text
 
 [Daring Fireball]: http://daringfireball.net/
-
-
-使用 reference-style links 文档更可读。
 
 
 ## Emphasis
@@ -517,7 +519,7 @@ some other text
     - **This text is _extremely_ important**
     - ** 第二个星号不紧邻文字，而是之间有空格间隔，则视为字面量，只显示为斜体 **
     - **部分加粗**部分不加粗
-
+    - **部分加粗，**部分不加粗
 
 **实际效果**
 
@@ -528,11 +530,13 @@ some other text
 - **This text is _extremely_ important**
 - ** 第二个星号不紧邻文字，而是之间有空格间隔，则视为字面量，只显示为斜体 **
 - **部分加粗**部分不加粗
+- **部分加粗，**部分不加粗
 
 
 在 Github 中
 
-- 倒数第二行的两个星号都视为字面量，没有斜体！
+- 倒数第三行的两个星号都视为字面量，没有斜体！
+- 倒数第二行正常
 - 最后一行的两个星号都视为字面量，没有粗体！
 
 
@@ -554,7 +558,6 @@ code span 两侧的 \` 可以与 code span 之间有空格。这样可以在 cod
     
     A backtick-delimited string in a code span: `` `foo` ``
 
-
 **实际效果**
 
 A single backtick in a code span: `` ` ``
@@ -568,7 +571,6 @@ code span 中可以使用 &, < 不需要转义
     Please don't use any `<blink>` tags.
     
     `&#8212;` is the decimal-encoded equivalent of `&mdash;`.
-
 
 **实际效果**
 
@@ -678,7 +680,7 @@ Markdown 可以使用 \ escape
 - hard-wrapped/hard breaks - Markdown supports hard-wrapped text paragraphs, 即将连续的多行视为一行，不会将每行的换行视为 br tag 。副作用是对于 block-level elements 需要在后面都加上空行。
 - code block - 用 4 spaces or one tab 缩进的代码块，会解释为 `<pre>` and `<code>` tag
 - code span - 用一个 \` 包含的代码，会解释为 `<code>` tag
-- 4 spaces or one tab - markdown 中大量使用 4 spaces or one tab 表示一层缩进。例如表示 code block, 或者表示 list item 中的 subsequent paragraph
+- 4 spaces or one tab - markdown 中大量使用 4 spaces or one tab 表示一层缩进(indent)。例如表示 code block, 或者表示 list item 中的 subsequent paragraph 。所以文档中说可以在 List markers/link identifier 之前有 up to three spaces ，因为如果达到 4 个空格就是缩进了。
 
 
 # 最佳实践
@@ -689,7 +691,7 @@ Markdown 可以使用 \ escape
 - 如果 List item 有多行，可以悬挂缩进，会 look nice 。英文单词间本就有空格，但中文的话会导致添加额外的空格
 - 如果 List item 有多个段落，可以每行都缩进， looks nice 。英文单词间本就有空格，但中文的话会导致添加额外的空格
 - 尽量使用 Reference-style links 而不是 inline link
-- 如果要在文档中显示 html tag 或 & 实体，推荐使用 `` `<br>` `` 方式，而不是 &amp;lt;br>
+- 如果要在文档中显示 html tag 或 & 实体，推荐使用 `` `<br />` `` 方式，而不是 &amp;lt;br />
 
 
 # 不足
@@ -702,7 +704,6 @@ Markdown 只做可以用纯字符表达的格式。
 
 - 没有 TOC
 - 显示代码无法显示行号，无法高亮某行
-- 没有定义引用列表(du/dl)的方式
 
 
 # 测试
@@ -715,7 +716,7 @@ Markdown 只做可以用纯字符表达的格式。
 - Paragraphs 前后都需要空行
 - Headers 前后都不需要空行。前不需要空行是因为它们都由特定的字符开头。 Setext 风格的 Header 前也不需要空行。后不需要空行，是因为它们不会跨行。
 - Blockquotes **后需要有空行**。前不需要空行是因为它们都由特定的字符开头。
-- Lists **后需要有空行，且下一行要从行首开始，不然仍认为是 list 的一部分**，参见 [list 后接 code block](#list-code-block-problem)。前不需要空行(GitHub)是因为它们都由特定的字符开头。但标准的 Markdown 的 List 前也需要空行！
+- Lists **后需要有空行，且下一行要从行首开始，不然仍认为是 list 的一部分**，参见 [list 后接 code block](#list-code-block-problem)。前不需要空行(GitHub)是因为它们都由特定的字符开头。注意：标准的 Markdown 的 List 前也需要空行！
 - Code Blocks **前需要有空行**，否则成为前一个段落的一部分。后不需要空行，是因为 code block 每行都必须以 4 spaces or one tab 开头。
 - Horizontal Rules 前后都不需要空行。前不需要空行是因为它们都由特定的字符开头。后不需要空行，是因为它们不会跨行。如果使用 - 表示 Horizontal Rules 则前需要空行，否则将表示 Setext 风格的 Header ！
 
@@ -742,7 +743,6 @@ Markdown 只做可以用纯字符表达的格式。
     
     ---
 
-
 **实际效果**
 
 some text
@@ -765,6 +765,9 @@ some text
 ---
 
 
+这个例子在 https://daringfireball.net/projects/markdown/dingus 中，列表显示为段落，而在 Github 中正常。
+
+
 ### <span id="list-code-block-problem">list code block problem</span>
 Lists 之后不能直接跟 code block
 
@@ -775,7 +778,6 @@ Lists 之后不能直接跟 code block
     
         function(){
         }
-
 
 **实际效果**
 
