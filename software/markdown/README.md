@@ -63,24 +63,26 @@ Markdown 文档中可以使用 &, < 字符，不需要 escape 。即可以在 ma
 
 但是，在 Markdown code spans and blocks 中， &, < 字符将总是被 encoded 。这方便 markdown 写 HTML code
 
-如果要在生成的 HTML 文档中显示 html tag 或 & 实体，有两种方式，以 `<br>` 为例
+如果要在生成的 HTML 文档中显示 html tag 或 & 实体，有两种方式，以 `<br />` 为例
 
-    - &lt;br>
-    - `<br>`
+    - &lt;br />
+    - `<br />`
 
 **实际效果**
 
-- &lt;br>
-- `<br>`
+- &lt;br />
+- `<br />`
 
 
-Block Elements
+Block Elements<span id="block-elements"></span>
 =
 ## Paragraphs and Line Breaks
 > Normal paragraphs should not be indented with spaces or tabs.
 
 
-段落不能用 spaces or tabs 缩进（否则可能认为是 code block ）。段落用空行分隔。只包含 spaces or tabs 的行认为是空行。
+段落不能用 spaces or tabs 缩进（否则可能认为是 code block ）。
+
+段落用空行分隔。只包含 spaces or tabs 的行认为是空行。
 
 
 多个空行效果与一个空行一样！空行本身不会生成段落，而仅是分隔段落。所以即使在 Markdown 文档中用多个空行隔开段落，但实际在生成的 HTML 中段落仍然紧邻。所以在 Markdown 文档中用多个空行没有意义。
@@ -92,7 +94,7 @@ markdown 不会将换行转为 `<br>` ，如果确实需要 br 则要在行尾�
 markdown 的这种(hard-wrapped)方式，使得 blockquoting and multi-paragraph list items work best — and look better
 
 
-Headers
+Headers<span id="headers"></span>
 -
 
 有两种 header 样式：
@@ -122,7 +124,7 @@ Blockquotes 可以只在 hard-wrapped 段落的第一行加 > 标记
     > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
     consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
     Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-    
+    > 
     > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
     id sem consectetuer libero luctus adipiscing.
 
@@ -131,7 +133,7 @@ Blockquotes 可以只在 hard-wrapped 段落的第一行加 > 标记
 > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
 consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
 Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-
+> 
 > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
 id sem consectetuer libero luctus adipiscing.
 
@@ -238,7 +240,7 @@ List markers typically start at the left margin, but may be indented by up to th
  +   Blue
 
 
-注意，如果 list markers 后面有 4 个以上(>4, 因为 list marker 后需要至少一个空格才能接 item 值)空格，则认为是 code block ，如例子中(5 个空格)的 Red 。
+注意，如果 list markers 后面有 4 个以上(>4, 因为 list marker 后需要至少一个空格才能接 item 值)空格，则认为是 code block (在 Github 中如此)，如例子中(5 个空格)的 Red 。
 
 但在 https://daringfireball.net/projects/markdown/dingus 中测试时 Red 不显示为 code block 而是认为是嵌套列表，生成 HTML
 
@@ -446,7 +448,7 @@ See my [About](/about/) page for details.
 
 
 > Link definitions are only used for creating links during Markdown processing, and are stripped from your document in the HTML output.
-
+> 
 > Link definition names may consist of letters, numbers, spaces, and punctuation — but they are not case sensitive.
 
 link definition name(例子中的 id)不区分大小写
@@ -470,6 +472,9 @@ some other text
 
 [ID]: http://example.com/longish/path/to/resource/here
     "Optional Title Here"
+
+
+这个例子在 Github 中显示不正常！
 
 
 ### implicit link name
@@ -511,6 +516,7 @@ some other text
     - _This text is italicized also_
     - **This text is _extremely_ important**
     - ** 第二个星号不紧邻文字，而是之间有空格间隔，则视为字面量，只显示为斜体 **
+    - **部分加粗**部分不加粗
 
 
 **实际效果**
@@ -521,6 +527,13 @@ some other text
 - _This text is italicized also_
 - **This text is _extremely_ important**
 - ** 第二个星号不紧邻文字，而是之间有空格间隔，则视为字面量，只显示为斜体 **
+- **部分加粗**部分不加粗
+
+
+在 Github 中
+
+- 倒数第二行的两个星号都视为字面量，没有斜体！
+- 最后一行的两个星号都视为字面量，没有粗体！
 
 
 ## Code
@@ -581,12 +594,17 @@ Please don't use any `<blink>` tags.
 ### Reference-style image syntax
 
     ![Alt text][image id]
+    
     [image id]: url/to/image  "Optional title attribute"
+    
+    <br />
 
 **实际效果**
 
 ![Alt text][image id]
+
 [image id]: url/to/image  "Optional title attribute"
+
 <br />
 
 
@@ -651,7 +669,7 @@ Markdown 可以使用 \ escape
 另外还有特殊字符没有说能不能 escape
 
 - = - header
-- > - block quote
+- \> - block quote
 
 
 # 术语
@@ -687,14 +705,9 @@ Markdown 只做可以用纯字符表达的格式。
 - 没有定义引用列表(du/dl)的方式
 
 
-bug
-
-- 不能在 markdown 文档中用 `<span id="list-item-problem"></span>` 方式插入锚点，生成的 HTML 会把 id 去除。用 a 标签也不行， a 标签的 id 会被替换。这个应该是 Github 的问题。
-
-
 # 测试
 ## Block Elements 前后的空行
-**最佳实践：对 Block Elements 前后都加上空行！！！**以避免麻烦。
+**最佳实践：对 Block Elements 前后都加上空行！！！**，以避免麻烦。
 
 
 当前测试结果
@@ -702,7 +715,7 @@ bug
 - Paragraphs 前后都需要空行
 - Headers 前后都不需要空行。前不需要空行是因为它们都由特定的字符开头。 Setext 风格的 Header 前也不需要空行。后不需要空行，是因为它们不会跨行。
 - Blockquotes **后需要有空行**。前不需要空行是因为它们都由特定的字符开头。
-- Lists **后需要有空行，且下一行要从行首开始，不然仍认为是 list item 的一部分**，参见 [list item 空行问题](#list-item-problem)。前不需要空行是因为它们都由特定的字符开头。
+- Lists **后需要有空行，且下一行要从行首开始，不然仍认为是 list 的一部分**，参见 [list 后接 code block](#list-code-block-problem)。前不需要空行(GitHub)是因为它们都由特定的字符开头。但标准的 Markdown 的 List 前也需要空行！
 - Code Blocks **前需要有空行**，否则成为前一个段落的一部分。后不需要空行，是因为 code block 每行都必须以 4 spaces or one tab 开头。
 - Horizontal Rules 前后都不需要空行。前不需要空行是因为它们都由特定的字符开头。后不需要空行，是因为它们不会跨行。如果使用 - 表示 Horizontal Rules 则前需要空行，否则将表示 Setext 风格的 Header ！
 
@@ -752,7 +765,7 @@ some text
 ---
 
 
-### <span id="list-item-problem">list item problem</span>
+### <span id="list-code-block-problem">list code block problem</span>
 Lists 之后不能直接跟 code block
 
 如果 list item 后不是新的段落的开始，将始终认为是 list item 的一部分(subsequent paragraph)，例如
