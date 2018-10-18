@@ -15,7 +15,7 @@
 - committed
 
 
-- working tree - The working tree is a single checkout of one version of the project.
+- working tree/working directory - The working tree is a single checkout of one version of the project.
 - staging area/index - The staging area is a file, generally contained in your Git directory, that stores information about what will go into your next commit.
     Its technical name in Git parlance is the "index"
 - Git directory - 即 .git directory(Repository), The Git directory is where Git stores the metadata and object database for your project.

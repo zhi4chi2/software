@@ -84,54 +84,132 @@ Git 数据库中保存的信息都是以文件内容的哈希值来索引，而�
 本书写作时使用的 Git 版本为 2.0.0
 
 
+## Installing on Linux
 Linux 下安装 `apt-get install git` 。英文文档中的安装方法是 `apt-get install git-all`
 
 
-Windows 下的官方版本是一个名为 Git for Windows 的项目（中文版说也叫做 msysGit ），和 Git 是分别独立的项目；更多信息请访问 http://msysgit.github.io/ 。英文文档中给的地址是 https://git-for-windows.github.io/
+## Installing on Mac
+## Installing on Windows
+> The most official build is available for download on the Git website. Just go to <http://git-scm.com/download/win> and the download will start automatically. Note that this is a project called Git for Windows, which is separate from Git itself; for more information on it, go to <https://git-for-windows.github.io/>.
+
+Windows 下的官方版本是一个名为 Git for Windows 的项目，和 Git 是分别独立的项目
+
+- http://git-scm.com/download/win - 下载地址
+- https://git-for-windows.github.io/
+
+中文版文档称为 msysGit ，网址为 <http://msysgit.github.io/>
 
 
-英文版中还有一个 https://chocolatey.org/packages/git
+英文版文档中还有一个(community maintained automated installation) <https://chocolatey.org/packages/git>
 
 
 > Another easy way to get Git installed is by installing GitHub Desktop. The installer includes a command line version of Git as well as the GUI. It also works well with Powershell, and sets up solid credential caching and sane CRLF settings.
 
-另一个简单的方法是安装 GitHub for Windows 。该安装程序包含图形化和命令行版本的 Git 。 它也能支持 Powershell ，提供了稳定的凭证缓存和健全的 CRLF 设置。
+另一个简单的方法是安装 GitHub Desktop 。该安装程序包含图形化和命令行版本的 Git 。 它也能支持 Powershell ，提供了稳定的凭证缓存和健全的 CRLF 设置。
 
 
-实际安装过程参见 [Git](/Software/Git/README.md)
+实际安装过程参见 [Git](/software/git/README.md)
+
+
+## Installing from Source
 
 
 # First-Time Git Setup
-参见 [git config](/Software/Git/config.md)
+`git config` 配置变量存储在
+
+- /etc/gitconfig - 使用 --system 选项， applied to every user on the system and all their repositories.
+- ~/.gitconfig 或 ~/.config/git/config - 使用 --global 选项， affects all of the repositories you work with on your system.
+- .git/config - **默认**，使用 --local 选项， specific to that single repository
 
 
-## 用户
-```bash
-me@mypc:~$ git config --global user.name me
-me@mypc:~$ git config --global user.email me@example.com
-me@mypc:~$ 
-```
+local 优先级最高， system 最低
+
+在 windows 下对应
+
+- `D:\Git\etc\gitconfig`
+- `C:\Users\$USER\.gitconfig`
+- `.git\config`
 
 
-## 文本编辑器
+> If you are using version 2.x or later of Git for Windows, there is also a system-level config file at `C:\Documents and Settings\All Users\Application Data\Git\config` on Windows XP, and in `C:\ProgramData\Git\config` on Windows Vista and newer. This config file can only be changed by `git config -f <file>` as an admin.
+
+当使用 Git for Windows 2.x 时，在 Windows 下还有一个 system level config file 在 C:\ProgramData\Git\config 下，但只能通过 git config -f 修改。
+
+
+## Your Identity
+
+    me@mypc:~$ git config --global user.name me
+    me@mypc:~$ git config --global user.email me@example.com
+    me@mypc:~$ 
+
+
+## Your Editor
 默认使用 vim ，可以修改为 emacs
-```bash
-git config --global core.editor emacs
-```
+
+    git config --global core.editor emacs
 
 
 在 Windows 下可以改为 Notepad++
-```bash
-git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession"
-```
+
+    git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession"
 
 
-## 检查配置信息
-参见 [git config](/Software/Git/config.md)
+## Checking Your Settings
+在 Linux 下
+
+    me@mypc:~$ git config --list
+    user.email=me@example.com
+    user.name=me
+    me@mypc:~$ 
+
+
+在 windows 下
+
+    bruce@bruce-PC MINGW64 ~
+    $ git config --list
+    core.symlinks=false
+    core.autocrlf=true
+    core.fscache=true
+    color.diff=auto
+    color.status=auto
+    color.branch=auto
+    color.interactive=true
+    help.format=html
+    rebase.autosquash=true
+    http.sslcainfo=D:/Git/mingw64/ssl/certs/ca-bundle.crt
+    diff.astextplain.textconv=astextplain
+    filter.lfs.clean=git-lfs clean -- %f
+    filter.lfs.smudge=git-lfs smudge -- %f
+    filter.lfs.required=true
+    filter.lfs.process=git-lfs filter-process
+    credential.helper=manager
+    user.name=me
+    user.email=me@example.com
+    
+    bruce@bruce-PC MINGW64 ~
+    $
+
+
+> You may see keys more than once, because Git reads the same key from different files (`/etc/gitconfig` and `~/.gitconfig`, for example). In this case, Git uses the last value for each unique key it sees.
+
+Git 会从不同的文件中读取同一个配置，因此可能有重复的配置名，则将使用最后一个配置。
+
+
+可以使用 `git config <key>` 检查配置实际起作用的值。
+
+    me@mypc:~$ git config user.name
+    me
+    me@mypc:~$ git config user.email
+    me@example.com
+    me@mypc:~$ 
+
+使用 `git config --show-origin` 得到配置值的 origin(which configuration file)
+
+    git config --show-origin user.name
 
 
 # Getting Help
-参见 [git help](/Software/Git/help.md)
+参见 [git help](/software/git/help.md)
 
 
 # Summary

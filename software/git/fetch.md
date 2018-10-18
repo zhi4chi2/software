@@ -1,23 +1,16 @@
-FIXME
-```bash
-git remote add mypc file:///
-git fetch mypc
-```
+
+    git remote add mypc file:///
+    git fetch mypc
 
 
-```bash
-FIXME
-git fetch mypc
-git branch
-git checkout -b serverfix origin/serverfix
-git branch
-```
+    FIXME
+    git fetch mypc
+    git branch
+    git checkout -b serverfix origin/serverfix
+    git branch
 
 
 # -all
-```bash
-FIXME
-```
 
 
 # Reference

@@ -1,7 +1,6 @@
-```bash
-FIXME
-git mergetool
-```
+
+    FIXME
+    git mergetool
 
 
 # Reference

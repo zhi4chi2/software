@@ -1,37 +1,28 @@
-FIXME
-```bash
-```
-
-
 默认不会 push local branches 到 remote 。需要显式 push
-```bash
-FIXME
-git push origin serverfix
-git push origin serverfix:serverfix
-git push origin serverfix:awesomebranch
-```
+
+    FIXME
+    git push origin serverfix
+    git push origin serverfix:serverfix
+    git push origin serverfix:awesomebranch
 
 
 默认不会 push tags 到 remote
-```bash
-FIXME
-git push origin v1.0
-git push origin --tags
-```
+
+    FIXME
+    git push origin v1.0
+    git push origin --tags
 
 
 # --delete
-```bash
-FIXME
-git push origin --delete serverfix
-```
+
+    FIXME
+    git push origin --delete serverfix
 
 
 # -u/--set-upstream
-```bash
-FIXME
-git push -u origin next
-```
+
+    FIXME
+    git push -u origin next
 
 
 # Reference
