@@ -82,7 +82,7 @@
     git config --global core.quotepath false
     git config --list
 
-结果
+运行示例
 
     me@mypc:~$ git config --global user.name me
     me@mypc:~$ git config --global user.email me@example.com
@@ -94,6 +94,7 @@
     me@mypc:~$ 
 
 
+## Windows
 在 Windows 下配置显示中文(git diff 下不乱码)
 
 - 打开 git bash
@@ -103,28 +104,18 @@
 
 
 # 术语
-文件状态(https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository)
+参见以下文档中的术语部分
 
-- untracked - 既不在 last snapshot 中也不在 staging area 中。 `git add` 变为 staged
-- tracked - 在 last snapshot 中
-  - unmodified - 编辑文件则变为 modified ，删除文件则变为 untracked
-  - modified - `git add` 变为 staged
-  - staged - `git commit` 变为 unmodified
+- [Pro Git](progit/README.md)
+- [Manual](manual/README.md)
 
 
 另可参见 https://try.github.io/levels/1/challenges/4
 
 
-另外还有些状态
-
-- unstaged - 应该就是 modified
-- deleted - 使用 `git rm` 删除文件后。也是 staged ，等待被提交。
-
 
 术语
 
-- staging area/index - 暂存区
-- working tree/working directory - 本地工作目录，工作区
 - tree - 库中的 tree object
 - upstream branch - remote branch
 - tracking branch - local branch
@@ -134,13 +125,6 @@
 
 
 `git clone` 时自动创建 master branch track origin/master
-
-
-help 中的术语
-
-- refspec - 例如 refs/heads/serverfix:refs/heads/serverfix 参见 [git push](/Software/Git/push.md)
-- refname - 例如 refs/heads/serverfix 参见 [git push](/Software/Git/push.md)
-- start-point - a branch name, a commit-id, or a tag. 例如 origin/master 参见 [git branch](/Software/Git/branch.md)
 
 
 # Reference

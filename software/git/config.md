@@ -6,6 +6,12 @@
 
 
 # git config name value
+示例
+
+    git config --global user.name me
+    git config --global user.email me@example.com
+
+**运行结果**
 
     me@mypc:~$ git config --global user.name me
     me@mypc:~$ git config --global user.email me@example.com
@@ -23,7 +29,7 @@
 
 在 windows 下
 
-    bruce@bruce-PC MINGW64 ~
+    me@mypc MINGW64 ~/test
     $ git config --list
     core.symlinks=false
     core.autocrlf=true
@@ -40,19 +46,18 @@
     filter.lfs.smudge=git-lfs smudge -- %f
     filter.lfs.required=true
     filter.lfs.process=git-lfs filter-process
-    credential.helper=manager
-    user.name=me
-    user.email=me@example.com
     
-    bruce@bruce-PC MINGW64 ~
+    me@mypc MINGW64 ~/test
     $
 
+
+> You may see keys more than once, because Git reads the same key from different files (`/etc/gitconfig` and `~/.gitconfig`, for example). In this case, Git uses the last value for each unique key it sees.
 
 Git 会从不同的文件中读取同一个配置，因此可能有重复的配置名，则将使用最后一个配置。
 
 
 # git config name
-可以使用 `git config name` 检查配置实际起作用的值。
+可以使用 `git config <key>` 检查配置实际起作用的值。
 
     me@mypc:~$ git config user.name
     me
@@ -67,27 +72,6 @@ Git 会从不同的文件中读取同一个配置，因此可能有重复的配�
 - --system
 - --local
 - -f/--file
-
-
-`git config` 配置变量存储在
-
-- /etc/gitconfig - 使用 --system 选项， applied to every user on the system and all their repositories.
-- ~/.gitconfig 或 ~/.config/git/config - 使用 --global 选项， affects all of the repositories you work with on your system.
-- .git/config - **默认**，使用 --local 选项， specific to that single repository
-
-
-local 优先级最高， system 最低
-
-在 windows 下对应
-
-- `D:\Git\etc\gitconfig`
-- `C:\Users\$USER\.gitconfig`
-- `.git\config`
-
-
-> If you are using version 2.x or later of Git for Windows, there is also a system-level config file at `C:\Documents and Settings\All Users\Application Data\Git\config` on Windows XP, and in `C:\ProgramData\Git\config` on Windows Vista and newer. This config file can only be changed by `git config -f <file>` as an admin.
-
-当使用 Git for Windows 2.x 时，在 Windows 下还有一个 system level config file 在 C:\ProgramData\Git\config 下，但只能通过 git config -f 修改。
 
 
 # options
@@ -140,6 +124,9 @@ Each variable must belong to some section
 
     git config --global core.editor emacs
 
+
+### Windows
+> On a Windows system, if you want to use a different text editor, you must specify the full path to its executable file.
 
 在 Windows 下可以改为 Notepad++
 

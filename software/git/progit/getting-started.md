@@ -115,28 +115,56 @@ Windows 下的官方版本是一个名为 Git for Windows 的项目，和 Git �
 
 
 # First-Time Git Setup
-`git config` 配置变量存储在
+## Linux
+configuration variables store in
 
-- /etc/gitconfig - 使用 --system 选项， applied to every user on the system and all their repositories.
-- ~/.gitconfig 或 ~/.config/git/config - 使用 --global 选项， affects all of the repositories you work with on your system.
-- .git/config - **默认**，使用 --local 选项， specific to that single repository
+- /etc/gitconfig - `git config --system`, applied to every user on the system and all their repositories.
+- ~/.gitconfig 或 ~/.config/git/config - `git config --global`, affects all of the repositories you work with on your system.
+- .git/config - **default**, `git config --local` / `git config`, specific to that single repository
+
+优先级 local -> global -> system
 
 
-local 优先级最高， system 最低
+实测（安装后，简单设置 user.name/user.email ，初始化一个 git 项目）
 
-在 windows 下对应
+- /etc/gitconfig - 不存在
+- ~/.gitconfig - 存在
+- ~/.config/git/config - 不存在
+- .git/config - 存在
 
-- `D:\Git\etc\gitconfig`
+
+## Windows
+在 Windows 下依次对应
+
+- `D:\Git\mingw64\etc\gitconfig` - 注意并不是在 `D:\Git\etc\` 下
 - `C:\Users\$USER\.gitconfig`
 - `.git\config`
 
 
-> If you are using version 2.x or later of Git for Windows, there is also a system-level config file at `C:\Documents and Settings\All Users\Application Data\Git\config` on Windows XP, and in `C:\ProgramData\Git\config` on Windows Vista and newer. This config file can only be changed by `git config -f <file>` as an admin.
+> If you are using version 2.x or later of Git for Windows,
+> there is also a system-level config file
+> at `C:\Documents and Settings\All Users\Application Data\Git\config` on Windows XP,
+> and in `C:\ProgramData\Git\config` on Windows Vista and newer.
+> This config file can only be changed by `git config -f <file>` as an admin.
 
-当使用 Git for Windows 2.x 时，在 Windows 下还有一个 system level config file 在 C:\ProgramData\Git\config 下，但只能通过 git config -f 修改。
+
+所以 Windows 下的配置文件有：
+
+- `C:\ProgramData\Git\config`
+- `D:\Git\mingw64\etc\gitconfig`
+- `C:\Users\$USER\.gitconfig`
+- `.git\config`
 
 
 ## Your Identity
+示例
+
+    git config --global user.name me
+    git config --global user.email me@example.com
+
+**运行结果**
+
+FIXME
 
     me@mypc:~$ git config --global user.name me
     me@mypc:~$ git config --global user.email me@example.com
@@ -149,23 +177,63 @@ local 优先级最高， system 最低
     git config --global core.editor emacs
 
 
+### Windows
+> On a Windows system, if you want to use a different text editor, you must specify the full path to its executable file.
+
 在 Windows 下可以改为 Notepad++
 
     git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession"
 
 
 ## Checking Your Settings
-在 Linux 下
+### `git config --list`
+示例
+
+    git config --global user.name me
+    git config --global user.email me@example.com
+    git init
+    git config --local user.name test
+    git config --local user.email test@example.com
+    git config --list
+
+
+#### Linux
+**运行结果**
+
+FIXME
 
     me@mypc:~$ git config --list
     user.email=me@example.com
     user.name=me
     me@mypc:~$ 
 
+> You may see keys more than once, because Git reads the same key from different files (`/etc/gitconfig` and `~/.gitconfig`, for example). In this case, Git uses the last value for each unique key it sees.
 
-在 windows 下
+Git 会从不同的文件中读取同一个配置，因此可能有重复的配置名(如例子中的 `user.name`/`user.email`)，则将使用最后一个配置。
 
-    bruce@bruce-PC MINGW64 ~
+
+#### Windows
+**运行结果**
+
+FIXME
+
+    me@mypc MINGW64 ~/test
+    $ git config --global user.name me
+    
+    me@mypc MINGW64 ~/test
+    $ git config --global user.email me@example.com
+    
+    me@mypc MINGW64 ~/test
+    $ git init
+    Initialized empty Git repository in C:/Users/me/test/.git/
+    
+    me@mypc MINGW64 ~/test (master)
+    $ git config --local user.name test
+    
+    me@mypc MINGW64 ~/test (master)
+    $ git config --local user.email test@example.com
+    
+    me@mypc MINGW64 ~/test (master)
     $ git config --list
     core.symlinks=false
     core.autocrlf=true
@@ -182,20 +250,38 @@ local 优先级最高， system 最低
     filter.lfs.smudge=git-lfs smudge -- %f
     filter.lfs.required=true
     filter.lfs.process=git-lfs filter-process
-    credential.helper=manager
     user.name=me
     user.email=me@example.com
+    core.repositoryformatversion=0
+    core.filemode=false
+    core.bare=false
+    core.logallrefupdates=true
+    core.symlinks=false
+    core.ignorecase=true
+    user.name=test
+    user.email=test@example.com
     
-    bruce@bruce-PC MINGW64 ~
+    me@mypc MINGW64 ~/test (master)
     $
 
+可以看到依次列出下列文件中的 configuration variables
 
-> You may see keys more than once, because Git reads the same key from different files (`/etc/gitconfig` and `~/.gitconfig`, for example). In this case, Git uses the last value for each unique key it sees.
+- `C:\ProgramData\Git\config`
+- `D:\Git\mingw64\etc\gitconfig`
+- `C:\Users\$USER\.gitconfig`
+- `.git\config`
 
-Git 会从不同的文件中读取同一个配置，因此可能有重复的配置名，则将使用最后一个配置。
 
-
+### `git config <key>`
 可以使用 `git config <key>` 检查配置实际起作用的值。
+
+示例
+
+    git config user.name
+    git config user.email
+
+**运行结果**
+FIXME
 
     me@mypc:~$ git config user.name
     me
@@ -203,13 +289,58 @@ Git 会从不同的文件中读取同一个配置，因此可能有重复的配�
     me@example.com
     me@mypc:~$ 
 
-使用 `git config --show-origin` 得到配置值的 origin(which configuration file)
+
+### `git config --show-origin`
+使用 `git config --show-origin` 得到 configuration variable 的 origin(which configuration file)
+
+示例
 
     git config --show-origin user.name
 
+**运行结果**
+
+FIXME
+
 
 # Getting Help
-参见 [git help](/software/git/help.md)
+两种方式（等价）
+
+- `git help <verb>`
+- `man git-<verb>`
+
+> If the manpages and this book aren't enough and you need in-person help, you can try the `#git` or `#github` channel on the Freenode IRC server (irc.freenode.net).
+
+
+上面的帮助内容很全面(full-blown)，简洁版(concise)使用
+
+- `git <verb> --help/-h`
+
+
+示例
+
+    git help config
+    git config --help
+    man git-config
+
+
+### Linux
+**运行结果**
+
+FIXME
+
+    me@mypc:~$ git help config
+    me@mypc:~$ git config --help
+    me@mypc:~$ man git-config
+    me@mypc:~$ 
+
+### Windows
+**运行结果**
+
+FIXME
+
+- `git help config` 打开 `file:///D:/Git/mingw64/share/doc/git-doc/git-config.html`
+- `man git-config` 提示 `bash: man: command not found`
+- `git config --help` 打开 `file:///D:/Git/mingw64/share/doc/git-doc/git-config.html`
 
 
 # Summary

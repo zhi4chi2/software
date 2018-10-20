@@ -1,4 +1,4 @@
-以 Linux 为例。只有当 Windows 下的操作或命令结果与 Linux 不一样时才列出。
+注：**文档中的示例默认是在 Linux 下运行的。只有当 Windows 下的操作或命令结果与 Linux 不一样时才特别列出。**
 
 
 - [Getting Started](getting-started.md)
@@ -15,7 +15,7 @@
 - committed
 
 
-- working tree/working directory - The working tree is a single checkout of one version of the project.
+- working tree/working directory/working copy/checkout - The working tree is a single checkout of one version of the project.
 - staging area/index - The staging area is a file, generally contained in your Git directory, that stores information about what will go into your next commit.
     Its technical name in Git parlance is the "index"
 - Git directory - 即 .git directory(Repository), The Git directory is where Git stores the metadata and object database for your project.

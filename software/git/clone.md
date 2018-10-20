@@ -1,43 +1,4 @@
 
-    me@mypc:~/test$ ls -aF
-    ./  ../
-    me@mypc:~/test$ git clone https://github.com/zhi4chi2/demo
-    Cloning into 'demo'...
-    remote: Counting objects: 3, done.
-    remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-    Unpacking objects: 100% (3/3), done.
-    Checking connectivity... done.
-    me@mypc:~/test$ ls -aF
-    ./  ../  demo/
-    me@mypc:~/test$ cd demo
-    me@mypc:~/test/demo$ ls -aF
-    ./  ../  .git/  README.md
-    me@mypc:~/test/demo$ 
-
-
-clone 到了 /home/me/test/demo 目录下（自动创建此目录），库在 /home/me/test/demo/.git
-
-
-GitHub 的 git clone url 可以加 .git 也可以省略。
-
-    me@mypc:~/test$ ls -aF
-    ./  ../
-    me@mypc:~/test$ git clone https://github.com/zhi4chi2/demo.git my-demo
-    Cloning into 'my-demo'...
-    remote: Counting objects: 3, done.
-    remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-    Unpacking objects: 100% (3/3), done.
-    Checking connectivity... done.
-    me@mypc:~/test$ ls -aF
-    ./  ../  my-demo/
-    me@mypc:~/test$ cd my-demo
-    me@mypc:~/test/my-demo$ ls -aF
-    ./  ../  .git/  README.md
-    me@mypc:~/test/my-demo$ 
-
-
-除了 https:// 协议外还可以使用 git:// 或者使用 SSH 传输协议。
-
 
 # --bare
 

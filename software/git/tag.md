@@ -3,6 +3,7 @@ tag 有两种
 - lightweight tag
 - annotated tag
 
+例子
 
     me@mypc:~/test$ mkdir workspace
     me@mypc:~/test$ cd workspace
