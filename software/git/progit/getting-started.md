@@ -125,12 +125,43 @@ configuration variables store in
 优先级 local -> global -> system
 
 
-实测（安装后，简单设置 user.name/user.email ，初始化一个 git 项目）
+实测（安装后，简单设置 `user.name`/`user.email` ，再初始化一个 git 项目）
 
 - /etc/gitconfig - 不存在
 - ~/.gitconfig - 存在
 - ~/.config/git/config - 不存在
 - .git/config - 存在
+
+
+预处理
+
+    cd
+    git config --global user.name me
+    git config --global user.email me@example.com
+    rm -rf test
+    mkdir test
+    cd test
+    git init
+    clear
+
+执行
+
+    ls /etc/gitconfig
+    ls ~/.gitconfig
+    ls ~/.config/git/config
+    ls .git/config
+
+**执行结果**
+
+    me@mypc:~/test$ ls /etc/gitconfig
+    ls: cannot access '/etc/gitconfig': No such file or directory
+    me@mypc:~/test$ ls ~/.gitconfig
+    /home/me/.gitconfig
+    me@mypc:~/test$ ls ~/.config/git/config
+    ls: cannot access '/home/me/.config/git/config': No such file or directory
+    me@mypc:~/test$ ls .git/config
+    .git/config
+    me@mypc:~/test$ 
 
 
 ## Windows
@@ -157,14 +188,12 @@ configuration variables store in
 
 
 ## Your Identity
-示例
+执行
 
     git config --global user.name me
     git config --global user.email me@example.com
 
-**运行结果**
-
-FIXME
+**执行结果**
 
     me@mypc:~$ git config --global user.name me
     me@mypc:~$ git config --global user.email me@example.com
@@ -187,25 +216,38 @@ FIXME
 
 ## Checking Your Settings
 ### `git config --list`
-示例
+预处理
 
+    cd
     git config --global user.name me
     git config --global user.email me@example.com
+    rm -rf test
+    mkdir test
+    cd test
     git init
     git config --local user.name test
     git config --local user.email test@example.com
+    clear
+
+执行
+
     git config --list
 
 
 #### Linux
-**运行结果**
+**执行结果**
 
-FIXME
-
-    me@mypc:~$ git config --list
-    user.email=me@example.com
+    me@mypc:~/test$ git config --list
     user.name=me
-    me@mypc:~$ 
+    user.email=me@example.com
+    core.repositoryformatversion=0
+    core.filemode=true
+    core.bare=false
+    core.logallrefupdates=true
+    user.name=test
+    user.email=test@example.com
+    me@mypc:~/test$ 
+
 
 > You may see keys more than once, because Git reads the same key from different files (`/etc/gitconfig` and `~/.gitconfig`, for example). In this case, Git uses the last value for each unique key it sees.
 
@@ -213,7 +255,7 @@ Git 会从不同的文件中读取同一个配置，因此可能有重复的配�
 
 
 #### Windows
-**运行结果**
+**执行结果**
 
 FIXME
 
@@ -275,13 +317,19 @@ FIXME
 ### `git config <key>`
 可以使用 `git config <key>` 检查配置实际起作用的值。
 
-示例
+预处理
+
+    cd
+    git config --global user.name me
+    git config --global user.email me@example.com
+    clear
+
+执行
 
     git config user.name
     git config user.email
 
-**运行结果**
-FIXME
+**执行结果**
 
     me@mypc:~$ git config user.name
     me
@@ -293,13 +341,51 @@ FIXME
 ### `git config --show-origin`
 使用 `git config --show-origin` 得到 configuration variable 的 origin(which configuration file)
 
-示例
+执行
 
     git config --show-origin user.name
 
-**运行结果**
+**执行结果**
 
-FIXME
+    me@mypc:~$ git config --show-origin user.name
+    error: unknown option `show-origin'
+    usage: git config [<options>]
+
+    Config file location
+        --global              use global config file
+        --system              use system config file
+        --local               use repository config file
+        -f, --file <file>     use given config file
+        --blob <blob-id>      read config from given blob object
+
+    Action
+        --get                 get value: name [value-regex]
+        --get-all             get all values: key [value-regex]
+        --get-regexp          get values for regexp: name-regex [value-regex]
+        --get-urlmatch        get value specific for the URL: section[.var] URL
+        --replace-all         replace all matching variables: name value [value_regex]
+        --add                 add a new variable: name value
+        --unset               remove a variable: name [value-regex]
+        --unset-all           remove all matches: name [value-regex]
+        --rename-section      rename section: old-name new-name
+        --remove-section      remove a section: name
+        -l, --list            list all
+        -e, --edit            open an editor
+        --get-color           find the color configured: slot [default]
+        --get-colorbool       find the color setting: slot [stdout-is-tty]
+
+    Type
+        --bool                value is "true" or "false"
+        --int                 value is decimal number
+        --bool-or-int         value is --bool or --int
+        --path                value is a path (file or directory name)
+
+    Other
+        -z, --null            terminate values with NUL byte
+        --name-only           show variable names only
+        --includes            respect include directives on lookup
+
+    me@mypc:~$ 
 
 
 # Getting Help
@@ -313,10 +399,10 @@ FIXME
 
 上面的帮助内容很全面(full-blown)，简洁版(concise)使用
 
-- `git <verb> --help/-h`
+- `git <verb> --help/-h`, 但实测在 Linux 和 Windows 下都不是简洁版，而是与 `git help <verb>` 结果一样！
 
 
-示例
+执行
 
     git help config
     git config --help
@@ -324,17 +410,16 @@ FIXME
 
 
 ### Linux
-**运行结果**
-
-FIXME
+**执行结果**
 
     me@mypc:~$ git help config
     me@mypc:~$ git config --help
     me@mypc:~$ man git-config
     me@mypc:~$ 
 
+
 ### Windows
-**运行结果**
+**执行结果**
 
 FIXME
 
