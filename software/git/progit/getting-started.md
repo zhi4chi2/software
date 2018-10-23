@@ -125,14 +125,6 @@ configuration variables store in
 优先级 local -> global -> system
 
 
-实测（安装后，简单设置 `user.name`/`user.email` ，再初始化一个 git 项目）
-
-- /etc/gitconfig - 不存在
-- ~/.gitconfig - 存在
-- ~/.config/git/config - 不存在
-- .git/config - 存在
-
-
 预处理
 
     cd
@@ -162,6 +154,14 @@ configuration variables store in
     me@mypc:~/test$ ls .git/config
     .git/config
     me@mypc:~/test$ 
+
+
+实测结果表明
+
+- /etc/gitconfig - 不存在
+- ~/.gitconfig - 存在
+- ~/.config/git/config - 不存在
+- .git/config - 存在
 
 
 ## Windows
@@ -257,24 +257,6 @@ Git 会从不同的文件中读取同一个配置，因此可能有重复的配�
 #### Windows
 **执行结果**
 
-FIXME
-
-    me@mypc MINGW64 ~/test
-    $ git config --global user.name me
-    
-    me@mypc MINGW64 ~/test
-    $ git config --global user.email me@example.com
-    
-    me@mypc MINGW64 ~/test
-    $ git init
-    Initialized empty Git repository in C:/Users/me/test/.git/
-    
-    me@mypc MINGW64 ~/test (master)
-    $ git config --local user.name test
-    
-    me@mypc MINGW64 ~/test (master)
-    $ git config --local user.email test@example.com
-    
     me@mypc MINGW64 ~/test (master)
     $ git config --list
     core.symlinks=false
@@ -421,7 +403,18 @@ FIXME
 ### Windows
 **执行结果**
 
-FIXME
+    me@mypc MINGW64 ~
+    $ git help config
+    
+    me@mypc MINGW64 ~
+    $ git config --help
+    
+    me@mypc MINGW64 ~
+    $ man git-config
+    bash: man: command not found
+    
+    me@mypc MINGW64 ~
+    $
 
 - `git help config` 打开 `file:///D:/Git/mingw64/share/doc/git-doc/git-config.html`
 - `man git-config` 提示 `bash: man: command not found`

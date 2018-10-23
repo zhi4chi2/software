@@ -22,6 +22,16 @@
 
 
 # 最佳实践
+## 删除 tracked file
+同时从 working tree 和 staging area 中删除
+
+- unmodified - `git rm`
+- modified - 先 `git checkout --` 再 `git rm`
+- staged - `git rm -f`
+
+如果仅从 staging area 删除，但在 working tree 中保留则使用 `git rm --cached`
+
+应该不会需要只在 working tree 中删除！如果确实需要，使用 Linux 系统命令 `rm` 即可。
 
 
 # Reference

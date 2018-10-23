@@ -27,6 +27,7 @@
 
 ## Cloning an Existing Repository
 预处理
+
     cd
     rm -rf test
     mkdir test
@@ -36,16 +37,18 @@
 执行
 
     ls -aF
-    git clone https://github.com/zhi4chi2/demo
+    git clone https://github.com/schacon/simplegit-progit
     ls -aF
-    cd demo
+    cd simplegit-progit
     ls -aF
 
 **执行结果**
 
+FIXME
+
     me@mypc:~/test$ ls -aF
     ./  ../
-    me@mypc:~/test$ git clone https://github.com/zhi4chi2/demo
+    me@mypc:~/test$ git clone https://github.com/schacon/simplegit-progit
     Cloning into 'demo'...
     remote: Enumerating objects: 3, done.
     remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 3
@@ -58,7 +61,7 @@
     ./  ../  .git/  README.md
     me@mypc:~/test/demo$ 
 
-clone 到了 `/home/me/test/demo` 目录下（自动创建此目录），库在 `/home/me/test/demo/.git`
+clone 到了 `/home/me/test/simplegit-progit` 目录下（自动创建此目录），库在 `/home/me/test/simplegit-progit/.git`
 
 
 GitHub 的 git clone url 可以加 .git 也可以省略。
@@ -75,16 +78,18 @@ GitHub 的 git clone url 可以加 .git 也可以省略。
 执行
 
     ls -aF
-    git clone https://github.com/zhi4chi2/demo.git my-demo
+    git clone https://github.com/schacon/simplegit-progit.git my-simplegit
     ls -aF
-    cd my-demo
+    cd my-simplegit
     ls -aF
 
 **执行结果**
 
+FIXME
+
     me@mypc:~/test$ ls -aF
     ./  ../
-    me@mypc:~/test$ git clone https://github.com/zhi4chi2/demo.git my-demo
+    me@mypc:~/test$ git clone https://github.com/schacon/simplegit-progit.git my-demo
     Cloning into 'my-demo'...
     remote: Enumerating objects: 3, done.
     remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 3
@@ -183,6 +188,8 @@ working directory 中文件的状态(<https://git-scm.com/book/en/v2/Git-Basics-
     me@mypc:~/test$ 
 
 与文档中不一致的地方：文档中是 `(use "git reset HEAD <file>..." to unstage)`
+
+只有在 `Initial commit` 时才会这样，否则如文档。
 
 
 ## Staging Modified Files
@@ -560,8 +567,6 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
 
 #### Windows
 **执行结果**
-
-FIXME
 
     me@mypc MINGW64 ~/test (master)
     $ git difftool --tool-help
@@ -954,6 +959,19 @@ the commit has given you some output about itself:
 > You can pass files, directories, and file-glob patterns to the `git rm` command. That means you can do things such as:
 >     $ git rm log/\*.log
 > Note the backslash (`\`) in front of the `*`. This is necessary because Git does its own filename expansion in addition to your shell’s filename expansion.
+
+
+最佳实践：删除 tracked file
+
+同时从 working tree 和 staging area 中删除
+
+- unmodified - `git rm`
+- modified - 先 `git checkout --` 再 `git rm`
+- staged - `git rm -f`
+
+如果仅从 staging area 删除，但在 working tree 中保留则使用 `git rm --cached`
+
+应该不会需要只在 working tree 中删除！如果确实需要，使用 Linux 系统命令 `rm` 即可。
 
 
 ## Moving Files
