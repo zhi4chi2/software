@@ -132,7 +132,7 @@ configuration variables store in
     git config --global user.email me@example.com
     rm -rf test
     mkdir test
-    cd test
+    cd test/
     git init
     clear
 
@@ -156,12 +156,12 @@ configuration variables store in
     me@mypc:~/test$ 
 
 
-实测结果表明
+实测结果表明（默认安装、简单配置后）
 
 - /etc/gitconfig - 不存在
-- ~/.gitconfig - 存在
+- **~/.gitconfig** - 存在
 - ~/.config/git/config - 不存在
-- .git/config - 存在
+- **.git/config** - 存在
 
 
 ## Windows
@@ -223,7 +223,7 @@ configuration variables store in
     git config --global user.email me@example.com
     rm -rf test
     mkdir test
-    cd test
+    cd test/
     git init
     git config --local user.name test
     git config --local user.email test@example.com

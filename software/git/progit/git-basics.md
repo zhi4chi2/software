@@ -66,7 +66,6 @@ clone 到了 `/home/me/test/simplegit-progit` 目录下（自动创建此目录�
 
 GitHub 的 git clone url 可以加 .git 也可以省略。
 
-
 预处理
 
     cd
@@ -445,7 +444,7 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
     echo '# test line' >> CONTRIBUTING.md
     git status
     git diff
-    git diff --staged
+    git diff --cached
 
 **执行结果**
 
@@ -494,10 +493,9 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
     me@mypc:~/test$ 
 
 
-> There is another way to look at these diffs if you prefer a graphical or external diff viewing program instead. If you run `git difftool` instead of `git diff`, you can view any of these diffs in software like emerge, vimdiff and many more (including commercial products). Run `git difftool --tool-help` to see what is available on your system.
-
-
 ### git difftool
+> There is another way to look at these diffs if you prefer a graphical or external diff viewing program instead. If you run `git difftool` instead of `git diff`, you can view any of these diffs in software like emerge, vimdiff and many more (including commercial products).
+
 执行
 
     git difftool
@@ -520,6 +518,8 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
 
 
 ### `git difftool --tool-help`
+Run `git difftool --tool-help` to see what is available on your system.
+
 使用 `git difftool --tool-help` 命令来看你的系统支持哪些 Git Diff 插件。
 
 执行
@@ -560,7 +560,6 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
     Some of the tools listed above only work in a windowed
     environment. If run in a terminal-only session, they will fail.
     me@mypc:~/test$ 
-
 
 在 Linux 中默认使用 gvimdiff
 
@@ -671,7 +670,6 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
 `git commit` launches your editor of choice. (This is set by your shell’s `EDITOR` environment variable — usually vim or emacs, although you can configure it with whatever you want using the `git config --global core.editor` command as you saw in Getting Started).
 
 > For an even more explicit reminder of what you’ve modified, you can pass the -v option to `git commit`. Doing so also puts the diff of your change in the editor so you can see exactly what changes you’re committing.
-
 
 执行
 
@@ -872,6 +870,7 @@ the commit has given you some output about itself:
     me@mypc:~/test$ 
 
 
+### `git rm -f`
 > If you modified the file and added it to the staging area already, you must force the removal with the `-f` option. This is a safety feature to prevent accidental removal of data that hasn’t yet been recorded in a snapshot and that can’t be recovered from Git.
 
 预处理
@@ -915,6 +914,7 @@ the commit has given you some output about itself:
     me@mypc:~/test$ 
 
 
+### `git rm --cached`
 > Another useful thing you may want to do is to keep the file in your working tree but remove it from your staging area. In other words, you may want to keep the file on your hard drive but not have Git track it anymore. This is particularly useful if you forgot to add something to your `.gitignore` file and accidentally staged it, like a large log file or a bunch of `.a` compiled files. To do this, use the `--cached` option
 
 预处理
@@ -976,7 +976,6 @@ the commit has given you some output about itself:
 
 ## Moving Files
 > Unlike many other VCS systems, Git doesn’t explicitly track file movement. If you rename a file in Git, no metadata is stored in Git that tells it you renamed the file. However, Git is pretty smart about figuring that out after the fact
-
 
 预处理
 
@@ -1111,7 +1110,6 @@ FIXME
 
 
 ## `git log --pretty`
-
 `--pretty` changes the log output to formats other than the default.
 
 A few prebuilt options are available for you to use.
@@ -1306,7 +1304,7 @@ FIXME
     mkdir test
     cd test/
     git clone https://github.com/schacon/ticgit
-    cd ticgit
+    cd ticgit/
     clear
 
 执行
@@ -1327,7 +1325,7 @@ FIXME
     mkdir test
     cd test/
     git clone https://github.com/schacon/ticgit
-    cd ticgit
+    cd ticgit/
     clear
 
 执行
@@ -1381,7 +1379,7 @@ FIXME
     mkdir test
     cd test/
     git clone https://github.com/schacon/ticgit
-    cd ticgit
+    cd ticgit/
     clear
 
 执行
@@ -1402,7 +1400,7 @@ FIXME
     mkdir test
     cd test/
     git clone https://github.com/schacon/ticgit
-    cd ticgit
+    cd ticgit/
     git remote add pb https://github.com/paulboone/ticgit
     clear
 
@@ -1428,7 +1426,7 @@ FIXME
     mkdir test
     cd test/
     git clone https://github.com/schacon/ticgit
-    cd ticgit
+    cd ticgit/
     git remote add pb https://github.com/paulboone/ticgit
     clear
 
@@ -1483,6 +1481,7 @@ FIXME
 > This command lists the tags in alphabetical order; the order in which they appear has no real importance.
 
 
+### `git tag -l`
 > You can also search for tags that match a particular pattern.
 
 预处理
@@ -1599,6 +1598,8 @@ FIXME
 
 执行
 
+FIXME a07c94
+
     git tag
     git log --pretty=oneline
     git tag -a v0.1 a07c94 -m 'my version 0.1'
@@ -1623,10 +1624,10 @@ FIXME
     cd ~/test/repo/demo
     git init --bare
     cd ~/test
-    mkdir working
-    cd working/
+    mkdir workspace
+    cd workspace/
     git clone ~/test/repo/demo
-    cd demo
+    cd demo/
     echo 'My Project' > README
     git add .
     git commit -m 'Initial Commit'
@@ -1644,7 +1645,8 @@ FIXME
 
 FIXME
 
-> If you have a lot of tags that you want to push up at once, you can also use the --tags option to the git push command. This will transfer all of your tags to the remote server that are not already there.
+
+> If you have a lot of tags that you want to push up at once, you can also use the `--tags` option to the `git push` command. This will transfer all of your tags to the remote server that are not already there.
 
 预处理
 
@@ -1694,10 +1696,10 @@ FIXME
     cd ~/test/repo/demo
     git init --bare
     cd ~/test
-    mkdir working
-    cd working/
+    mkdir workspace
+    cd workspace/
     git clone ~/test/repo/demo
-    cd demo
+    cd demo/
     echo 'My Project' > README
     git add .
     git commit -m 'Initial Commit'
@@ -1739,9 +1741,13 @@ FIXME
 执行
 
     git checkout v0.1
+    cat README
     git checkout v0.2
+    cat README
     git checkout v0.1
+    cat README
     git checkout -b v0.1.1 v0.1
+    git branch
 
 **执行结果**
 

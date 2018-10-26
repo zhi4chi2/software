@@ -146,23 +146,15 @@ FIXME
     cat .git/HEAD
     cat .git/refs/heads/master
     cat .git/refs/heads/testing
-    echo 'modify README' >> README
-    git add .
-    git commit -m 'modify README'
-    cat .git/HEAD
-    cat .git/refs/heads/master
-    cat .git/refs/heads/testing
+    echo 'made a change' >> README
+    git commit -a -m 'made a change'
     git checkout master
     cat .git/HEAD
     cat .git/refs/heads/master
     cat .git/refs/heads/testing
     cat README
-    echo 'something' > NewFile
-    git add .
-    git commit -m 'made other changes'
-    cat .git/HEAD
-    cat .git/refs/heads/master
-    cat .git/refs/heads/testing
+    echo 'made other changes' >> README
+    git commit -a -m 'made other changes'
     git log --oneline --decorate --graph --all
 
 **执行结果**
@@ -220,6 +212,7 @@ FIXME
 **执行结果**
 
 FIXME
+
 
 `git checkout -b` 是 shorthand for: `git branch iss53; git checkout iss53`
 
@@ -519,8 +512,8 @@ FIXME
     cd ~/test/repo/demo
     git init --bare
     cd ~/test
-    mkdir test
-    cd test/
+    mkdir workspace
+    cd workspace/
     git clone -o booyah ~/test/repo/demo
     cd demo
     clear
@@ -554,8 +547,8 @@ FIXME
     cd ~/test/repo/demo
     git init --bare
     cd ~/test
-    mkdir test
-    cd test/
+    mkdir workspace
+    cd workspace/
     git clone ~/test/repo/demo
     cd demo
     echo 'My Project' > README
@@ -590,8 +583,8 @@ FIXME
     cd ~/test/repo/demo
     git init --bare
     cd ~/test
-    mkdir test
-    cd test/
+    mkdir workspace
+    cd workspace/
     git clone ~/test/repo/demo
     cd demo
     echo 'My Project' > README
@@ -626,8 +619,8 @@ FIXME
     cd ~/test/repo/demo
     git init --bare
     cd ~/test
-    mkdir test
-    cd test/
+    mkdir workspace
+    cd workspace/
     git clone ~/test/repo/demo
     cd demo
     echo 'My Project' > README
@@ -662,8 +655,8 @@ FIXME
     cd ~/test/repo/demo
     git init --bare
     cd ~/test
-    mkdir test
-    cd test/
+    mkdir workspace
+    cd workspace/
     git clone ~/test/repo/demo
     cd demo
     echo 'My Project' > README
