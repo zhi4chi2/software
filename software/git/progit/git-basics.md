@@ -1047,24 +1047,719 @@ the commit has given you some output about itself:
 
 
 # Viewing the Commit History
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/simplegit-progit
+    cd simplegit-progit/
+    clear
+
+执行
+
+    git log
+
+**执行结果**
+
+FIXME
 
 
+## `git log -p/--patch`
+> One of the more helpful options is `-p` or `--patch`, which shows the difference (the patch output) introduced in each commit. You can also limit the number of log entries displayed, such as using `-2` to show only the last two entries.
 
-# 撤消操作
-注意，有些撤消操作是不可逆的。这是在使用 Git 的过程中，会因为操作失误而导致之前的工作丢失的少有的几个地方之一。
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/simplegit-progit
+    cd simplegit-progit/
+    clear
+
+执行
+
+    git log -p -2
+
+**执行结果**
+
+FIXME
 
 
-参见 [git commit](/Software/Git/commit.md), [git reset](/Software/Git/reset.md), [git checkout](/Software/Git/checkout.md)
+## `git log --stat`
+> if you want to see some abbreviated stats for each commit, you can use the `--stat` option
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/simplegit-progit
+    cd simplegit-progit/
+    clear
+
+执行
+
+    git log --stat
+
+**执行结果**
+
+FIXME
+
+
+## `git log --pretty`
+
+`--pretty` changes the log output to formats other than the default.
+
+A few prebuilt options are available for you to use.
+
+- oneline
+- short
+- full
+- fuller
+- format
+
+
+### `git log --pretty=oneline`
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/simplegit-progit
+    cd simplegit-progit/
+    clear
+
+执行
+
+    git log --pretty=oneline
+
+**执行结果**
+
+FIXME
+
+
+### `git log --pretty=format`
+> The most interesting option is `format`, which allows you to specify your own log output format. This is especially useful when you’re generating output for machine parsing — because you specify the format explicitly, you know it won’t change with updates to Git
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/simplegit-progit
+    cd simplegit-progit/
+    clear
+
+执行
+
+    git log --pretty=format:"%h - %an, %ar : %s"
+
+**执行结果**
+
+FIXME
+
+
+format 中可用选项参见原文档中 Table 1. Useful options for `git log --pretty=format`
+
+> You may be wondering what the difference is between author and committer. The author is the person who originally wrote the work, whereas the committer is the person who last applied the work. So, if you send in a patch to a project and one of the core members applies the patch, both of you get credit — you as the author, and the core member as the committer.
+
+
+## `git log --graph`
+FIXME
+
+`git log` 可用选项参见原文档中 Table 2. Common options to `git log`
+
+
+## Limiting Log Output
+> However, the time-limiting options such as `--since` and `--until` are very useful. For example, this command gets the list of commits made in the last two weeks:
+> 
+>     $ git log --since=2.weeks
+> 
+> This command works with lots of formats — you can specify a specific date like `"2008-01-15"`, or a relative date such as `"2 years 1 day 3 minutes ago"`.
+
+
+> You can also filter the list to commits that match some search criteria. The `--author` option allows you to filter on a specific author, and the `--grep` option lets you search for keywords in the commit messages.
+
+> You can specify more than one instance of both the `--author` and `--grep` search criteria, which will limit the commit output to commits that match any of the `--author` patterns and any of the `--grep` patterns; however, adding the `--all-match` option further limits the output to just those commits that match all `--grep` patterns.
+
+
+> Another really helpful filter is the `-S` option (colloquially referred to as Git’s “pickaxe” option), which takes a string and shows only those commits that changed the number of occurrences of that string. For instance, if you wanted to find the last commit that added or removed a reference to a specific function, you could call:
+> 
+>     $ git log -S function_name
+
+
+> The last really useful option to pass to `git log` as a filter is a path. If you specify a directory or file name, you can limit the log output to commits that introduced a change to those files. This is always the last option and is generally preceded by double dashes (`--`) to separate the paths from the options.
+
+
+参见原文档中 Table 3. Options to limit the output of `git log`
+
+> Depending on the workflow used in your repository, it’s possible that a sizable percentage of the commits in your log history are just merge commits, which typically aren’t very informative. To prevent the display of merge commits cluttering up your log history, simply add the log option `--no-merges`.
+
+
+# Undoing Things
+## `git commit --amend`
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README.md
+    echo 'in forgotten_file' > forgotten_file
+    git add README.md
+    clear
+
+执行
+
+    git commit -m 'initial commit'
+    git add forgotten_file
+    git log --stat
+    git commit --amend -m 'Initial Commit'
+    git log --stat
+
+**执行结果**
+
+FIXME
+
+
+## Unstaging a Staged File
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README.md
+    echo 'Initial CONTRIBUTING.md' > CONTRIBUTING.md
+    git add *
+    git commit -m 'Initial Commit'
+    echo 'modify CONTRIBUTING.md' >> CONTRIBUTING.md
+    git mv README.md README
+    clear
+
+执行
+
+    git add *
+    git status
+    git reset HEAD CONTRIBUTING.md
+    git status
+
+**执行结果**
+
+FIXME
+
+
+## Unmodifying a Modified File
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README.md
+    echo 'Initial CONTRIBUTING.md' > CONTRIBUTING.md
+    git add *
+    git commit -m 'Initial Commit'
+    git mv README.md README
+    git add *
+    echo 'modify CONTRIBUTING.md' >> CONTRIBUTING.md
+    clear
+
+执行
+
+    git status
+    git checkout -- CONTRIBUTING.md
+    git status
+    cat CONTRIBUTING.md
+
+**执行结果**
+
+FIXME
+
+
+> It’s important to understand that `git checkout -- <file>` is a dangerous command. Any changes you made to that file are gone — Git just copied another file over it.
 
 
 # Working with Remotes
-参见 [git remote](/Software/Git/remote.md), [git fetch](/Software/Git/fetch.md), [git push](/Software/Git/push.md), [git pull](/Software/Git/pull.md)
+
+- managing remote repositories
+    - add remote repositories
+    - remove remotes
+    - manage various remote branches and define them as being tracked or not
+- pushing and pulling data to and from them
+
+
+## Showing Your Remotes
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/ticgit
+    cd ticgit
+    clear
+
+执行
+
+    git remote
+    git remote -v
+
+**执行结果**
+
+FIXME
+
+
+## Adding Remote Repositories
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/ticgit
+    cd ticgit
+    clear
+
+执行
+
+    git remote
+    git remote add pb https://github.com/paulboone/ticgit
+    git remote -v
+    git fetch pb
+
+**执行结果**
+
+FIXME
+
+
+## Fetching and Pulling from Your Remotes
+
+    git fetch <remote>
+
+> The command goes out to that remote project and pulls down all the data from that remote project that you don’t have yet. After you do this, you should have references to all the branches from that remote, which you can merge in or inspect at any time.
+
+
+> If you clone a repository, the command automatically adds that remote repository under the name “origin”. 
+
+`git clone` 自动添加的 remote repository 名为 origin
+
+
+> It’s important to note that the `git fetch` command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or modify what you’re currently working on. You have to merge it manually into your work when you’re ready.
+
+
+> If your current branch is set up to track a remote branch (see the next section and Git Branching for more information), you can use the `git pull` command to automatically fetch and then merge that remote branch into your current branch.
+
+如果本地的 branch 设置为 track a remote branch ，则可以用 `git pull` 命令自动做 fetch + merge
+
+
+> by default, the `git clone` command automatically sets up your local master branch to track the remote master branch (or whatever the default branch is called) on the server you cloned from. Running `git pull` generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you’re currently working on.
+
+默认， `git clone` 自动设置本地 master branch track 服务器(remote)上的 master branch 。因此执行 `git pull` 会自动做 fetch + merge
+
+
+## Pushing to Your Remotes
+> If you and someone else clone at the same time and they push upstream and then you push upstream, your push will rightly be rejected. You’ll have to fetch their work first and incorporate it into yours before you’ll be allowed to push.
+
+
+## Inspecting a Remote
+> If you want to see more information about a particular remote, you can use the `git remote show <remote>` command.
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/ticgit
+    cd ticgit
+    clear
+
+执行
+
+    git remote show origin
+
+**执行结果**
+
+FIXME
+
+
+## Renaming and Removing Remotes
+### `git remote rename`
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/ticgit
+    cd ticgit
+    git remote add pb https://github.com/paulboone/ticgit
+    clear
+
+执行
+
+    git remote
+    git remote rename pb paul
+    git remote
+
+**执行结果**
+
+FIXME
+
+
+> It’s worth mentioning that this changes all your remote-tracking branch names, too. What used to be referenced at `pb/master` is now at `paul/master`.
+
+
+## `git remote remove`/`git remote rm`
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/ticgit
+    cd ticgit
+    git remote add pb https://github.com/paulboone/ticgit
+    clear
+
+执行
+
+    git remote
+    git remote remove pb
+    git remote
+
+**执行结果**
+
+FIXME
+
+
+> Once you delete the reference to a remote this way, all remote-tracking branches and configuration settings associated with that remote are also deleted.
 
 
 # Tagging
-参见 [git tag](/Software/Git/tag.md), [git show](/Software/Git/show.md), [git push](/Software/Git/push.md), [git checkout](/Software/Git/checkout.md)
+
+- list the available tags
+- create new tags
+- different types of tags
+
+
+## Listing Your Tags
+Listing the available tags in Git is straightforward. Just type `git tag` (with optional `-l` or `--list`):
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    clear
+
+执行
+
+    git tag
+    git tag v1.3
+    git tag v0.1
+    git tag
+
+**执行结果**
+
+FIXME
+
+
+> This command lists the tags in alphabetical order; the order in which they appear has no real importance.
+
+
+> You can also search for tags that match a particular pattern.
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    git tag v0.1
+    git tag v1.3
+    clear
+
+执行
+
+    git tag
+    git tag -l "v1.*"
+
+**执行结果**
+
+FIXME
+
+> Listing tag wildcards requires `-l` or `--list` option
+
+
+## Creating Tags
+tags types
+
+- lightweight - very much like a branch that doesn't change — it's just a pointer to a specific commit.
+- annotated
+
+> Annotated tags, however, are stored as full objects in the Git database. They're checksummed; contain the tagger name, email, and date; have a tagging message; and can be signed and verified with GNU Privacy Guard (GPG).
+
+
+## Annotated Tags
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    git tag v0.1
+    git tag v1.3
+    clear
+
+执行
+
+    git tag -a v1.4 -m "my version 1.4"
+    git tag
+    git show v1.4
+
+**执行结果**
+
+FIXME
+
+
+## Lightweight Tags
+> Another way to tag commits is with a lightweight tag. This is basically the commit checksum stored in a file — no other information is kept.
+
+lightweight tag 只是个文件，其中只有 commit checksum
+
+> To create a lightweight tag, don’t supply any of the -a, -s, or -m options, just provide a tag name
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    git tag v0.1
+    git tag v1.3
+    clear
+
+执行
+
+    git tag v1.4-lw
+    git tag
+    git show v1.4-lw
+    cat ~/test/.git/refs/tags/v1.4-lw
+
+**执行结果**
+
+FIXME
+
+
+## Tagging Later
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    echo '# modify README' >> README
+    echo 'modify something' >> README
+    git add .
+    git commit -m 'modify README'
+    git tag v0.2
+    clear
+
+执行
+
+    git tag
+    git log --pretty=oneline
+    git tag -a v0.1 a07c94 -m 'my version 0.1'
+    git tag
+    git show v0.1
+
+**执行结果**
+
+FIXME
+
+
+## Sharing Tags
+> By default, the `git push` command doesn’t transfer tags to remote servers. You will have to explicitly push tags to a shared server after you have created them. This process is just like sharing remote branches — you can run `git push origin <tagname>`.
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    mkdir -p repo/demo
+    cd ~/test/repo/demo
+    git init --bare
+    cd ~/test
+    mkdir working
+    cd working/
+    git clone ~/test/repo/demo
+    cd demo
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    git tag v0.1
+    git push origin
+    clear
+
+执行
+
+    cat ~/test/repo/demo/refs/tags/v0.1
+    git push origin v0.1
+    cat ~/test/repo/demo/refs/tags/v0.1
+
+**执行结果**
+
+FIXME
+
+> If you have a lot of tags that you want to push up at once, you can also use the --tags option to the git push command. This will transfer all of your tags to the remote server that are not already there.
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    mkdir -p repo/demo
+    cd ~/test/repo/demo
+    git init --bare
+    cd ~/test
+    mkdir working
+    cd working/
+    git clone ~/test/repo/demo
+    cd demo
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    git tag v0.1
+    git tag v0.2
+    git push origin
+    clear
+
+执行
+
+    cat ~/test/repo/demo/refs/tags/v0.1
+    cat ~/test/repo/demo/refs/tags/v0.2
+    git push origin --tags
+    cat ~/test/repo/demo/refs/tags/v0.1
+    cat ~/test/repo/demo/refs/tags/v0.2
+
+**执行结果**
+
+FIXME
+
+
+## Deleting Tags
+> In order to update any remotes, you must use `git push <remote> :refs/tags/<tagname>`:
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    mkdir -p repo/demo
+    cd ~/test/repo/demo
+    git init --bare
+    cd ~/test
+    mkdir working
+    cd working/
+    git clone ~/test/repo/demo
+    cd demo
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    git tag v0.1
+    git push origin v0.1
+    clear
+
+执行
+
+    cat ~/test/repo/demo/refs/tags/v0.1
+    git tag -d v0.1
+    git push origin :refs/tags/v0.1
+    cat ~/test/repo/demo/refs/tags/v0.1
+
+**执行结果**
+
+FIXME
+
+
+## Checking out Tags
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'My Project' > README
+    git add .
+    git commit -m 'Initial Commit'
+    git tag v0.1
+    echo '# modify README' >> README
+    echo 'modify something' >> README
+    git add .
+    git commit -m 'modify README'
+    git tag v0.2
+    clear
+
+执行
+
+    git checkout v0.1
+    git checkout v0.2
+    git checkout v0.1
+    git checkout -b v0.1.1 v0.1
+
+**执行结果**
+
+FIXME
+
+> In “detached HEAD” state, if you make changes and then create a commit, the tag will stay the same, but your new commit won’t belong to any branch and will be unreachable, except by the exact commit hash. Thus, if you need to make changes — say you’re fixing a bug on an older version, for instance — you will generally want to create a branch
 
 
 # Git Aliases
-参见 [git config](/Software/Git/config.md)
+例如
 
+    git config --global alias.co checkout
+    git config --global alias.br branch
+    git config --global alias.ci commit
+    git config --global alias.st status
+
+This means that, for example, instead of typing `git commit`, you just need to type `git ci`
+
+> However, maybe you want to run an external command, rather than a Git subcommand. In that case, you start the command with a `!` character. This is useful if you write your own tools that work with a Git repository. We can demonstrate by aliasing `git visual` to run `gitk`:
+> 
+>     $ git config --global alias.visual '!gitk'
