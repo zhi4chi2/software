@@ -33,15 +33,56 @@
     echo 'something' >> index.html
     git stash list
     git stash apply
+    cat index.html
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
 
-会报错
+	    modified:   index.html
 
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
 
-添加 `git add index.html` 之后：
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ git stash
+    Saved working directory and index state WIP on master: ad8b108 C0
+    HEAD is now at ad8b108 C0
+    me@mypc:~/test$ git status
+    On branch master
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    nothing added to commit but untracked files present (use "git add" to track)
+    me@mypc:~/test$ git checkout -b testing
+    Switched to a new branch 'testing'
+    me@mypc:~/test$ echo 'something' >> index.html
+    me@mypc:~/test$ git stash list
+    stash@{0}: WIP on master: ad8b108 C0
+    me@mypc:~/test$ git stash apply
+    error: Your local changes to the following files would be overwritten by merge:
+	    index.html
+    Please, commit your changes or stash them before you can merge.
+    Aborting
+    me@mypc:~/test$ cat index.html
+    something
+    me@mypc:~/test$ 
+
+会报错 `Your local changes to the following files would be overwritten by merge`
+
+在 `git stash apply` 前添加 `git add index.html` 之后就不报错了！而是自动 merge 然后出现 merge conflict
 
 预处理
 
@@ -78,7 +119,83 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ git stash
+    Saved working directory and index state WIP on master: 358b15d C0
+    HEAD is now at 358b15d C0
+    me@mypc:~/test$ git status
+    On branch master
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    nothing added to commit but untracked files present (use "git add" to track)
+    me@mypc:~/test$ git checkout -b testing
+    Switched to a new branch 'testing'
+    me@mypc:~/test$ echo 'something' >> index.html
+    me@mypc:~/test$ git add index.html
+    me@mypc:~/test$ git stash list
+    stash@{0}: WIP on master: 358b15d C0
+    me@mypc:~/test$ git stash apply
+    Auto-merging index.html
+    CONFLICT (content): Merge conflict in index.html
+    me@mypc:~/test$ git status
+    On branch testing
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   lib/simplegit.rb
+
+    Unmerged paths:
+      (use "git reset HEAD <file>..." to unstage)
+      (use "git add <file>..." to mark resolution)
+
+	    both modified:   index.html
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ cat index.html
+    <<<<<<< Updated upstream
+    something
+    =======
+    C1
+    >>>>>>> Stashed changes
+    me@mypc:~/test$ git add index.html
+    me@mypc:~/test$ git status
+    On branch testing
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ 
 
 
 > you must run the `git stash apply` command with a `--index` option to tell the command to try to reapply the staged changes.
@@ -114,7 +231,48 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git stash apply --index
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ git stash list
+    stash@{0}: WIP on master: c01d8d7 C0
+    me@mypc:~/test$ git stash drop
+    Dropped refs/stash@{0} (b4016c68df8f4bcb02e983356d8bf8cba745337d)
+    me@mypc:~/test$ git stash list
+    me@mypc:~/test$ 
 
 
 > You can also run `git stash pop` to apply the stash and then immediately drop it from your stack.
@@ -140,13 +298,60 @@ FIXME
 
 执行
 
+    git status
     git stash pop --index
     git status
     git stash list
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git status
+    On branch master
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    nothing added to commit but untracked files present (use "git add" to track)
+    me@mypc:~/test$ git stash pop --index
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    Dropped refs/stash@{0} (101a17b86144b219e4743b58d5ec15c8e818e58d)
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ git stash list
+    me@mypc:~/test$ 
 
 
 # Creative Stashing
@@ -179,7 +384,42 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ git stash --keep-index
+    Saved working directory and index state WIP on master: 0360549 C0
+    HEAD is now at 0360549 C0
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ git stash list
+    stash@{0}: WIP on master: 0360549 C0
+    me@mypc:~/test$ 
 
 
 > By default, `git stash` will stash only modified and staged tracked files. If you specify `--include-untracked` or `-u`, Git will include untracked files in the stash being created.
@@ -211,7 +451,33 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    Untracked files:
+      (use "git add <file>..." to include in what will be committed)
+
+	    README
+
+    me@mypc:~/test$ git stash -u
+    Saved working directory and index state WIP on master: 153e196 C0
+    HEAD is now at 153e196 C0
+    me@mypc:~/test$ git status
+    On branch master
+    nothing to commit, working directory clean
+    me@mypc:~/test$ git stash list
+    stash@{0}: WIP on master: 153e196 C0
+    me@mypc:~/test$ 
 
 
 > if you specify the `--patch` flag, Git will not stash everything that is modified but will instead prompt you interactively which of the changes you would like to stash and which you would like to keep in your working directory.
@@ -256,7 +522,61 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git log -2
+    commit 9df902a04f490a20d985616436c6ea5dc37afd92
+    Author: me <me@example.com>
+    Date:   Sat Oct 27 14:57:29 2018 +0800
+
+        C1
+
+    commit 024222a6bdfe764ed1340fb0f7fc3f722adcf4cb
+    Author: me <me@example.com>
+    Date:   Sat Oct 27 14:57:29 2018 +0800
+
+        C0
+    me@mypc:~/test$ git status
+    On branch master
+    nothing to commit, working directory clean
+    me@mypc:~/test$ git stash list
+    stash@{0}: WIP on master: 024222a C0
+    me@mypc:~/test$ git stash branch testchanges
+    Switched to a new branch 'testchanges'
+    On branch testchanges
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    Dropped refs/stash@{0} (e6e38b59d0e6c863a31960f37287a3f1f72b5340)
+    me@mypc:~/test$ git status
+    On branch testchanges
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   index.html
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   lib/simplegit.rb
+
+    me@mypc:~/test$ git stash list
+    me@mypc:~/test$ git log -1
+    commit 024222a6bdfe764ed1340fb0f7fc3f722adcf4cb
+    Author: me <me@example.com>
+    Date:   Sat Oct 27 14:57:29 2018 +0800
+
+        C0
+    me@mypc:~/test$ ls README
+    ls: cannot access 'README': No such file or directory
+    me@mypc:~/test$ 
 
 
 # Cleaning your Working Directory

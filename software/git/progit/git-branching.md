@@ -71,7 +71,12 @@ tree object 有多个，每个文件夹都有一个 tree object ，最顶级的�
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ cat .git/refs/heads/testing
+    cat: .git/refs/heads/testing: No such file or directory
+    me@mypc:~/test$ git branch testing
+    me@mypc:~/test$ cat .git/refs/heads/testing
+    a4724f7eb944c53f6401ae8e686b6210c1790b5c
+    me@mypc:~/test$ 
 
 
 > How does Git know what branch you’re currently on? It keeps a special pointer called `HEAD`. Note that this is a lot different than the concept of `HEAD` in other VCSs you may be used to, such as Subversion or CVS. In Git, this is a pointer to the local branch you’re currently on. 
@@ -95,7 +100,11 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ cat .git/HEAD
+    ref: refs/heads/master
+    me@mypc:~/test$ cat .git/refs/heads/master
+    d76330fe23a5e7d1592a84d143a3c2c0dae524e4
+    me@mypc:~/test$ 
 
 
 > The `git branch` command only created a new branch — it didn’t switch to that branch.
@@ -120,7 +129,12 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git branch testing
+    me@mypc:~/test$ git log --oneline --decorate
+    86ac077 (HEAD -> master, testing) C0
+    me@mypc:~/test$ cat .git/HEAD
+    ref: refs/heads/master
+    me@mypc:~/test$ 
 
 
 ## Switching Branches
@@ -159,7 +173,44 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git branch testing
+    me@mypc:~/test$ cat .git/HEAD
+    ref: refs/heads/master
+    me@mypc:~/test$ cat .git/refs/heads/master
+    0e6e227d7f465c0d20c593455e4346af76272ede
+    me@mypc:~/test$ cat .git/refs/heads/testing
+    0e6e227d7f465c0d20c593455e4346af76272ede
+    me@mypc:~/test$ git checkout testing
+    Switched to branch 'testing'
+    me@mypc:~/test$ cat .git/HEAD
+    ref: refs/heads/testing
+    me@mypc:~/test$ cat .git/refs/heads/master
+    0e6e227d7f465c0d20c593455e4346af76272ede
+    me@mypc:~/test$ cat .git/refs/heads/testing
+    0e6e227d7f465c0d20c593455e4346af76272ede
+    me@mypc:~/test$ echo 'made a change' >> README
+    me@mypc:~/test$ git commit -a -m 'made a change'
+    [testing e4468a7] made a change
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ cat .git/HEAD
+    ref: refs/heads/master
+    me@mypc:~/test$ cat .git/refs/heads/master
+    0e6e227d7f465c0d20c593455e4346af76272ede
+    me@mypc:~/test$ cat .git/refs/heads/testing
+    e4468a72ce9c238cbc0da161a318a5a59baddcfe
+    me@mypc:~/test$ cat README
+    me@mypc:~/test$ echo 'made other changes' >> README
+    me@mypc:~/test$ git commit -a -m 'made other changes'
+    [master ebcedcc] made other changes
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * ebcedcc (HEAD -> master) made other changes
+    | * e4468a7 (testing) made a change
+    |/  
+    * 0e6e227 C0
+    me@mypc:~/test$ 
 
 > Because a branch in Git is actually a simple file that contains the 40 character SHA-1 checksum of the commit it points to, branches are cheap to create and destroy. Creating a new branch is as quick and simple as writing 41 bytes to a file (40 characters and a newline).
 
@@ -190,10 +241,25 @@ FIXME
 执行
 
     git checkout master
+    git status
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git checkout master
+    error: Your local changes to the following files would be overwritten by checkout:
+	    README
+    Please, commit your changes or stash them before you can switch branches.
+    Aborting
+    me@mypc:~/test$ git status
+    On branch testing
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   README
+
+    no changes added to commit (use "git add" and/or "git commit -a")
+    me@mypc:~/test$ 
 
 如果去掉 `echo 'C1' >> README`, `git commit -a -m 'C1'` 两行，则不再出错
 
@@ -219,7 +285,12 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git checkout master
+    M	README
+    Switched to branch 'master'
+    me@mypc:~/test$ cat README
+    something
+    me@mypc:~/test$ 
 
 这时虽然可以切换到 master 分支，但 README 的修改从 testing 分支移到 master 分支了。
 
@@ -267,8 +338,76 @@ FIXME
 
 **执行结果**
 
-FIXME
-
+    me@mypc:~/test$ git checkout -b iss53
+    Switched to a new branch 'iss53'
+    me@mypc:~/test$ echo 'C3' >> README
+    me@mypc:~/test$ git commit -a -m 'C3'
+    [iss53 20c7467] C3
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git checkout -b hotfix
+    Switched to a new branch 'hotfix'
+    me@mypc:~/test$ echo 'C4' >> index.html
+    me@mypc:~/test$ git commit -a -m 'C4'
+    [hotfix 63c9829] C4
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * 63c9829 (HEAD -> hotfix) C4
+    | * 20c7467 (iss53) C3
+    |/  
+    * 3193942 (master) C2
+    * aa369f8 C1
+    * 1bc22f8 C0
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git merge hotfix
+    Updating 3193942..63c9829
+    Fast-forward
+     index.html | 1 +
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * 63c9829 (HEAD -> master, hotfix) C4
+    | * 20c7467 (iss53) C3
+    |/  
+    * 3193942 C2
+    * aa369f8 C1
+    * 1bc22f8 C0
+    me@mypc:~/test$ git branch -d hotfix
+    Deleted branch hotfix (was 63c9829).
+    me@mypc:~/test$ git checkout iss53
+    Switched to branch 'iss53'
+    me@mypc:~/test$ echo 'C5' >> README
+    me@mypc:~/test$ git commit -a -m 'C5'
+    [iss53 8cac3db] C5
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * 8cac3db (HEAD -> iss53) C5
+    * 20c7467 C3
+    | * 63c9829 (master) C4
+    |/  
+    * 3193942 C2
+    * aa369f8 C1
+    * 1bc22f8 C0
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git merge iss53 -m 'C6'
+    Merge made by the 'recursive' strategy.
+     README | 2 ++
+     1 file changed, 2 insertions(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    *   9d2a775 (HEAD -> master) C6
+    |\  
+    | * 8cac3db (iss53) C5
+    | * 20c7467 C3
+    * | 63c9829 C4
+    |/  
+    * 3193942 C2
+    * aa369f8 C1
+    * 1bc22f8 C0
+    me@mypc:~/test$ git branch -d iss53
+    Deleted branch iss53 (was 8cac3db).
+    me@mypc:~/test$ 
 
 `git checkout -b iss53` 是 shorthand for: `git branch iss53; git checkout iss53`
 
@@ -318,7 +457,71 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git checkout -b iss53
+    Switched to a new branch 'iss53'
+    me@mypc:~/test$ echo 'C3' >> index.html
+    me@mypc:~/test$ git commit -a -m 'C3'
+    [iss53 e3890f6] C3
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git checkout -b hotfix
+    Switched to a new branch 'hotfix'
+    me@mypc:~/test$ echo 'C4' >> index.html
+    me@mypc:~/test$ git commit -a -m 'C4'
+    [hotfix b587e33] C4
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git merge hotfix
+    Updating 104bc9d..b587e33
+    Fast-forward
+     index.html | 1 +
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git branch -d hotfix
+    Deleted branch hotfix (was b587e33).
+    me@mypc:~/test$ git checkout iss53
+    Switched to branch 'iss53'
+    me@mypc:~/test$ echo 'C5' >> index.html
+    me@mypc:~/test$ git commit -a -m 'C5'
+    [iss53 f381948] C5
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ cat index.html
+    C1
+    C2
+    C3
+    C5
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ cat index.html
+    C1
+    C2
+    C4
+    me@mypc:~/test$ git merge iss53 -m 'C6'
+    Auto-merging index.html
+    CONFLICT (content): Merge conflict in index.html
+    Automatic merge failed; fix conflicts and then commit the result.
+    me@mypc:~/test$ git status
+    On branch master
+    You have unmerged paths.
+      (fix conflicts and run "git commit")
+
+    Unmerged paths:
+      (use "git add <file>..." to mark resolution)
+
+	    both modified:   index.html
+
+    no changes added to commit (use "git add" and/or "git commit -a")
+    me@mypc:~/test$ cat index.html
+    C1
+    C2
+    <<<<<<< HEAD
+    C4
+    =======
+    C3
+    C5
+    >>>>>>> iss53
+    me@mypc:~/test$ 
 
 
 > Git hasn’t automatically created a new merge commit. It has paused the process while you resolve the conflict.
@@ -340,7 +543,29 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git add index.html
+    me@mypc:~/test$ git status
+    On branch master
+    All conflicts fixed but you are still merging.
+      (use "git commit" to conclude merge)
+
+    Changes to be committed:
+
+	    modified:   index.html
+
+    me@mypc:~/test$ git commit -m 'C6'
+    [master 74a21d9] C6
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    *   74a21d9 (HEAD -> master) C6
+    |\  
+    | * f381948 (iss53) C5
+    | * e3890f6 C3
+    * | b587e33 C4
+    |/  
+    * 104bc9d C2
+    * 6fc51ca C1
+    * 24eed27 C0
+    me@mypc:~/test$ 
 
 
 ### `git mergetool`
@@ -387,8 +612,87 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git checkout -b iss53
+    Switched to a new branch 'iss53'
+    me@mypc:~/test$ echo 'C3' >> index.html
+    me@mypc:~/test$ git commit -a -m 'C3'
+    [iss53 a728105] C3
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git checkout -b hotfix
+    Switched to a new branch 'hotfix'
+    me@mypc:~/test$ echo 'C4' >> index.html
+    me@mypc:~/test$ git commit -a -m 'C4'
+    [hotfix 63b042f] C4
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git merge hotfix
+    Updating ba0845c..63b042f
+    Fast-forward
+     index.html | 1 +
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git branch -d hotfix
+    Deleted branch hotfix (was 63b042f).
+    me@mypc:~/test$ git checkout iss53
+    Switched to branch 'iss53'
+    me@mypc:~/test$ echo 'C5' >> index.html
+    me@mypc:~/test$ git commit -a -m 'C5'
+    [iss53 4303113] C5
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ cat index.html
+    C1
+    C2
+    C3
+    C5
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ cat index.html
+    C1
+    C2
+    C4
+    me@mypc:~/test$ git merge iss53 -m 'C6'
+    Auto-merging index.html
+    CONFLICT (content): Merge conflict in index.html
+    Automatic merge failed; fix conflicts and then commit the result.
+    me@mypc:~/test$ git status
+    On branch master
+    You have unmerged paths.
+      (fix conflicts and run "git commit")
 
+    Unmerged paths:
+      (use "git add <file>..." to mark resolution)
+
+	    both modified:   index.html
+
+    no changes added to commit (use "git add" and/or "git commit -a")
+    me@mypc:~/test$ cat index.html
+    C1
+    C2
+    <<<<<<< HEAD
+    C4
+    =======
+    C3
+    C5
+    >>>>>>> iss53
+    me@mypc:~/test$ git mergetool index.html
+
+    This message is displayed because 'merge.tool' is not configured.
+    See 'git mergetool --tool-help' or 'git help config' for more details.
+    'git mergetool' will now attempt to use one of the following tools:
+    meld opendiff kdiff3 tkdiff xxdiff tortoisemerge gvimdiff diffuse diffmerge ecmerge p4merge araxis bc codecompare emerge vimdiff
+    Merging:
+    index.html
+
+    Normal merge conflict for 'index.html':
+      {local}: modified file
+      {remote}: modified file
+    Hit return to start merge resolution tool (gvimdiff): 
+    4 files to edit
+
+    (gvim:6103): GLib-GObject-WARNING **: cannot retrieve class for invalid (unclassed) type '<invalid>'
+    me@mypc:~/test$ 
 
 `git mergetool` 修改保存之后，不需要如手动修改时再执行 `git add index.html` 。
 
@@ -401,7 +705,29 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ rm index.html.orig
+    me@mypc:~/test$ git status
+    On branch master
+    All conflicts fixed but you are still merging.
+      (use "git commit" to conclude merge)
+
+    Changes to be committed:
+
+	    modified:   index.html
+
+    me@mypc:~/test$ git commit -m 'C6'
+    [master 2d2a405] C6
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    *   2d2a405 (HEAD -> master) C6
+    |\  
+    | * 4303113 (iss53) C5
+    | * a728105 C3
+    * | 63b042f C4
+    |/  
+    * ba0845c C2
+    * db65aaa C1
+    * a279eb6 C0
+    me@mypc:~/test$ 
 
 
 # Branch Management
@@ -439,7 +765,23 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git branch
+      iss53
+    * master
+      testing
+    me@mypc:~/test$ git branch -v
+      iss53   0c9bd56 fix javascript issue
+    * master  d5d4327 Merge branch 'iss53'
+      testing f6a52e6 add scott to the author list in the readmes
+    me@mypc:~/test$ git branch --merged
+      iss53
+    * master
+    me@mypc:~/test$ git branch --no-merged
+      testing
+    me@mypc:~/test$ git branch -d testing
+    error: The branch 'testing' is not fully merged.
+    If you are sure you want to delete it, run 'git branch -D testing'.
+    me@mypc:~/test$ 
 
 > Notice the `*` character that prefixes the `master` branch: it indicates the branch that you currently have checked out (i.e., the branch that `HEAD` points to). This means that if you commit at this point, the `master` branch will be moved forward with your new work.
 
@@ -462,7 +804,11 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git checkout iss53
+    Switched to branch 'iss53'
+    me@mypc:~/test$ git branch --no-merged master
+      testing
+    me@mypc:~/test$ 
 
 
 # Branching Workflows
@@ -548,7 +894,23 @@ develop or next 和 topic branches 可能需要 three-way merge
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git ls-remote origin
+    68b61778550f92895d4e44d189f9453d72b1fba7	HEAD
+    68b61778550f92895d4e44d189f9453d72b1fba7	refs/heads/master
+    49e1239fdb7da68f80e5d50681fd5f9a6d49cc2f	refs/heads/serverfix
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ 
 
 
 > Remote-tracking branches are references to the state of remote branches. They’re local references that you can’t move; Git moves them for you whenever you do any network communication, to make sure they accurately represent the state of the remote repository. Think of them as bookmarks, to remind you where the branches in your remote repositories were the last time you connected to them.
@@ -580,7 +942,9 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/workspace/demo$ git remote
+    booyah
+    me@mypc:~/test/workspace/demo$ 
 
 
 ## Pushing
@@ -624,7 +988,26 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/workspace/demo$ git push origin serverfix
+    Counting objects: 3, done.
+    Writing objects: 100% (3/3), 225 bytes | 0 bytes/s, done.
+    Total 3 (delta 0), reused 0 (delta 0)
+    To /home/me/test/repo/demo
+     * [new branch]      serverfix -> serverfix
+    me@mypc:~/test/workspace/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local refs configured for 'git push':
+        master    pushes to master    (up to date)
+        serverfix pushes to serverfix (up to date)
+    me@mypc:~/test/workspace/demo$ 
 
 
 ### `git push origin refs/heads/serverfix:refs/heads/serverfix`
@@ -659,7 +1042,26 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/workspace/demo$ git push origin refs/heads/serverfix:refs/heads/serverfix
+    Counting objects: 3, done.
+    Writing objects: 100% (3/3), 225 bytes | 0 bytes/s, done.
+    Total 3 (delta 0), reused 0 (delta 0)
+    To /home/me/test/repo/demo
+     * [new branch]      serverfix -> serverfix
+    me@mypc:~/test/workspace/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local refs configured for 'git push':
+        master    pushes to master    (up to date)
+        serverfix pushes to serverfix (up to date)
+    me@mypc:~/test/workspace/demo$ 
 
 
 ### `git push origin serverfix:serverfix`
@@ -694,7 +1096,26 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/workspace/demo$ git push origin serverfix:serverfix
+    Counting objects: 3, done.
+    Writing objects: 100% (3/3), 224 bytes | 0 bytes/s, done.
+    Total 3 (delta 0), reused 0 (delta 0)
+    To /home/me/test/repo/demo
+     * [new branch]      serverfix -> serverfix
+    me@mypc:~/test/workspace/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local refs configured for 'git push':
+        master    pushes to master    (up to date)
+        serverfix pushes to serverfix (up to date)
+    me@mypc:~/test/workspace/demo$ 
 
 
 ### `git push origin serverfix:awesomebranch`
@@ -729,7 +1150,25 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/workspace/demo$ git push origin serverfix:awesomebranch
+    Counting objects: 3, done.
+    Writing objects: 100% (3/3), 224 bytes | 0 bytes/s, done.
+    Total 3 (delta 0), reused 0 (delta 0)
+    To /home/me/test/repo/demo
+     * [new branch]      serverfix -> awesomebranch
+    me@mypc:~/test/workspace/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        awesomebranch tracked
+        master        tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/workspace/demo$ 
 
 
 ### `git checkout -b`
@@ -778,7 +1217,42 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git fetch origin
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master a3000ec [origin/master] C0
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ git checkout -b serverfix origin/serverfix
+    Branch serverfix set up to track remote branch serverfix from origin.
+    Switched to a new branch 'serverfix'
+    me@mypc:~/test/worker2/demo$ git branch -vv
+      master    a3000ec [origin/master] C0
+    * serverfix 6f3ef14 [origin/serverfix] C1
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branches configured for 'git pull':
+        master    merges with remote master
+        serverfix merges with remote serverfix
+      Local refs configured for 'git push':
+        master    pushes to master    (up to date)
+        serverfix pushes to serverfix (up to date)
+    me@mypc:~/test/worker2/demo$ 
 
 
 ## Tracking Branches
@@ -830,7 +1304,41 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master 05fe296 [origin/master] C0
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ git checkout --track origin/serverfix
+    Branch serverfix set up to track remote branch serverfix from origin.
+    Switched to a new branch 'serverfix'
+    me@mypc:~/test/worker2/demo$ git branch -vv
+      master    05fe296 [origin/master] C0
+    * serverfix db226a9 [origin/serverfix] C1
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branches configured for 'git pull':
+        master    merges with remote master
+        serverfix merges with remote serverfix
+      Local refs configured for 'git push':
+        master    pushes to master    (up to date)
+        serverfix pushes to serverfix (up to date)
+    me@mypc:~/test/worker2/demo$ 
 
 
 ### `git checkout`
@@ -876,7 +1384,41 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master 61a07b0 [origin/master] C0
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ git checkout serverfix
+    Branch serverfix set up to track remote branch serverfix from origin.
+    Switched to a new branch 'serverfix'
+    me@mypc:~/test/worker2/demo$ git branch -vv
+      master    61a07b0 [origin/master] C0
+    * serverfix 4c21fd3 [origin/serverfix] C1
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branches configured for 'git pull':
+        master    merges with remote master
+        serverfix merges with remote serverfix
+      Local refs configured for 'git push':
+        master    pushes to master    (up to date)
+        serverfix pushes to serverfix (up to date)
+    me@mypc:~/test/worker2/demo$ 
 
 
 ### `git checkout -b`
@@ -923,7 +1465,51 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master 04fb0c4 [origin/master] C0
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ git checkout -b sf origin/serverfix
+    Branch sf set up to track remote branch serverfix from origin.
+    Switched to a new branch 'sf'
+    me@mypc:~/test/worker2/demo$ git branch -vv
+      master 04fb0c4 [origin/master] C0
+    * sf     47758a7 [origin/serverfix] C1
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branches configured for 'git pull':
+        master merges with remote master
+        sf     merges with remote serverfix
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ git push origin
+    fatal: The upstream branch of your current branch does not match
+    the name of your current branch.  To push to the upstream branch
+    on the remote, use
+
+        git push origin HEAD:serverfix
+
+    To push to the branch of the same name on the remote, use
+
+        git push origin sf
+
+    me@mypc:~/test/worker2/demo$ 
 
 
 ### `git branch -u`
@@ -969,7 +1555,32 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git checkout -b my-serverfix
+    Switched to a new branch 'my-serverfix'
+    me@mypc:~/test/worker2/demo$ git branch -u origin/serverfix
+    Branch my-serverfix set up to track remote branch serverfix from origin.
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branches configured for 'git pull':
+        master       merges with remote master
+        my-serverfix merges with remote serverfix
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ git branch -vv
+      master       4c0e39e [origin/master] C0
+    * my-serverfix 4c0e39e [origin/serverfix: behind 1] C0
+    me@mypc:~/test/worker2/demo$ git pull
+    Updating 4c0e39e..a8db7ae
+    Fast-forward
+     README | 1 +
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test/worker2/demo$ 
 
 
 ### `git merge @{u}`
@@ -1013,7 +1624,16 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git checkout -b my-serverfix
+    Switched to a new branch 'my-serverfix'
+    me@mypc:~/test/worker2/demo$ git branch -u origin/serverfix
+    Branch my-serverfix set up to track remote branch serverfix from origin.
+    me@mypc:~/test/worker2/demo$ git merge @{u}
+    Updating 7f58230..b78659e
+    Fast-forward
+     README | 1 +
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test/worker2/demo$ 
 
 
 ### `git branch -vv`
@@ -1065,7 +1685,28 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master b522c65 [origin/master] C0
+    me@mypc:~/test/worker2/demo$ cd ~/test/worker1/demo
+    me@mypc:~/test/worker1/demo$ git merge serverfix
+    Updating b522c65..ac8cfaf
+    Fast-forward
+     README | 1 +
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test/worker1/demo$ git push origin
+    Total 0 (delta 0), reused 0 (delta 0)
+    To /home/me/test/repo/demo
+       b522c65..ac8cfaf  master -> master
+    me@mypc:~/test/worker1/demo$ cd ~/test/worker2/demo
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master b522c65 [origin/master] C0
+    me@mypc:~/test/worker2/demo$ git fetch --all
+    Fetching origin
+    From /home/me/test/repo/demo
+       b522c65..ac8cfaf  master     -> origin/master
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master b522c65 [origin/master: behind 1] C0
+    me@mypc:~/test/worker2/demo$ 
 
 
 ## Pulling
@@ -1117,7 +1758,42 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git branch --all
+    * master
+      remotes/origin/HEAD -> origin/master
+      remotes/origin/master
+      remotes/origin/serverfix
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ git push origin --delete serverfix
+    To /home/me/test/repo/demo
+     - [deleted]         serverfix
+    me@mypc:~/test/worker2/demo$ git branch --all
+    * master
+      remotes/origin/HEAD -> origin/master
+      remotes/origin/master
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branch:
+        master tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ 
 
 
 如果 Remote Branches 在本地有 tracking branch, `git push origin --delete` 会导致状态不一致！
@@ -1166,7 +1842,53 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/worker2/demo$ git branch --all
+    * master
+      serverfix
+      remotes/origin/HEAD -> origin/master
+      remotes/origin/master
+      remotes/origin/serverfix
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branches:
+        master    tracked
+        serverfix tracked
+      Local branches configured for 'git pull':
+        master    merges with remote master
+        serverfix merges with remote serverfix
+      Local refs configured for 'git push':
+        master    pushes to master    (up to date)
+        serverfix pushes to serverfix (up to date)
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master    4adf702 [origin/master] C0
+      serverfix c6d789c [origin/serverfix] C1
+    me@mypc:~/test/worker2/demo$ git push origin --delete serverfix
+    To /home/me/test/repo/demo
+     - [deleted]         serverfix
+    me@mypc:~/test/worker2/demo$ git branch --all
+    * master
+      serverfix
+      remotes/origin/HEAD -> origin/master
+      remotes/origin/master
+    me@mypc:~/test/worker2/demo$ git remote show origin
+    * remote origin
+      Fetch URL: /home/me/test/repo/demo
+      Push  URL: /home/me/test/repo/demo
+      HEAD branch: master
+      Remote branch:
+        master tracked
+      Local branches configured for 'git pull':
+        master    merges with remote master
+        serverfix merges with remote serverfix
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/worker2/demo$ git branch -vv
+    * master    4adf702 [origin/master] C0
+      serverfix c6d789c [origin/serverfix: gone] C1
+    me@mypc:~/test/worker2/demo$ 
 
 `git remote show origin` 中还显示 `serverfix merges with remote serverfix`
 
@@ -1216,7 +1938,36 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * 55609d7 (HEAD -> experiment) C4
+    | * 2dd430c (master) C3
+    |/  
+    * fc962d0 C2
+    * e7cdfe4 C1
+    * 4971b97 C0
+    me@mypc:~/test$ git rebase master
+    First, rewinding head to replay your work on top of it...
+    Applying: C4
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * a0bc37d (HEAD -> experiment) C4
+    * 2dd430c (master) C3
+    * fc962d0 C2
+    * e7cdfe4 C1
+    * 4971b97 C0
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git merge experiment
+    Updating 2dd430c..a0bc37d
+    Fast-forward
+     index.html | 1 +
+     1 file changed, 1 insertion(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * a0bc37d (HEAD -> master, experiment) C4
+    * 2dd430c C3
+    * fc962d0 C2
+    * e7cdfe4 C1
+    * 4971b97 C0
+    me@mypc:~/test$ 
 
 
 如果 rebase 分支上有多个 commit ：
@@ -1257,8 +2008,40 @@ FIXME
 
 **执行结果**
 
-FIXME
-
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * 7846636 (HEAD -> experiment) C5
+    * c08ba88 C4
+    | * f26a02d (master) C3
+    |/  
+    * e510b0a C2
+    * 89b4c9f C1
+    * 516c07c C0
+    me@mypc:~/test$ git rebase master
+    First, rewinding head to replay your work on top of it...
+    Applying: C4
+    Applying: C5
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * a6552fb (HEAD -> experiment) C5
+    * 7434e0f C4
+    * f26a02d (master) C3
+    * e510b0a C2
+    * 89b4c9f C1
+    * 516c07c C0
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git merge experiment
+    Updating f26a02d..a6552fb
+    Fast-forward
+     index.html | 2 ++
+     1 file changed, 2 insertions(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * a6552fb (HEAD -> master, experiment) C5
+    * 7434e0f C4
+    * f26a02d C3
+    * e510b0a C2
+    * 89b4c9f C1
+    * 516c07c C0
+    me@mypc:~/test$ 
 
 > Rebasing replays changes from one line of work onto another in the order they were introduced, whereas merging takes the endpoints and merges them together.
 
@@ -1316,8 +2099,85 @@ FIXME
 
 **执行结果**
 
-FIXME
-
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * cb8b852 (HEAD -> client) C9
+    * 574dd7e C8
+    | * ebed4c4 (master) C6
+    | * 7979d29 C5
+    | | * 2f98eb4 (server) C10
+    | | * 3042c33 C4
+    | |/  
+    |/|   
+    * | 852ab3c C3
+    |/  
+    * 17cd724 C2
+    * c9a2d61 C1
+    me@mypc:~/test$ git rebase --onto master server client
+    First, rewinding head to replay your work on top of it...
+    Applying: C8
+    Applying: C9
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * 1fe9488 (HEAD -> client) C9
+    * f0d5f81 C8
+    * ebed4c4 (master) C6
+    * 7979d29 C5
+    | * 2f98eb4 (server) C10
+    | * 3042c33 C4
+    | * 852ab3c C3
+    |/  
+    * 17cd724 C2
+    * c9a2d61 C1
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git merge client
+    Updating ebed4c4..1fe9488
+    Fast-forward
+     client | 2 ++
+     1 file changed, 2 insertions(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * 1fe9488 (HEAD -> master, client) C9
+    * f0d5f81 C8
+    * ebed4c4 C6
+    * 7979d29 C5
+    | * 2f98eb4 (server) C10
+    | * 3042c33 C4
+    | * 852ab3c C3
+    |/  
+    * 17cd724 C2
+    * c9a2d61 C1
+    me@mypc:~/test$ git rebase master server
+    First, rewinding head to replay your work on top of it...
+    Applying: C3
+    Applying: C4
+    Applying: C10
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * d44ad96 (HEAD -> server) C10
+    * 93400f0 C4
+    * beec306 C3
+    * 1fe9488 (master, client) C9
+    * f0d5f81 C8
+    * ebed4c4 C6
+    * 7979d29 C5
+    * 17cd724 C2
+    * c9a2d61 C1
+    me@mypc:~/test$ git checkout master
+    Switched to branch 'master'
+    me@mypc:~/test$ git merge server
+    Updating 1fe9488..d44ad96
+    Fast-forward
+     server | 3 +++
+     1 file changed, 3 insertions(+)
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * d44ad96 (HEAD -> master, server) C10
+    * 93400f0 C4
+    * beec306 C3
+    * 1fe9488 (client) C9
+    * f0d5f81 C8
+    * ebed4c4 C6
+    * 7979d29 C5
+    * 17cd724 C2
+    * c9a2d61 C1
+    me@mypc:~/test$ 
 
 > You can rebase the server branch onto the `master` branch without having to check it out first by running `git rebase <basebranch> <topicbranch>` — which checks out the topic branch (in this case, `server`) for you and replays it onto the base branch (`master`):
 
@@ -1371,7 +2231,49 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git log --oneline --decorate --graph --all
+    * bc48051 (HEAD -> client) C9
+    * e25dba5 C8
+    | * bb3b03e (master) C6
+    | * fe2b9e4 C5
+    | | * 6eaadc3 (server) C10
+    | | * 60cbaaa C4
+    | |/  
+    |/|   
+    * | 3d139c3 C3
+    |/  
+    * 2d0ec03 C2
+    * 4ab99eb C1
+    me@mypc:~/test$ git rebase --onto master server client
+    First, rewinding head to replay your work on top of it...
+    Applying: C8
+    Using index info to reconstruct a base tree...
+    A	client
+    Falling back to patching base and 3-way merge...
+    CONFLICT (modify/delete): client deleted in bb3b03e0f7431d8679a9db7882d9b2f1b3abbbec and modified in C8. Version C8 of client left in tree.
+    error: Failed to merge in the changes.
+    Patch failed at 0001 C8
+    The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+    When you have resolved this problem, run "git rebase --continue".
+    If you prefer to skip this patch, run "git rebase --skip" instead.
+    To check out the original branch and stop rebasing, run "git rebase --abort".
+
+    me@mypc:~/test$ git status
+    rebase in progress; onto bb3b03e
+    You are currently rebasing branch 'client' on 'bb3b03e'.
+      (fix conflicts and then run "git rebase --continue")
+      (use "git rebase --skip" to skip this patch)
+      (use "git rebase --abort" to check out the original branch)
+
+    Unmerged paths:
+      (use "git reset HEAD <file>..." to unstage)
+      (use "git add/rm <file>..." as appropriate to mark resolution)
+
+	    deleted by us:   client
+
+    no changes added to commit (use "git add" and/or "git commit -a")
+    me@mypc:~/test$ 
 
 
 ## The Perils of Rebasing

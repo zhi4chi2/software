@@ -44,22 +44,20 @@
 
 **执行结果**
 
-FIXME
-
     me@mypc:~/test$ ls -aF
     ./  ../
     me@mypc:~/test$ git clone https://github.com/schacon/simplegit-progit
-    Cloning into 'demo'...
-    remote: Enumerating objects: 3, done.
-    remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 3
-    Unpacking objects: 100% (3/3), done.
+    Cloning into 'simplegit-progit'...
+    remote: Enumerating objects: 13, done.
+    remote: Total 13 (delta 0), reused 0 (delta 0), pack-reused 13
+    Unpacking objects: 100% (13/13), done.
     Checking connectivity... done.
     me@mypc:~/test$ ls -aF
-    ./  ../  demo/
-    me@mypc:~/test$ cd demo
-    me@mypc:~/test/demo$ ls -aF
-    ./  ../  .git/  README.md
-    me@mypc:~/test/demo$ 
+    ./  ../  simplegit-progit/
+    me@mypc:~/test$ cd simplegit-progit
+    me@mypc:~/test/simplegit-progit$ ls -aF
+    ./  ../  .git/  lib/  Rakefile  README
+    me@mypc:~/test/simplegit-progit$ 
 
 clone 到了 `/home/me/test/simplegit-progit` 目录下（自动创建此目录），库在 `/home/me/test/simplegit-progit/.git`
 
@@ -85,22 +83,20 @@ GitHub 的 git clone url 可以加 .git 也可以省略。
 
 **执行结果**
 
-FIXME
-
     me@mypc:~/test$ ls -aF
     ./  ../
-    me@mypc:~/test$ git clone https://github.com/schacon/simplegit-progit.git my-demo
-    Cloning into 'my-demo'...
-    remote: Enumerating objects: 3, done.
-    remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 3
-    Unpacking objects: 100% (3/3), done.
+    me@mypc:~/test$ git clone https://github.com/schacon/simplegit-progit.git my-simplegit
+    Cloning into 'my-simplegit'...
+    remote: Enumerating objects: 13, done.
+    remote: Total 13 (delta 0), reused 0 (delta 0), pack-reused 13
+    Unpacking objects: 100% (13/13), done.
     Checking connectivity... done.
     me@mypc:~/test$ ls -aF
-    ./  ../  my-demo/
-    me@mypc:~/test$ cd my-demo
-    me@mypc:~/test/my-demo$ ls -aF
-    ./  ../  .git/  README.md
-    me@mypc:~/test/my-demo$ 
+    ./  ../  my-simplegit/
+    me@mypc:~/test$ cd my-simplegit
+    me@mypc:~/test/my-simplegit$ ls -aF
+    ./  ../  .git/  lib/  Rakefile  README
+    me@mypc:~/test/my-simplegit$ 
 
 > Git has a number of different transfer protocols you can use. The previous example uses the `https://` protocol, but you may also see `git://` or `user@server:path/to/repo.git`, which uses the SSH transfer protocol.
 
@@ -250,6 +246,30 @@ working directory 中文件的状态
 	    modified:   CONTRIBUTING.md
 	    new file:   README
 
+    me@mypc:~/test$ echo 'C1-2' >> CONTRIBUTING.md
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   CONTRIBUTING.md
+	    new file:   README
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   CONTRIBUTING.md
+
+    me@mypc:~/test$ git add CONTRIBUTING.md
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   CONTRIBUTING.md
+	    new file:   README
+
     me@mypc:~/test$ 
 
 
@@ -289,6 +309,7 @@ working directory 中文件的状态
     M  lib/simplegit.rb
     ?? LICENSE.txt
     me@mypc:~/test$ 
+
 
 > There are two columns to the output - the left-hand column indicates the status of the staging area and the right-hand column indicates the status of the working tree.
 
@@ -382,14 +403,15 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
 
     me@mypc:~/test$ git diff
     diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-    index 2d02d7c..a907480 100644
+    index 9c4156d..64ee11b 100644
     --- a/CONTRIBUTING.md
     +++ b/CONTRIBUTING.md
     @@ -1 +1,3 @@
-     Initial CONTRIBUTING.md
-    +# first time modified CONTRIBUTING.md
-    +modify something in CONTRIBUTING.md
+     C0
+    +C1-1
+    +C1-2
     me@mypc:~/test$ 
+
 
 > That command compares what is in your working directory with what is in your staging area. The result tells you the changes you’ve made that you haven’t yet staged.
 > 
@@ -404,11 +426,11 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
     me@mypc:~/test$ git diff --staged
     diff --git a/README b/README
     new file mode 100644
-    index 0000000..56266d3
+    index 0000000..e2cf5e7
     --- /dev/null
     +++ b/README
     @@ -0,0 +1 @@
-    +My Project
+    +C1
     me@mypc:~/test$ 
 
 
@@ -435,7 +457,39 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git add CONTRIBUTING.md
+    me@mypc:~/test$ echo '# test line' >> CONTRIBUTING.md
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   CONTRIBUTING.md
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   CONTRIBUTING.md
+
+    me@mypc:~/test$ git diff
+    diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+    index ae45e64..3ec9016 100644
+    --- a/CONTRIBUTING.md
+    +++ b/CONTRIBUTING.md
+    @@ -1,2 +1,3 @@
+     C0
+     C1-1
+    +# test line
+    me@mypc:~/test$ git diff --cached
+    diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+    index 9c4156d..ae45e64 100644
+    --- a/CONTRIBUTING.md
+    +++ b/CONTRIBUTING.md
+    @@ -1 +1,2 @@
+     C0
+    +C1-1
+    me@mypc:~/test$ 
 
 
 ### `git difftool`
@@ -455,10 +509,10 @@ FIXME
     meld opendiff kdiff3 tkdiff xxdiff kompare gvimdiff diffuse diffmerge ecmerge p4merge araxis bc codecompare emerge vimdiff
 
     Viewing (1/1): 'CONTRIBUTING.md'
-    Launch 'gvimdiff' [Y/n]: y
+    Launch 'gvimdiff' [Y/n]: 
     2 files to edit
 
-    (gvim:8235): GLib-GObject-WARNING **: cannot retrieve class for invalid (unclassed) type '<invalid>'
+    (gvim:3859): GLib-GObject-WARNING **: cannot retrieve class for invalid (unclassed) type '<invalid>'
     me@mypc:~/test$ 
 
 
@@ -597,6 +651,7 @@ Run `git difftool --tool-help` to see what is available on your system.
     ~                                                                               
     "~/test/.git/COMMIT_EDITMSG" 8L, 235C                         1,0-1         All
 
+
 > You can see that the default commit message contains the latest output of the `git status` command commented out and one empty line on top.
 
 
@@ -637,24 +692,21 @@ Run `git difftool --tool-help` to see what is available on your system.
      10 # Do not touch the line above.
      11 # Everything below will be removed.
      12 diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-     13 index 2d02d7c..a907480 100644
+     13 index e69de29..3f0eca2 100644
      14 --- a/CONTRIBUTING.md
      15 +++ b/CONTRIBUTING.md
-     16 @@ -1 +1,3 @@
-     17  Initial CONTRIBUTING.md
-     18 +# first time modified CONTRIBUTING.md
-     19 +modify something in CONTRIBUTING.md
-     20 diff --git a/README b/README
-     21 new file mode 100644
-     22 index 0000000..56266d3
-     23 --- /dev/null
-     24 +++ b/README
-     25 @@ -0,0 +1 @@
-     26 +My Project
+     16 @@ -0,0 +1,2 @@
+     17 +C1-1
+     18 +C1-2
+     19 diff --git a/README b/README
+     20 new file mode 100644
+     21 index 0000000..e2cf5e7
+     22 --- /dev/null
+     23 +++ b/README
+     24 @@ -0,0 +1 @@
+     25 +C1
     ~                                                                               
-    ~                                                                               
-    ~                                                                               
-    "~/test/.git/COMMIT_EDITMSG" 26L, 719C                        1,0-1         All
+    "~/test/.git/COMMIT_EDITMSG" 25L, 624C                        1,0-1         All
 
 执行
 
@@ -663,7 +715,7 @@ Run `git difftool --tool-help` to see what is available on your system.
 **执行结果**
 
     me@mypc:~/test$ git commit -m 'modified CONTRIBUTING.md, add README'
-    [master d6d6248] modified CONTRIBUTING.md, add README
+    [master 0a111d2] modified CONTRIBUTING.md, add README
      2 files changed, 3 insertions(+)
      create mode 100644 README
     me@mypc:~/test$ 
@@ -714,9 +766,9 @@ the commit has given you some output about itself:
 	    README
 
     no changes added to commit (use "git add" and/or "git commit -a")
-    me@mypc:~/test$ git commit -a -m 'modified CONTRIBUTING.md'
-    [master 4f47390] modified CONTRIBUTING.md
-     1 file changed, 2 insertions(+)
+    me@mypc:~/test$ git commit -a -m 'C1'
+    [master 6c436cf] C1
+     1 file changed, 1 insertion(+)
     me@mypc:~/test$ git status
     On branch master
     Untracked files:
@@ -1009,7 +1061,25 @@ the commit has given you some output about itself:
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/simplegit-progit$ git log
+    commit ca82a6dff817ec66f44342007202690a93763949
+    Author: Scott Chacon <schacon@gmail.com>
+    Date:   Mon Mar 17 21:52:11 2008 -0700
+
+        changed the verison number
+
+    commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+    Author: Scott Chacon <schacon@gmail.com>
+    Date:   Sat Mar 15 16:40:33 2008 -0700
+
+        removed unnecessary test code
+
+    commit a11bef06a3f659402fe7563abf99ad00de2209e6
+    Author: Scott Chacon <schacon@gmail.com>
+    Date:   Sat Mar 15 10:31:28 2008 -0700
+
+        first commit
+    me@mypc:~/test/simplegit-progit$ 
 
 
 ## `git log -p/--patch`
@@ -1031,7 +1101,48 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/simplegit-progit$ git log -p -2
+    commit ca82a6dff817ec66f44342007202690a93763949
+    Author: Scott Chacon <schacon@gmail.com>
+    Date:   Mon Mar 17 21:52:11 2008 -0700
+
+        changed the verison number
+
+    diff --git a/Rakefile b/Rakefile
+    index a874b73..8f94139 100644
+    --- a/Rakefile
+    +++ b/Rakefile
+    @@ -5,7 +5,7 @@ require 'rake/gempackagetask'
+     spec = Gem::Specification.new do |s|
+         s.platform  =   Gem::Platform::RUBY
+         s.name      =   "simplegit"
+    -    s.version   =   "0.1.0"
+    +    s.version   =   "0.1.1"
+         s.author    =   "Scott Chacon"
+         s.email     =   "schacon@gmail.com"
+         s.summary   =   "A simple gem for using Git in Ruby code."
+
+    commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+    Author: Scott Chacon <schacon@gmail.com>
+    Date:   Sat Mar 15 16:40:33 2008 -0700
+
+        removed unnecessary test code
+
+    diff --git a/lib/simplegit.rb b/lib/simplegit.rb
+    index a0a60ae..47c6340 100644
+    --- a/lib/simplegit.rb
+    +++ b/lib/simplegit.rb
+    @@ -18,8 +18,3 @@ class SimpleGit
+         end
+       
+     end
+    -
+    -if $0 == __FILE__
+    -  git = SimpleGit.new
+    -  puts git.show
+    -end
+    \ No newline at end of file
+    me@mypc:~/test/simplegit-progit$ 
 
 
 ## `git log --stat`
@@ -1053,7 +1164,36 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/simplegit-progit$ git log --stat
+    commit ca82a6dff817ec66f44342007202690a93763949
+    Author: Scott Chacon <schacon@gmail.com>
+    Date:   Mon Mar 17 21:52:11 2008 -0700
+
+        changed the verison number
+
+     Rakefile | 2 +-
+     1 file changed, 1 insertion(+), 1 deletion(-)
+
+    commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
+    Author: Scott Chacon <schacon@gmail.com>
+    Date:   Sat Mar 15 16:40:33 2008 -0700
+
+        removed unnecessary test code
+
+     lib/simplegit.rb | 5 -----
+     1 file changed, 5 deletions(-)
+
+    commit a11bef06a3f659402fe7563abf99ad00de2209e6
+    Author: Scott Chacon <schacon@gmail.com>
+    Date:   Sat Mar 15 10:31:28 2008 -0700
+
+        first commit
+
+     README           |  6 ++++++
+     Rakefile         | 23 +++++++++++++++++++++++
+     lib/simplegit.rb | 25 +++++++++++++++++++++++++
+     3 files changed, 54 insertions(+)
+    me@mypc:~/test/simplegit-progit$ 
 
 
 ## `git log --pretty`
@@ -1085,7 +1225,11 @@ A few prebuilt options are available for you to use.
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/simplegit-progit$ git log --pretty=oneline
+    ca82a6dff817ec66f44342007202690a93763949 changed the verison number
+    085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7 removed unnecessary test code
+    a11bef06a3f659402fe7563abf99ad00de2209e6 first commit
+    me@mypc:~/test/simplegit-progit$ 
 
 
 ### `git log --pretty=format`
@@ -1107,8 +1251,11 @@ FIXME
 
 **执行结果**
 
-FIXME
-
+    me@mypc:~/test/simplegit-progit$ git log --pretty=format:"%h - %an, %ar : %s"
+    ca82a6d - Scott Chacon, 11 years ago : changed the verison number
+    085bb3b - Scott Chacon, 11 years ago : removed unnecessary test code
+    a11bef0 - Scott Chacon, 11 years ago : first commit
+    me@mypc:~/test/simplegit-progit$ 
 
 format 中可用选项参见原文档中 Table 1. Useful options for `git log --pretty=format`
 
@@ -1171,7 +1318,37 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git commit -m 'initial commit'
+    [master (root-commit) bea95c5] initial commit
+     1 file changed, 0 insertions(+), 0 deletions(-)
+     create mode 100644 README.md
+    me@mypc:~/test$ git add forgotten_file
+    me@mypc:~/test$ git log --stat
+    commit bea95c5c869c0293f8e2a15960fcbb220b3f938b
+    Author: me <me@example.com>
+    Date:   Sat Oct 27 13:30:58 2018 +0800
+
+        initial commit
+
+     README.md | 0
+     1 file changed, 0 insertions(+), 0 deletions(-)
+    me@mypc:~/test$ git commit --amend -m 'Initial Commit'
+    [master 86b1d53] Initial Commit
+     Date: Sat Oct 27 13:30:58 2018 +0800
+     2 files changed, 0 insertions(+), 0 deletions(-)
+     create mode 100644 README.md
+     create mode 100644 forgotten_file
+    me@mypc:~/test$ git log --stat
+    commit 86b1d53045f65f522920762fd5eab45a268c64bd
+    Author: me <me@example.com>
+    Date:   Sat Oct 27 13:30:58 2018 +0800
+
+        Initial Commit
+
+     README.md      | 0
+     forgotten_file | 0
+     2 files changed, 0 insertions(+), 0 deletions(-)
+    me@mypc:~/test$ 
 
 
 ## Unstaging a Staged File
@@ -1200,7 +1377,35 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git add *
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    modified:   CONTRIBUTING.md
+	    renamed:    README.md -> README
+
+    me@mypc:~/test$ git reset HEAD CONTRIBUTING.md
+    Unstaged changes after reset:
+    M	CONTRIBUTING.md
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    renamed:    README.md -> README
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   CONTRIBUTING.md
+
+    me@mypc:~/test$ cat CONTRIBUTING.md
+    C0
+    C1
+    me@mypc:~/test$ 
 
 
 >   It’s true that `git reset` can be a dangerous command, especially if you provide the `--hard` flag. However, in the scenario described above, the file in your working directory is not touched, so it’s relatively safe.
@@ -1232,7 +1437,30 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    renamed:    README.md -> README
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   CONTRIBUTING.md
+
+    me@mypc:~/test$ git checkout -- CONTRIBUTING.md
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    renamed:    README.md -> README
+
+    me@mypc:~/test$ cat CONTRIBUTING.md
+    C0
+    me@mypc:~/test$ 
 
 
 > It’s important to understand that `git checkout -- <file>` is a dangerous command. Any changes you made to that file are gone — Git just copied another file over it.
@@ -1265,7 +1493,12 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/ticgit$ git remote
+    origin
+    me@mypc:~/test/ticgit$ git remote -v
+    origin	https://github.com/schacon/ticgit (fetch)
+    origin	https://github.com/schacon/ticgit (push)
+    me@mypc:~/test/ticgit$ 
 
 
 ## Adding Remote Repositories
@@ -1288,7 +1521,23 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/ticgit$ git remote
+    origin
+    me@mypc:~/test/ticgit$ git remote add pb https://github.com/paulboone/ticgit
+    me@mypc:~/test/ticgit$ git remote -v
+    origin	https://github.com/schacon/ticgit (fetch)
+    origin	https://github.com/schacon/ticgit (push)
+    pb	https://github.com/paulboone/ticgit (fetch)
+    pb	https://github.com/paulboone/ticgit (push)
+    me@mypc:~/test/ticgit$ git fetch pb
+    remote: Enumerating objects: 22, done.
+    remote: Counting objects: 100% (22/22), done.
+    remote: Total 43 (delta 22), reused 22 (delta 22), pack-reused 21
+    Unpacking objects: 100% (43/43), done.
+    From https://github.com/paulboone/ticgit
+     * [new branch]      master     -> pb/master
+     * [new branch]      ticgit     -> pb/ticgit
+    me@mypc:~/test/ticgit$ 
 
 
 ## Fetching and Pulling from Your Remotes
@@ -1339,7 +1588,19 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/ticgit$ git remote show origin
+    * remote origin
+      Fetch URL: https://github.com/schacon/ticgit
+      Push  URL: https://github.com/schacon/ticgit
+      HEAD branch: master
+      Remote branches:
+        master tracked
+        ticgit tracked
+      Local branch configured for 'git pull':
+        master merges with remote master
+      Local ref configured for 'git push':
+        master pushes to master (up to date)
+    me@mypc:~/test/ticgit$ 
 
 
 ## Renaming and Removing Remotes
@@ -1363,7 +1624,14 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/ticgit$ git remote
+    origin
+    pb
+    me@mypc:~/test/ticgit$ git remote rename pb paul
+    me@mypc:~/test/ticgit$ git remote
+    origin
+    paul
+    me@mypc:~/test/ticgit$ 
 
 
 > It’s worth mentioning that this changes all your remote-tracking branch names, too. What used to be referenced at `pb/master` is now at `paul/master`.
@@ -1389,7 +1657,13 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/ticgit$ git remote
+    origin
+    pb
+    me@mypc:~/test/ticgit$ git remote remove pb
+    me@mypc:~/test/ticgit$ git remote
+    origin
+    me@mypc:~/test/ticgit$ 
 
 
 > Once you delete the reference to a remote this way, all remote-tracking branches and configuration settings associated with that remote are also deleted.
@@ -1426,7 +1700,13 @@ Listing the available tags in Git is straightforward. Just type `git tag` (with 
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git tag
+    me@mypc:~/test$ git tag v1.3
+    me@mypc:~/test$ git tag v0.1
+    me@mypc:~/test$ git tag
+    v0.1
+    v1.3
+    me@mypc:~/test$ 
 
 
 > This command lists the tags in alphabetical order; the order in which they appear has no real importance.
@@ -1456,7 +1736,12 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git tag
+    v0.1
+    v1.3
+    me@mypc:~/test$ git tag -l "v1.*"
+    v1.3
+    me@mypc:~/test$ 
 
 > Listing tag wildcards requires `-l` or `--list` option
 
@@ -1493,7 +1778,28 @@ tags types
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git tag -a v1.4 -m "my version 1.4"
+    me@mypc:~/test$ git tag
+    v0.1
+    v1.3
+    v1.4
+    me@mypc:~/test$ git show v1.4
+    tag v1.4
+    Tagger: me <me@example.com>
+    Date:   Sat Oct 27 13:44:01 2018 +0800
+
+    my version 1.4
+
+    commit 4f4de5f7c7310bf5bcb1b27aea294326292a9af6
+    Author: me <me@example.com>
+    Date:   Sat Oct 27 13:43:52 2018 +0800
+
+        C0
+
+    diff --git a/README b/README
+    new file mode 100644
+    index 0000000..e69de29
+    me@mypc:~/test$ 
 
 
 ## Lightweight Tags
@@ -1526,7 +1832,24 @@ lightweight tag 只是个文件，其中只有 commit checksum
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git tag v1.4-lw
+    me@mypc:~/test$ git tag
+    v0.1
+    v1.3
+    v1.4-lw
+    me@mypc:~/test$ git show v1.4-lw
+    commit ba60ec05ae84634f29b1b21377780264b0ea6196
+    Author: me <me@example.com>
+    Date:   Sat Oct 27 13:44:32 2018 +0800
+
+        C0
+
+    diff --git a/README b/README
+    new file mode 100644
+    index 0000000..e69de29
+    me@mypc:~/test$ cat ~/test/.git/refs/tags/v1.4-lw
+    ba60ec05ae84634f29b1b21377780264b0ea6196
+    me@mypc:~/test$ 
 
 
 ## Tagging Later
@@ -1548,17 +1871,40 @@ FIXME
 
 执行
 
-FIXME a07c94
-
     git tag
     git log --pretty=oneline
-    git tag -a v0.1 a07c94 -m 'my version 0.1'
+    git tag -a v0.1 dbae2d -m 'my version 0.1'
     git tag
     git show v0.1
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git tag
+    v0.2
+    me@mypc:~/test$ git log --pretty=oneline
+    13a69c42ece4f5f2010b8d33fac7dd7553af204f C1
+    dbae2d40d93156fe731c9f821df985a991c4db1a C0
+    me@mypc:~/test$ git tag -a v0.1 dbae2d -m 'my version 0.1'
+    me@mypc:~/test$ git tag
+    v0.1
+    v0.2
+    me@mypc:~/test$ git show v0.1
+    tag v0.1
+    Tagger: me <me@example.com>
+    Date:   Sat Oct 27 13:47:39 2018 +0800
+
+    my version 0.1
+
+    commit dbae2d40d93156fe731c9f821df985a991c4db1a
+    Author: me <me@example.com>
+    Date:   Sat Oct 27 13:47:12 2018 +0800
+
+        C0
+
+    diff --git a/README b/README
+    new file mode 100644
+    index 0000000..e69de29
+    me@mypc:~/test$ 
 
 
 ## Sharing Tags
@@ -1593,7 +1939,15 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
+    cat: /home/me/test/repo/demo/refs/tags/v0.1: No such file or directory
+    me@mypc:~/test/workspace/demo$ git push origin v0.1
+    Total 0 (delta 0), reused 0 (delta 0)
+    To /home/me/test/repo/demo
+     * [new tag]         v0.1 -> v0.1
+    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
+    d45f08c3fb1b689f4ae056a8553b949dc51570a2
+    me@mypc:~/test/workspace/demo$ 
 
 
 ### `git push origin --tags`
@@ -1631,7 +1985,20 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
+    cat: /home/me/test/repo/demo/refs/tags/v0.1: No such file or directory
+    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.2
+    cat: /home/me/test/repo/demo/refs/tags/v0.2: No such file or directory
+    me@mypc:~/test/workspace/demo$ git push origin --tags
+    Total 0 (delta 0), reused 0 (delta 0)
+    To /home/me/test/repo/demo
+     * [new tag]         v0.1 -> v0.1
+     * [new tag]         v0.2 -> v0.2
+    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
+    bf1022a27662771ed32c934c34b2e2abe50d4068
+    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.2
+    bf1022a27662771ed32c934c34b2e2abe50d4068
+    me@mypc:~/test/workspace/demo$ 
 
 
 ## Deleting Tags
@@ -1669,7 +2036,19 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test/workspace/demo$ git tag
+    v0.1
+    me@mypc:~/test/workspace/demo$ git tag -d v0.1
+    Deleted tag 'v0.1' (was f3c3ab0)
+    me@mypc:~/test/workspace/demo$ git tag
+    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
+    f3c3ab08fb68dea0b18c9f5233bf2f1355be1afe
+    me@mypc:~/test/workspace/demo$ git push origin :refs/tags/v0.1
+    To /home/me/test/repo/demo
+     - [deleted]         v0.1
+    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
+    cat: /home/me/test/repo/demo/refs/tags/v0.1: No such file or directory
+    me@mypc:~/test/workspace/demo$ 
 
 
 ## Checking out Tags
@@ -1704,7 +2083,40 @@ FIXME
 
 **执行结果**
 
-FIXME
+    me@mypc:~/test$ git checkout v0.1
+    Note: checking out 'v0.1'.
+
+    You are in 'detached HEAD' state. You can look around, make experimental
+    changes and commit them, and you can discard any commits you make in this
+    state without impacting any branches by performing another checkout.
+
+    If you want to create a new branch to retain commits you create, you may
+    do so (now or later) by using -b with the checkout command again. Example:
+
+      git checkout -b <new-branch-name>
+
+    HEAD is now at 4840396... C0
+    me@mypc:~/test$ cat README
+    C0
+    me@mypc:~/test$ git checkout v0.2
+    Previous HEAD position was 4840396... C0
+    HEAD is now at 12cbbda... C1
+    me@mypc:~/test$ cat README
+    C0
+    C1
+    me@mypc:~/test$ git checkout v0.1
+    Previous HEAD position was 12cbbda... C1
+    HEAD is now at 4840396... C0
+    me@mypc:~/test$ cat README
+    C0
+    me@mypc:~/test$ git checkout -b v0.1.1 v0.1
+    Switched to a new branch 'v0.1.1'
+    me@mypc:~/test$ git branch
+      master
+    * v0.1.1
+    me@mypc:~/test$ cat README
+    C0
+    me@mypc:~/test$ 
 
 > In “detached HEAD” state, if you make changes and then create a commit, the tag will stay the same, but your new commit won’t belong to any branch and will be unreachable, except by the exact commit hash. Thus, if you need to make changes — say you’re fixing a bug on an older version, for instance — you will generally want to create a branch
 
