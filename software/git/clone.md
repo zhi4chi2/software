@@ -16,13 +16,6 @@
     me@mypc:~/demo$ 
 
 
-# -o
-
-    FIXME
-    git clone -o not-origin
-    git remote
-
-
 # Reference
 - https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository
 - https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches
