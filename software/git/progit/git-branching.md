@@ -58,9 +58,9 @@ tree object 有多个，每个文件夹都有一个 tree object ，最顶级的�
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -83,9 +83,9 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -107,9 +107,9 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -131,9 +131,9 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -168,6 +168,62 @@ FIXME
 
 # Basic Branching and Merging
 ## Basic Branching
+> However, before you do that, note that if your working directory or staging area has uncommitted changes that conflict with the branch you’re checking out, Git won’t let you switch branches. It’s best to have a clean working state when you switch branches. There are ways to get around this (namely, stashing and commit amending) that we’ll cover later on
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    touch README
+    git add .
+    git commit -m 'C0'
+    git branch testing
+    echo 'C1' >> README
+    git commit -a -m 'C1'
+    git checkout testing
+    echo 'something' >> README
+    clear
+
+执行
+
+    git checkout master
+
+**执行结果**
+
+FIXME
+
+如果去掉 `echo 'C1' >> README`, `git commit -a -m 'C1'` 两行，则不再出错
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    touch README
+    git add .
+    git commit -m 'C0'
+    git branch testing
+    git checkout testing
+    echo 'something' >> README
+    clear
+
+执行
+
+    git checkout master
+    cat README
+
+**执行结果**
+
+FIXME
+
+这时虽然可以切换到 master 分支，但 README 的修改从 testing 分支移到 master 分支了。
+
+
 ## Basic Merging
 预处理
 
@@ -176,37 +232,37 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
+    touch index.html
     git add .
     git commit -m 'C0'
-    echo 'modify Readme' >> README
+    echo 'C1' >> README
     git commit -a -m 'C1'
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'C2'
+    echo 'C2' >> index.html
+    git commit -a -m 'C2'
     clear
 
 执行
 
     git checkout -b iss53
-    echo '# modify something' >> README
+    echo 'C3' >> README
     git commit -a -m 'C3'
     git checkout master
     git checkout -b hotfix
-    echo '</html>' >> index.html
+    echo 'C4' >> index.html
     git commit -a -m 'C4'
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git checkout master
     git merge hotfix
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git branch -d hotfix
     git checkout iss53
-    echo 'modified' >> README
+    echo 'C5' >> README
     git commit -a -m 'C5'
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git checkout master
     git merge iss53 -m 'C6'
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git branch -d iss53
 
 **执行结果**
@@ -214,7 +270,7 @@ FIXME
 FIXME
 
 
-`git checkout -b` 是 shorthand for: `git branch iss53; git checkout iss53`
+`git checkout -b iss53` 是 shorthand for: `git branch iss53; git checkout iss53`
 
 > Git creates a new snapshot that results from this three-way merge and automatically creates a new commit that points to it. This is referred to as a merge commit, and is special in that it has more than one parent.
 
@@ -229,32 +285,33 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch index.html
     git add .
     git commit -m 'C0'
-    echo 'modify Readme' >> README
+    echo 'C1' >> index.html
     git commit -a -m 'C1'
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'C2'
+    echo 'C2' >> index.html
+    git commit -a -m 'C2'
     clear
 
 执行
 
     git checkout -b iss53
-    echo '<body>' >> index.html
+    echo 'C3' >> index.html
     git commit -a -m 'C3'
     git checkout master
     git checkout -b hotfix
-    echo '</html>' >> index.html
+    echo 'C4' >> index.html
     git commit -a -m 'C4'
     git checkout master
     git merge hotfix
     git branch -d hotfix
     git checkout iss53
-    echo '</body>' >> index.html
+    echo 'C5' >> index.html
     git commit -a -m 'C5'
+    cat index.html
     git checkout master
+    cat index.html
     git merge iss53 -m 'C6'
     git status
     cat index.html
@@ -279,7 +336,7 @@ FIXME
     git add index.html
     git status
     git commit -m 'C6'
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
 
 **执行结果**
 
@@ -296,32 +353,33 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch index.html
     git add .
     git commit -m 'C0'
-    echo 'modify Readme' >> README
+    echo 'C1' >> index.html
     git commit -a -m 'C1'
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'C2'
+    echo 'C2' >> index.html
+    git commit -a -m 'C2'
     clear
 
 执行
 
     git checkout -b iss53
-    echo '<body>' >> index.html
+    echo 'C3' >> index.html
     git commit -a -m 'C3'
     git checkout master
     git checkout -b hotfix
-    echo '</html>' >> index.html
+    echo 'C4' >> index.html
     git commit -a -m 'C4'
     git checkout master
     git merge hotfix
     git branch -d hotfix
     git checkout iss53
-    echo '</body>' >> index.html
+    echo 'C5' >> index.html
     git commit -a -m 'C5'
+    cat index.html
     git checkout master
+    cat index.html
     git merge iss53 -m 'C6'
     git status
     cat index.html
@@ -339,7 +397,7 @@ FIXME
     rm index.html.orig
     git status
     git commit -m 'C6'
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
 
 **执行结果**
 
@@ -354,20 +412,19 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
+    touch index.html
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b iss53
-    echo '<html>' > index.html
-    echo '</html>' >> index.html
-    git add .
-    git commit -m 'fix javascript issue'
+    echo 'C1' >> index.html
+    git commit -a -m 'fix javascript issue'
     git checkout master
-    echo 'modify Readme' >> README
-    git commit -a -m 'modify Readme'
+    echo 'C2' >> README
+    git commit -a -m 'C2'
     git merge iss53 -m "Merge branch 'iss53'"
     git checkout -b testing
-    echo 'add scott to the author list in the readmes' >> README
+    echo 'C4' >> README
     git commit -a -m 'add scott to the author list in the readmes'
     git checkout master
     clear
@@ -468,13 +525,12 @@ develop or next 和 topic branches 可能需要 three-way merge
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -499,7 +555,7 @@ FIXME
 
 > Remote-tracking branches take the form `<remote>/<branch>`. For instance, if you wanted to see what the `master` branch on your `origin` remote looked like as of the last time you communicated with it, you would check the `origin/master` branch.
 
-
+## `git clone -o`
 > “origin” is the default name for a remote when you run `git clone`. If you run `git clone -o booyah` instead, then you will have `booyah/master` as your default remote branch.
 
 预处理
@@ -551,13 +607,12 @@ FIXME
     cd workspace/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     clear
@@ -587,13 +642,12 @@ FIXME
     cd workspace/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     clear
@@ -623,13 +677,12 @@ FIXME
     cd workspace/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     clear
@@ -659,13 +712,12 @@ FIXME
     cd workspace/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     clear
@@ -699,13 +751,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -753,13 +804,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -800,13 +850,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -847,13 +896,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -895,13 +943,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -942,13 +989,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -990,13 +1036,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -1046,13 +1091,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -1092,13 +1136,12 @@ FIXME
     cd worker1/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git checkout -b serverfix
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'add index.html'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     git checkout master
     git push origin
     git push origin serverfix
@@ -1146,30 +1189,30 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
+    touch index.html
     git add .
     git commit -m 'C0'
-    echo 'modify Readme' >> README
+    echo 'C1' >> README
     git commit -a -m 'C1'
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'C2'
+    echo 'C2' >> index.html
+    git commit -a -m 'C2'
     git branch experiment
-    echo '# modify something' >> README
+    echo 'C3' >> README
     git commit -a -m 'C3'
     git checkout experiment
-    echo '</html>' >> index.html
+    echo 'C4' >> index.html
     git commit -a -m 'C4'
     clear
 
 执行
 
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git rebase master
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git checkout master
     git merge experiment
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
 
 **执行结果**
 
@@ -1185,32 +1228,32 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
+    touch index.html
     git add .
     git commit -m 'C0'
-    echo 'modify Readme' >> README
+    echo 'C1' >> README
     git commit -a -m 'C1'
-    echo '<html>' > index.html
-    git add .
-    git commit -m 'C2'
+    echo 'C2' >> index.html
+    git commit -a -m 'C2'
     git branch experiment
-    echo '# modify something' >> README
+    echo 'C3' >> README
     git commit -a -m 'C3'
     git checkout experiment
-    echo '<body></body>' >> index.html
+    echo 'C4' >> index.html
     git commit -a -m 'C4'
-    echo '</html>' >> index.html
+    echo 'C5' >> index.html
     git commit -a -m 'C5'
     clear
 
 执行
 
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git rebase master
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git checkout master
     git merge experiment
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
 
 **执行结果**
 
@@ -1228,48 +1271,48 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
-    echo '# server' > server
-    echo '# client' > client
+    touch README
+    touch server
+    touch client
     git add .
     git commit -m 'C1'
-    echo '# in C2' >> README
+    echo 'C2' >> README
     git commit -a -m 'C2'
     git checkout -b server
-    echo '# in C3' >> server
+    echo 'C3' >> server
     git commit -a -m 'C3'
     git branch client
-    echo '# in C4' >> server
+    echo 'C4' >> server
     git commit -a -m 'C4'
     git checkout master
-    echo '# In C5' >> README
+    echo 'C5' >> README
     git commit -a -m 'C5'
-    echo '# In C6' >> README
+    echo 'C6' >> README
     git commit -a -m 'C6'
     git checkout client
-    echo '# In C8' >> client
+    echo 'C8' >> client
     git commit -a -m 'C8'
-    echo '# In C9' >> client
+    echo 'C9' >> client
     git commit -a -m 'C9'
     git checkout server
-    echo '# In C10' >> server
+    echo 'C10' >> server
     git commit -a -m 'C10'
     git checkout client
     clear
 
 执行
 
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git rebase --onto master server client
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git checkout master
     git merge client
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git rebase master server
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git checkout master
     git merge server
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
 
 **执行结果**
 
@@ -1290,39 +1333,39 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
-    echo '# server' > server
+    touch README
+    touch server
     git add .
     git commit -m 'C1'
-    echo '# in C2' >> README
+    echo 'C2' >> README
     git commit -a -m 'C2'
     git checkout -b server
-    echo '# in C3' >> server
-    echo '# client' > client
+    echo 'C3' >> server
+    touch client
     git add .
     git commit -a -m 'C3'
     git branch client
-    echo '# in C4' >> server
+    echo 'C4' >> server
     git commit -a -m 'C4'
     git checkout master
-    echo '# In C5' >> README
+    echo 'C5' >> README
     git commit -a -m 'C5'
-    echo '# In C6' >> README
+    echo 'C6' >> README
     git commit -a -m 'C6'
     git checkout client
-    echo '# In C8' >> client
+    echo 'C8' >> client
     git commit -a -m 'C8'
-    echo '# In C9' >> client
+    echo 'C9' >> client
     git commit -a -m 'C9'
     git checkout server
-    echo '# In C10' >> server
+    echo 'C10' >> server
     git commit -a -m 'C10'
     git checkout client
     clear
 
 执行
 
-    git log --oneline --graph --all
+    git log --oneline --decorate --graph --all
     git rebase --onto master server client
     git status
 

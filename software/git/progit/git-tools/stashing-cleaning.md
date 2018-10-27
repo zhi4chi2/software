@@ -13,15 +13,15 @@
     mkdir test
     cd test/
     git init
-    echo '<html>' > index.html
     mkdir lib
-    echo 'something' > lib/simplegit.rb
+    touch index.html
+    touch lib/simplegit.rb
     git add .
-    git commit -m 'Initial Commit'
-    echo '</html>' >> index.html
+    git commit -m 'C0'
+    echo 'C1' >> index.html
     git add index.html
-    echo 'modified' >> lib/simplegit.rb
-    echo 'My Project' > README
+    echo 'C1' >> lib/simplegit.rb
+    echo 'C1' > README
     clear
 
 执行
@@ -30,7 +30,7 @@
     git stash
     git status
     git checkout -b testing
-    echo '<body></body>' >> index.html
+    echo 'something' >> index.html
     git stash list
     git stash apply
 
@@ -50,15 +50,15 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo '<html>' > index.html
     mkdir lib
-    echo 'something' > lib/simplegit.rb
+    touch index.html
+    touch lib/simplegit.rb
     git add .
-    git commit -m 'Initial Commit'
-    echo '</html>' >> index.html
+    git commit -m 'C0'
+    echo 'C1' >> index.html
     git add index.html
-    echo 'modified' >> lib/simplegit.rb
-    echo 'My Project' > README
+    echo 'C1' >> lib/simplegit.rb
+    echo 'C1' > README
     clear
 
 执行
@@ -67,7 +67,7 @@ FIXME
     git stash
     git status
     git checkout -b testing
-    echo '<body></body>' >> index.html
+    echo 'something' >> index.html
     git add index.html
     git stash list
     git stash apply
@@ -92,15 +92,15 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo '<html>' > index.html
     mkdir lib
-    echo 'something' > lib/simplegit.rb
+    touch index.html
+    touch lib/simplegit.rb
     git add .
-    git commit -m 'Initial Commit'
-    echo '</html>' >> index.html
+    git commit -m 'C0'
+    echo 'C1' >> index.html
     git add index.html
-    echo 'modified' >> lib/simplegit.rb
-    echo 'My Project' > README
+    echo 'C1' >> lib/simplegit.rb
+    echo 'C1' > README
     git stash
     clear
 
@@ -126,15 +126,15 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo '<html>' > index.html
     mkdir lib
-    echo 'something' > lib/simplegit.rb
+    touch index.html
+    touch lib/simplegit.rb
     git add .
-    git commit -m 'Initial Commit'
-    echo '</html>' >> index.html
+    git commit -m 'C0'
+    echo 'C1' >> index.html
     git add index.html
-    echo 'modified' >> lib/simplegit.rb
-    echo 'My Project' > README
+    echo 'C1' >> lib/simplegit.rb
+    echo 'C1' > README
     git stash
     clear
 
@@ -159,15 +159,15 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo '<html>' > index.html
     mkdir lib
-    echo 'something' > lib/simplegit.rb
+    touch index.html
+    touch lib/simplegit.rb
     git add .
-    git commit -m 'Initial Commit'
-    echo '</html>' >> index.html
+    git commit -m 'C0'
+    echo 'C1' >> index.html
     git add index.html
-    echo 'modified' >> lib/simplegit.rb
-    echo 'My Project' > README
+    echo 'C1' >> lib/simplegit.rb
+    echo 'C1' > README
     clear
 
 执行
@@ -191,15 +191,15 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo '<html>' > index.html
     mkdir lib
-    echo 'something' > lib/simplegit.rb
+    touch index.html
+    touch lib/simplegit.rb
     git add .
-    git commit -m 'Initial Commit'
-    echo '</html>' >> index.html
+    git commit -m 'C0'
+    echo 'C1' >> index.html
     git add index.html
-    echo 'modified' >> lib/simplegit.rb
-    echo 'My Project' > README
+    echo 'C1' >> lib/simplegit.rb
+    echo 'C1' > README
     clear
 
 执行
@@ -229,18 +229,18 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo '<html>' > index.html
     mkdir lib
-    echo 'something' > lib/simplegit.rb
+    touch index.html
+    touch lib/simplegit.rb
     git add .
-    git commit -m 'Initial Commit'
-    echo '</html>' >> index.html
+    git commit -m 'C0'
+    echo 'C1' >> index.html
     git add index.html
-    echo 'modified' >> lib/simplegit.rb
-    echo 'My Project' > README
+    echo 'C1' >> lib/simplegit.rb
+    echo 'C1' > README
     git stash
     git add README
-    git commit -m 'after stash'
+    git commit -m 'C1'
     clear
 
 执行

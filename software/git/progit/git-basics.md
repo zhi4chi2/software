@@ -64,6 +64,7 @@ FIXME
 clone 到了 `/home/me/test/simplegit-progit` 目录下（自动创建此目录），库在 `/home/me/test/simplegit-progit/.git`
 
 
+### `git clone <repository> <directory>`
 GitHub 的 git clone url 可以加 .git 也可以省略。
 
 预处理
@@ -101,11 +102,17 @@ FIXME
     ./  ../  .git/  README.md
     me@mypc:~/test/my-demo$ 
 
+> Git has a number of different transfer protocols you can use. The previous example uses the `https://` protocol, but you may also see `git://` or `user@server:path/to/repo.git`, which uses the SSH transfer protocol.
+
 除了 https:// 协议外还可以使用 git:// 或者使用 SSH 传输协议（例如 `user@server:path/to/repo.git` ）。
 
 
 # Recording Changes to the Repository
-working directory 中文件的状态(<https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository>)
+> Remember that each file in your working directory can be in one of two states: tracked or untracked. Tracked files are files that were in the last snapshot; they can be unmodified, modified, or staged. In short, tracked files are files that Git knows about.
+> 
+> Untracked files are everything else — any files in your working directory that were not in your last snapshot and are not in your staging area.
+
+working directory 中文件的状态
 
 - untracked - 既不在 last snapshot 中也不在 staging area 中的文件。 `git add` 后变为 staged
 - tracked
@@ -190,6 +197,8 @@ working directory 中文件的状态(<https://git-scm.com/book/en/v2/Git-Basics-
 
 只有在 `Initial commit` 时才会这样，否则如文档。
 
+> The `git add` command takes a path name for either a file or a directory; if it’s a directory, the command adds all the files in that directory recursively.
+
 
 ## Staging Modified Files
 预处理
@@ -199,12 +208,12 @@ working directory 中文件的状态(<https://git-scm.com/book/en/v2/Git-Basics-
     mkdir test
     cd test/
     git init
-    echo 'Initial CONTRIBUTING.md' > CONTRIBUTING.md
-    git add CONTRIBUTING.md
-    git commit -m 'Initial Commit'
-    echo 'My Project' > README
+    touch CONTRIBUTING.md
+    git add .
+    git commit -m 'C0'
+    echo 'C1' > README
     git add README
-    echo '# first time modified' >> CONTRIBUTING.md
+    echo 'C1-1' >> CONTRIBUTING.md
     clear
 
 执行
@@ -212,63 +221,25 @@ working directory 中文件的状态(<https://git-scm.com/book/en/v2/Git-Basics-
     git status
     git add CONTRIBUTING.md
     git status
-
-**执行结果**
-
-    me@mypc:~/test$ git status
-    On branch master
-    Changes to be committed:
-      (use "git reset HEAD <file>..." to unstage)
-
-	    new file:   README
-
-    Changes not staged for commit:
-      (use "git add <file>..." to update what will be committed)
-      (use "git checkout -- <file>..." to discard changes in working directory)
-
-	    modified:   CONTRIBUTING.md
-
-    me@mypc:~/test$ git add CONTRIBUTING.md
-    me@mypc:~/test$ git status
-    On branch master
-    Changes to be committed:
-      (use "git reset HEAD <file>..." to unstage)
-
-	    modified:   CONTRIBUTING.md
-	    new file:   README
-
-    me@mypc:~/test$ 
-
-执行
-
-    echo '# second time modified' >> CONTRIBUTING.md
+    echo 'C1-2' >> CONTRIBUTING.md
     git status
-
-**执行结果**
-
-    me@mypc:~/test$ echo '# second time modified' >> CONTRIBUTING.md
-    me@mypc:~/test$ git status
-    On branch master
-    Changes to be committed:
-      (use "git reset HEAD <file>..." to unstage)
-
-	    modified:   CONTRIBUTING.md
-	    new file:   README
-
-    Changes not staged for commit:
-      (use "git add <file>..." to update what will be committed)
-      (use "git checkout -- <file>..." to discard changes in working directory)
-
-	    modified:   CONTRIBUTING.md
-
-    me@mypc:~/test$ 
-
-执行
-
     git add CONTRIBUTING.md
     git status
 
 **执行结果**
+
+    me@mypc:~/test$ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+	    new file:   README
+
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git checkout -- <file>..." to discard changes in working directory)
+
+	    modified:   CONTRIBUTING.md
 
     me@mypc:~/test$ git add CONTRIBUTING.md
     me@mypc:~/test$ git status
@@ -290,18 +261,18 @@ working directory 中文件的状态(<https://git-scm.com/book/en/v2/Git-Basics-
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
-    echo 'Initial Rakefile' > Rakefile
+    touch README
+    touch Rakefile
     mkdir lib
     touch lib/simplegit.rb
     git add .
-    git commit -m 'Initial Commit'
-    echo '# first time modified' >> Rakefile
-    echo '# modified' >> lib/simplegit.rb
+    git commit -m 'C0'
+    echo 'C1-1' >> Rakefile
+    echo 'C1' >> lib/simplegit.rb
     touch lib/git.rb
     git add .
-    echo '# first time modified' >> README
-    echo '# second time modified' >> Rakefile
+    echo 'C1' >> README
+    echo 'C1-2' >> Rakefile
     touch LICENSE.txt
     clear
 
@@ -331,6 +302,8 @@ working directory 中文件的状态(<https://git-scm.com/book/en/v2/Git-Basics-
 - 匹配模式可以以 / 结尾指定目录
 - 不忽略指定模式的文件或目录，可以在模式前加上 ! 取反。
 
+
+> Glob patterns are like simplified regular expressions that shells use.
 
 glob 模式是指 shell 所使用的简化了的正则表达式。
 
@@ -378,13 +351,13 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
     mkdir test
     cd test/
     git init
-    echo 'Initial CONTRIBUTING.md' > CONTRIBUTING.md
+    echo 'C0' > CONTRIBUTING.md
     git add .
-    git commit -m 'Initial Commit'
-    echo 'My Project' > README
+    git commit -m 'C0'
+    echo 'C1' > README
     git add README
-    echo '# first time modified CONTRIBUTING.md' >> CONTRIBUTING.md
-    echo 'modify something in CONTRIBUTING.md' >> CONTRIBUTING.md
+    echo 'C1-1' >> CONTRIBUTING.md
+    echo 'C1-2' >> CONTRIBUTING.md
     clear
 
 执行
@@ -438,6 +411,20 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
     +My Project
     me@mypc:~/test$ 
 
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    echo 'C0' > CONTRIBUTING.md
+    git add .
+    git commit -m 'C0'
+    echo 'C1-1' >> CONTRIBUTING.md
+    clear
+
 执行
 
     git add CONTRIBUTING.md
@@ -448,52 +435,10 @@ GitHub 有一个十分详细的针对数十种项目及语言的 .gitignore 文�
 
 **执行结果**
 
-    me@mypc:~/test$ git add CONTRIBUTING.md
-    me@mypc:~/test$ echo '# test line' >> CONTRIBUTING.md
-    me@mypc:~/test$ git status
-    On branch master
-    Changes to be committed:
-      (use "git reset HEAD <file>..." to unstage)
-
-	    modified:   CONTRIBUTING.md
-	    new file:   README
-
-    Changes not staged for commit:
-      (use "git add <file>..." to update what will be committed)
-      (use "git checkout -- <file>..." to discard changes in working directory)
-
-	    modified:   CONTRIBUTING.md
-
-    me@mypc:~/test$ git diff
-    diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-    index a907480..6321bd6 100644
-    --- a/CONTRIBUTING.md
-    +++ b/CONTRIBUTING.md
-    @@ -1,3 +1,4 @@
-     Initial CONTRIBUTING.md
-     # first time modified CONTRIBUTING.md
-     modify something in CONTRIBUTING.md
-    +# test line
-    me@mypc:~/test$ git diff --cached
-    diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-    index 2d02d7c..a907480 100644
-    --- a/CONTRIBUTING.md
-    +++ b/CONTRIBUTING.md
-    @@ -1 +1,3 @@
-     Initial CONTRIBUTING.md
-    +# first time modified CONTRIBUTING.md
-    +modify something in CONTRIBUTING.md
-    diff --git a/README b/README
-    new file mode 100644
-    index 0000000..56266d3
-    --- /dev/null
-    +++ b/README
-    @@ -0,0 +1 @@
-    +My Project
-    me@mypc:~/test$ 
+FIXME
 
 
-### git difftool
+### `git difftool`
 > There is another way to look at these diffs if you prefer a graphical or external diff viewing program instead. If you run `git difftool` instead of `git diff`, you can view any of these diffs in software like emerge, vimdiff and many more (including commercial products).
 
 执行
@@ -612,12 +557,12 @@ Run `git difftool --tool-help` to see what is available on your system.
     mkdir test
     cd test/
     git init
-    echo 'Initial CONTRIBUTING.md' > CONTRIBUTING.md
+    touch CONTRIBUTING.md
     git add .
-    git commit -m 'Initial Commit'
-    echo 'My Project' > README
-    echo '# first time modified CONTRIBUTING.md' >> CONTRIBUTING.md
-    echo 'modify something in CONTRIBUTING.md' >> CONTRIBUTING.md
+    git commit -m 'C0'
+    echo 'C1' > README
+    echo 'C1-1' >> CONTRIBUTING.md
+    echo 'C1-2' >> CONTRIBUTING.md
     git add .
     clear
 
@@ -652,6 +597,9 @@ Run `git difftool --tool-help` to see what is available on your system.
     ~                                                                               
     "~/test/.git/COMMIT_EDITMSG" 8L, 235C                         1,0-1         All
 
+> You can see that the default commit message contains the latest output of the `git status` command commented out and one empty line on top.
+
+
 如果直接按 `:q` 退出，则不会提交：
 
     me@mypc:~/test$ git commit
@@ -669,7 +617,7 @@ Run `git difftool --tool-help` to see what is available on your system.
 
 `git commit` launches your editor of choice. (This is set by your shell’s `EDITOR` environment variable — usually vim or emacs, although you can configure it with whatever you want using the `git config --global core.editor` command as you saw in Getting Started).
 
-> For an even more explicit reminder of what you’ve modified, you can pass the -v option to `git commit`. Doing so also puts the diff of your change in the editor so you can see exactly what changes you’re committing.
+> For an even more explicit reminder of what you’ve modified, you can pass the `-v` option to `git commit`. Doing so also puts the diff of your change in the editor so you can see exactly what changes you’re committing.
 
 执行
 
@@ -737,18 +685,17 @@ the commit has given you some output about itself:
     mkdir test
     cd test/
     git init
-    echo 'Initial CONTRIBUTING.md' > CONTRIBUTING.md
+    touch CONTRIBUTING.md
     git add .
-    git commit -m 'Initial Commit'
-    echo 'My Project' > README
-    echo '# first time modified CONTRIBUTING.md' >> CONTRIBUTING.md
-    echo 'modify something in CONTRIBUTING.md' >> CONTRIBUTING.md
+    git commit -m 'C0'
+    touch README
+    echo 'C1' >> CONTRIBUTING.md
     clear
 
 执行
 
     git status
-    git commit -a -m 'modified CONTRIBUTING.md'
+    git commit -a -m 'C1'
     git status
 
 **执行结果**
@@ -791,9 +738,9 @@ the commit has given you some output about itself:
     mkdir test
     cd test/
     git init
-    echo 'My Project' > PROJECTS.md
+    touch PROJECTS.md
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -828,9 +775,9 @@ the commit has given you some output about itself:
     mkdir test
     cd test/
     git init
-    echo 'My Project' > PROJECTS.md
+    touch PROJECTS.md
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -880,10 +827,10 @@ the commit has given you some output about itself:
     mkdir test
     cd test/
     git init
-    echo 'My Project' > PROJECTS.md
+    touch PROJECTS.md
     git add .
-    git commit -m 'Initial Commit'
-    echo 'modified something' >> PROJECTS.md
+    git commit -m 'C0'
+    echo 'C1' >> PROJECTS.md
     git add .
     clear
 
@@ -924,9 +871,9 @@ the commit has given you some output about itself:
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -984,9 +931,9 @@ the commit has given you some output about itself:
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README.md
+    touch README.md
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -1014,9 +961,9 @@ the commit has given you some output about itself:
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README.md
+    touch README.md
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -1209,8 +1156,8 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README.md
-    echo 'in forgotten_file' > forgotten_file
+    touch README.md
+    touch forgotten_file
     git add README.md
     clear
 
@@ -1235,11 +1182,11 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README.md
-    echo 'Initial CONTRIBUTING.md' > CONTRIBUTING.md
+    touch README.md
+    echo 'C0' > CONTRIBUTING.md
     git add *
-    git commit -m 'Initial Commit'
-    echo 'modify CONTRIBUTING.md' >> CONTRIBUTING.md
+    git commit -m 'C0'
+    echo 'C1' >> CONTRIBUTING.md
     git mv README.md README
     clear
 
@@ -1249,10 +1196,14 @@ FIXME
     git status
     git reset HEAD CONTRIBUTING.md
     git status
+    cat CONTRIBUTING.md
 
 **执行结果**
 
 FIXME
+
+
+>   It’s true that `git reset` can be a dangerous command, especially if you provide the `--hard` flag. However, in the scenario described above, the file in your working directory is not touched, so it’s relatively safe.
 
 
 ## Unmodifying a Modified File
@@ -1263,13 +1214,13 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README.md
-    echo 'Initial CONTRIBUTING.md' > CONTRIBUTING.md
+    touch README.md
+    echo 'C0' > CONTRIBUTING.md
     git add *
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git mv README.md README
     git add *
-    echo 'modify CONTRIBUTING.md' >> CONTRIBUTING.md
+    echo 'C1' >> CONTRIBUTING.md
     clear
 
 执行
@@ -1357,7 +1308,7 @@ FIXME
 
 > If your current branch is set up to track a remote branch (see the next section and Git Branching for more information), you can use the `git pull` command to automatically fetch and then merge that remote branch into your current branch.
 
-如果本地的 branch 设置为 track a remote branch ，则可以用 `git pull` 命令自动做 fetch + merge
+如果当前 local branch 设置为 track a remote branch ，则可以用 `git pull` 命令自动做 fetch + merge
 
 
 > by default, the `git clone` command automatically sets up your local master branch to track the remote master branch (or whatever the default branch is called) on the server you cloned from. Running `git pull` generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you’re currently working on.
@@ -1461,9 +1412,9 @@ Listing the available tags in Git is straightforward. Just type `git tag` (with 
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
@@ -1491,9 +1442,9 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git tag v0.1
     git tag v1.3
     clear
@@ -1527,9 +1478,9 @@ tags types
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git tag v0.1
     git tag v1.3
     clear
@@ -1559,9 +1510,9 @@ lightweight tag 只是个文件，其中只有 commit checksum
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git tag v0.1
     git tag v1.3
     clear
@@ -1586,13 +1537,12 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
-    echo '# modify README' >> README
-    echo 'modify something' >> README
+    git commit -m 'C0'
+    echo 'C1' >> README
     git add .
-    git commit -m 'modify README'
+    git commit -m 'C1'
     git tag v0.2
     clear
 
@@ -1628,9 +1578,9 @@ FIXME
     cd workspace/
     git clone ~/test/repo/demo
     cd demo/
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git tag v0.1
     git push origin
     clear
@@ -1646,6 +1596,7 @@ FIXME
 FIXME
 
 
+### `git push origin --tags`
 > If you have a lot of tags that you want to push up at once, you can also use the `--tags` option to the `git push` command. This will transfer all of your tags to the remote server that are not already there.
 
 预处理
@@ -1658,13 +1609,13 @@ FIXME
     cd ~/test/repo/demo
     git init --bare
     cd ~/test
-    mkdir working
-    cd working/
+    mkdir workspace
+    cd workspace/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git tag v0.1
     git tag v0.2
     git push origin
@@ -1700,17 +1651,19 @@ FIXME
     cd workspace/
     git clone ~/test/repo/demo
     cd demo/
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git tag v0.1
     git push origin v0.1
     clear
 
 执行
 
-    cat ~/test/repo/demo/refs/tags/v0.1
+    git tag
     git tag -d v0.1
+    git tag
+    cat ~/test/repo/demo/refs/tags/v0.1
     git push origin :refs/tags/v0.1
     cat ~/test/repo/demo/refs/tags/v0.1
 
@@ -1727,14 +1680,13 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    echo 'C0' > README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git tag v0.1
-    echo '# modify README' >> README
-    echo 'modify something' >> README
+    echo 'C1' >> README
     git add .
-    git commit -m 'modify README'
+    git commit -m 'C1'
     git tag v0.2
     clear
 
@@ -1748,6 +1700,7 @@ FIXME
     cat README
     git checkout -b v0.1.1 v0.1
     git branch
+    cat README
 
 **执行结果**
 

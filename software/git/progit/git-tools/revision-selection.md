@@ -16,11 +16,11 @@
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
-    echo '# modify README' >> README
-    git commit -a -m 'modify README'
+    git commit -m 'C0'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     clear
 
 执行
@@ -54,11 +54,11 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
-    echo '# modify README' >> README
-    git commit -a -m 'modify README'
+    git commit -m 'C0'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     clear
 
 执行
@@ -97,11 +97,11 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
-    echo '# modify README' >> README
-    git commit -a -m 'modify README'
+    git commit -m 'C0'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     clear
 
 执行
@@ -142,20 +142,20 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'add open3_detach to gemspec file list' > README
+    touch README
     git add .
     git commit -m 'add open3_detach to gemspec file list'
-    echo 'ignore *.gem' >> README
+    echo 'C1' >> README
     git commit -a -m 'ignore *.gem'
     git checkout -b rdocs
-    echo 'Some rdoc changes' > rdoc
+    echo 'C2' > rdoc
     git add .
     git commit -m 'Some rdoc changes'
     git checkout master
-    echo 'added some blame and merge stuff' >> README
+    echo 'C3' >> README
     git commit -a -m 'added some blame and merge stuff'
     git merge rdocs -m "Merge commit 'phedders/rdocs'"
-    echo 'fixed refs handling, added gc auto, updated tests' >> README
+    echo 'C4' >> README
     git commit -a -m 'fixed refs handling, added gc auto, updated tests'
     clear
 
@@ -191,10 +191,9 @@ FIXME
     echo 'B' >> README
     git commit -a -m 'B'
     git checkout -b experiment
-    echo 'C' > experiment
-    git add .
-    git commit -m 'C'
-    echo 'D' >> experiment
+    echo 'C' >> README
+    git commit -a -m 'C'
+    echo 'D' >> README
     git commit -a -m 'D'
     git checkout master
     echo 'E' >> README
@@ -232,12 +231,12 @@ FIXME
     cd workspace/
     git clone ~/test/repo/demo
     cd demo
-    echo 'My Project' > README
+    touch README
     git add .
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     git push origin
-    echo 'modify README' >> README
-    git commit -a -m 'modify README'
+    echo 'C1' >> README
+    git commit -a -m 'C1'
     clear
 
 执行
@@ -274,10 +273,9 @@ FIXME
     echo 'B' >> README
     git commit -a -m 'B'
     git checkout -b experiment
-    echo 'C' > experiment
-    git add .
-    git commit -m 'C'
-    echo 'D' >> experiment
+    echo 'C' >> README
+    git commit -a -m 'C'
+    echo 'D' >> README
     git commit -a -m 'D'
     git checkout master
     echo 'E' >> README

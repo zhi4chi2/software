@@ -43,12 +43,9 @@ Git Storing data as snapshots of the project over time.
 
 Git 中所有数据在存储前都计算校验和，然后以校验和来引用。
 
-
 这意味着不可能在 Git 不知情时更改任何文件内容或目录内容。
 
-
 这个功能建构在 Git 底层，是构成 Git 哲学不可或缺的部分。
-
 
 若你在传送过程中丢失信息或损坏文件， Git 就能发现。
 
@@ -77,6 +74,16 @@ Git 数据库中保存的信息都是以文件内容的哈希值来索引，而�
 - Git 仓库(Git directory)
 - 暂存区域(staging area) - 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。有时候也被称作索引(index)
 - 工作目录(working tree)
+
+参见原文档 Figure 6. Working tree, staging area, and Git directory.
+
+> The Git directory is where Git stores the metadata and object database for your project. This is the most important part of Git, and it is what is copied when you clone a repository from another computer.
+
+> The working tree is a single checkout of one version of the project. These files are pulled out of the compressed database in the Git directory and placed on disk for you to use or modify.
+
+> The staging area is a file, generally contained in your Git directory, that stores information about what will go into your next commit. Its technical name in Git parlance is the “index”, but the phrase “staging area” works just as well.
+
+> If a particular version of a file is in the Git directory, it’s considered committed. If it has been modified and was added to the staging area, it is staged. And if it was changed since it was checked out but has not been staged, it is modified.
 
 
 # The Command Line

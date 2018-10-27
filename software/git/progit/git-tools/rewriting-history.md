@@ -8,16 +8,16 @@
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
-    echo 'something' > test
+    touch README
+    touch test
     git add README
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
 
     git log
-    git commit --amend -m 'Initial Commit'
+    git commit --amend -m 'C0'
     git log
 
 **执行结果**
@@ -36,10 +36,10 @@ FIXME
     mkdir test
     cd test/
     git init
-    echo 'My Project' > README
-    echo 'something' > test
+    touch README
+    touch test
     git add README
-    git commit -m 'Initial Commit'
+    git commit -m 'C0'
     clear
 
 执行
