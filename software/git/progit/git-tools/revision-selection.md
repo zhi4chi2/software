@@ -358,11 +358,13 @@
 
 执行
 
-    git log --oneline --graph --all
+    git log --oneline --graph --all --decorate
     git log master..experiment
     git log experiment..master
 
 **执行结果**
+
+FIXME
 
     me@mypc:~/test$ git log --oneline --graph --all
     * 92036ce D
@@ -426,11 +428,13 @@
 
 执行
 
-    git log --oneline --graph --all
+    git log --oneline --graph --all --decorate
     git log origin/master..HEAD
     git log origin/master..
 
 **执行结果**
+
+FIXME
 
     me@mypc:~/test/workspace/demo$ git log --oneline --graph --all
     * 2023e76 C1
@@ -486,11 +490,13 @@ FIXME
 
 执行
 
-    git log --oneline --graph --all
+    git log --oneline --graph --all --decorate
     git log master...experiment
     git log --left-right master...experiment
 
 **执行结果**
+
+FIXME
 
     me@mypc:~/test$ git log --oneline --graph --all
     * 3f4a997 D
