@@ -1,3 +1,9 @@
+术语
+
+- start_point
+- tree-ish
+
+
 # Synopsis
 
 
@@ -12,6 +18,52 @@
 
 # Demo
 ## `git checkout <branch>`
+### 如果 `<branch>` 不存在
+> If `<branch>` is not found but there does exist a tracking branch in exactly one remote (call it `<remote>`) with a matching name, treat as equivalent to
+> 
+>     $ git checkout -b <branch> --track <remote>/<branch>
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    mkdir -p repo/demo
+    cd ~/test/repo/demo
+    git init --bare
+    cd ~/test
+    mkdir worker1
+    cd worker1/
+    git clone ~/test/repo/demo
+    cd demo
+    touch README
+    git add .
+    git commit -m 'C0'
+    git checkout -b serverfix
+    echo 'C1' >> README
+    git commit -a -m 'C1'
+    git push --all origin
+    cd ~/test
+    mkdir worker2
+    cd worker2/
+    git clone ~/test/repo/demo
+    cd demo
+    clear
+
+执行
+
+    git branch -vv
+    git remote show origin
+    git checkout serverfix
+    git branch -vv
+    git remote show origin
+
+**执行结果**
+
+FIXME
+
+
 ## `git checkout <new_branch> <start_point>`
 
 

@@ -62,7 +62,6 @@
 
 > You can see that the default commit message contains the latest output of the `git status` command commented out and one empty line on top.
 
-
 如果直接按 `:q` 退出，则不会提交：
 
     me@mypc:~/test$ git commit
@@ -80,6 +79,70 @@
 
 `git commit` launches your editor of choice. (This is set by your shell’s `EDITOR` environment variable — usually vim or emacs, although you can configure it with whatever you want using the `git config --global core.editor` command as you saw in Getting Started).
 
+
+### 无修改
+如果没有实际的修改，则 `git commit` 不实际提交
+
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    clear
+
+执行
+
+    git commit -m 'C0'
+    git log
+
+**执行结果**
+
+FIXME
+
+
+### 重复提交
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    touch README
+    git add .
+    git commit -m 'C0'
+    clear
+
+执行
+
+    git log
+    git commit -m 'C1'
+    git log
+
+**执行结果**
+
+FIXME
+
+
+## `git commit -m`
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    touch CONTRIBUTING.md
+    git add .
+    git commit -m 'C0'
+    echo 'C1' > README
+    echo 'C1-1' >> CONTRIBUTING.md
+    echo 'C1-2' >> CONTRIBUTING.md
+    git add .
+    clear
+
 执行
 
     git commit -m 'modified CONTRIBUTING.md, add README'
@@ -96,9 +159,9 @@
 the commit has given you some output about itself:
 
 - which branch you committed to (master),
-- what SHA-1 checksum the commit has (d6d6248),
-- how many files were changed,
-- and statistics about lines added and removed in the commit.
+- what SHA-1 checksum the commit has (0a111d2),
+- how many files were changed(2),
+- and statistics about lines added(3) and removed in the commit.
 
 
 ## `git commit -v`
@@ -217,7 +280,6 @@ the commit has given you some output about itself:
     cd test/
     git init
     touch README
-    touch test
     git add README
     git commit -m 'C0'
     clear
@@ -230,29 +292,12 @@ the commit has given you some output about itself:
 
 **执行结果**
 
-    me@mypc:~/test$ git log
-    commit f429f3ea311be2fae3b889005fd2fe2ec0c5d244
-    Author: me <me@example.com>
-    Date:   Sat Oct 27 15:00:14 2018 +0800
-
-        C0
-    me@mypc:~/test$ git commit --amend -m 'C0'
-    [master 1b31355] C0
-     Date: Sat Oct 27 15:00:14 2018 +0800
-     1 file changed, 0 insertions(+), 0 deletions(-)
-     create mode 100644 README
-    me@mypc:~/test$ git log
-    commit 1b31355b21056f026225ab2bd92d7af9720fb7f9
-    Author: me <me@example.com>
-    Date:   Sat Oct 27 15:00:14 2018 +0800
-
-        C0
-    me@mypc:~/test$ 
+FIXME
 
 即使没有修改任何文件， commit message 也一样， `--amend` 后 SHA1 依然改变了。
 
 
-## `git commit --amend --no-edit`
+### `git commit --amend --no-edit`
 > if your amendments are suitably trivial (fixing a silly typo or adding a file you forgot to stage) such that the earlier commit message is just fine, you can simply make the changes, stage them, and avoid the unnecessary editor session entirely with:
 > 
 >     $ git commit --amend --no-edit
@@ -266,7 +311,6 @@ the commit has given you some output about itself:
     cd test/
     git init
     touch README
-    touch test
     git add README
     git commit -m 'C0'
     clear
@@ -274,32 +318,89 @@ the commit has given you some output about itself:
 执行
 
     git log
-    git add test
-    git commit --amend --no-edit
+    echo 'C0' >> README
+    git commit -a --amend --no-edit
     git log
 
 **执行结果**
 
-    me@mypc:~/test$ git log
-    commit 3d34994656bcd91017828e24be1fe2d1c81476ee
-    Author: me <me@example.com>
-    Date:   Sat Oct 27 15:02:02 2018 +0800
+FIXME
 
-        C0
-    me@mypc:~/test$ git add test
-    me@mypc:~/test$ git commit --amend --no-edit
-    [master 9ca8814] C0
-     Date: Sat Oct 27 15:02:02 2018 +0800
-     2 files changed, 0 insertions(+), 0 deletions(-)
-     create mode 100644 README
-     create mode 100644 test
-    me@mypc:~/test$ git log
-    commit 9ca88148eed2ad03b88a4a9c27b29a6ac6abefdc
-    Author: me <me@example.com>
-    Date:   Sat Oct 27 15:02:02 2018 +0800
 
-        C0
-    me@mypc:~/test$ 
+### merge 后 amend
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git init
+    touch README
+    git add .
+    git commit -m 'C0'
+    git checkout -b testing
+    echo 'C1' >> README
+    git commit -a -m 'C1'
+    git checkout master
+    git merge testing
+    git checkout testing
+    clear
+
+执行
+
+    git log --oneline --graph --all --decorate
+    echo 'C2' >> README
+    git commit -a --amend -m 'C2'
+    git log --oneline --graph --all --decorate
+    cat README
+    git checkout master
+    cat README
+    git merge testing
+    cat README
+
+**执行结果**
+
+FIXME
+
+
+可见如果 commit 已经被 merge 后再执行 amend ，会在再次 merge 时与旧的 commit 造成冲突（修改了同样的行）。
+
+
+### push 后 amend
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    mkdir -p repo/demo
+    cd ~/test/repo/demo
+    git init --bare
+    cd ~/test
+    mkdir workspace
+    cd workspace/
+    git clone ~/test/repo/demo
+    cd demo/
+    echo 'C0' > README
+    git add .
+    git commit -m 'C0'
+    echo 'C1-1' >> README
+    git commit -a -m 'C1'
+    git push origin master
+    clear
+
+执行
+
+    echo 'C1-2' >> README
+    git commit --amend -a --no-edit
+    git log --oneline --graph --all --decorate
+    git push origin master
+
+**执行结果**
+
+FIXME
+
+可见如果 commit 已经被 push 后再执行 amend ，会在再次 push 时与旧的 commit 造成冲突（修改了同样的行）。
 
 
 # Reference

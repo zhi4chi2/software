@@ -86,6 +86,30 @@ GitHub 的 git clone url 可以加 .git 也可以省略。
 
 
 ## `git clone --bare`
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    mkdir -p repo/demo
+    cd ~/test/repo/demo
+    git init --bare
+    cd ~/test
+    mkdir workspace
+    cd workspace/
+    clear
+
+执行
+
+    git clone --bare ~/test/repo/demo
+    ls -aF
+    cd demo.git/
+    ls -aF
+
+**执行结果**
+
+FIXME
 
 
 ## `git clone -o`
