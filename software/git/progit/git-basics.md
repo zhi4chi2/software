@@ -724,7 +724,7 @@ Run `git difftool --tool-help` to see what is available on your system.
 the commit has given you some output about itself:
 
 - which branch you committed to (master),
-- what SHA-1 checksum the commit has (d6d6248),
+- what SHA-1 checksum the commit has (0a111d2),
 - how many files were changed,
 - and statistics about lines added and removed in the commit.
 
