@@ -27,7 +27,7 @@
 ## `git status`
 
 
-## `git status -s/--short`
+### `git status -s/--short`
 
 
 # Reference

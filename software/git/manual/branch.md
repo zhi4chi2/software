@@ -17,8 +17,18 @@
 
 # Demo
 ## `git branch`
-## `git branch branchname`
-### started off a remote-tracking branch
+### `git branch -v`
+### `git branch -vv`
+### `git branch --merged`
+### `git branch --no-merged`
+
+
+## `git branch <branchname> <start-point>`
+### start-point
+>  It may be given as a branch name, a commit-id, or a tag. If this option is omitted, the current HEAD will be used instead.
+
+
+#### a remote-tracking branch
 > When a local branch is started off a remote-tracking branch, Git sets up the branch (specifically the `branch.<name>.remote` and `branch.<name>.merge`configuration entries) so that `git pull` will appropriately merge from the remote-tracking branch.
 
 预处理
@@ -67,11 +77,10 @@ FIXME
 注意：设置 upstream 只影响 pull 不影响 push ！
 
 
-## `git branch -v`
-## `git branch -vv`
-## `git branch -d`
-## `git branch --merged/--no-merged`
-## `git branch -u/--set-upstream-to`
+## `git branch -u/--set-upstream-to <branchname>`
+## `git branch --unset-upstream <branchname>`
+## `git branch -m <oldbranch> <newbranch>`
+## `git branch -d <branchname>`
 
 
 # Reference

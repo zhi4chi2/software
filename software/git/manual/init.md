@@ -37,7 +37,7 @@
     me@mypc:~/test$ 
 
 
-## `git init --bare`
+### `git init --bare`
 预处理
 
     cd

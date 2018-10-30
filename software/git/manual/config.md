@@ -104,3 +104,5 @@
 Git 会从不同的文件中读取同一个配置，因此可能有重复的配置名(如例子中的 `user.name`/`user.email`)，则将使用最后一个配置。
 
 
+# Reference
+- file:///D:/Git/mingw64/share/doc/git-doc/git-config.html

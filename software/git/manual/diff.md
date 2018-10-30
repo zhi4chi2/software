@@ -1,3 +1,8 @@
+术语
+
+- commit
+
+
 # Synopsis
 
 
@@ -5,6 +10,8 @@
 
 
 # Options
+## path
+> The `<paths>` parameters, when given, are used to limit the diff to the named paths (you can give directory names and get diff for all files under them).
 
 
 # Examples
@@ -12,6 +19,9 @@
 
 # Demo
 ## `git diff`
+> view the changes you made relative to the index (staging area for the next commit).
+
+
 预处理
 
     cd
@@ -19,12 +29,9 @@
     mkdir test
     cd test/
     git init
-    touch CONTRIBUTING.md
+    touch README.md
     git add .
-    git commit -m 'C0'
-    echo 'C1-1' >> CONTRIBUTING.md
-    git add CONTRIBUTING.md
-    echo 'C1-2' >> CONTRIBUTING.md
+    echo 'C0' > README.md
     clear
 
 执行
@@ -36,7 +43,13 @@
 FIXME
 
 
-## `git diff --cached/--staged`
+## `git diff --cached/--staged <commit>`
+> view the changes you staged for the next commit relative to the named `<commit>`. Typically you would want comparison with the latest commit, so if you do not give `<commit>`, it defaults to HEAD. If HEAD does not exist (e.g. unborn branches) and `<commit>` is not given, it shows all staged changes. --staged is a synonym of --cached.
+
+commit 默认是 HEAD
+
+
+### `git diff --cached/--staged`
 预处理
 
     cd
@@ -44,12 +57,8 @@ FIXME
     mkdir test
     cd test/
     git init
-    touch CONTRIBUTING.md
+    echo 'C0' > README.md
     git add .
-    git commit -m 'C0'
-    echo 'C1-1' >> CONTRIBUTING.md
-    git add CONTRIBUTING.md
-    echo 'C1-2' >> CONTRIBUTING.md
     clear
 
 执行

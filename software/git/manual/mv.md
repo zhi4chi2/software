@@ -82,3 +82,4 @@
 
 
 # Reference
+- file:///D:/Git/mingw64/share/doc/git-doc/git-mv.html

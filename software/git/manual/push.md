@@ -21,13 +21,7 @@ refspec 的格式：
 
 
 # Options
-
-
-# Examples
-
-
-# Demo
-## `git push`
+## repository
 > When the command line does not specify where to push with the `<repository>` argument, `branch.*.remote` configuration for the current branch is consulted to determine where to push. If the configuration is missing, it defaults to `origin`.
 
 预处理
@@ -65,13 +59,14 @@ refspec 的格式：
 FIXME
 
 
-## `git push <remote>`
+## refspec
+### 默认值
 > When the command line does not specify what to push with `<refspec>...` arguments or `--all`, `--mirror`, `--tags` options, the command finds the default `<refspec>` by consulting `remote.*.push` configuration, and if it is not found, honors `push.default` configuration to decide what to push
 
 > When neither the command-line nor the configuration specify what to push, the default behavior is used, which corresponds to the `simple` value for `push.default`: the current branch is pushed to the corresponding upstream branch, but as a safety measure, the push is aborted if the upstream branch does not have the same name as the local one.
 
 
-### `push.default=simple`(default)
+#### `push.default=simple`(default)
 预处理
 
     cd
@@ -101,7 +96,6 @@ FIXME
 
 FIXME
 
-这里实际起作用的是： the current branch is pushed to the corresponding upstream branch, but as a safety measure, the push is aborted if the upstream branch does not have the same name as the local one.
 
 如果 upstream branch does not have the same name as the local one
 
@@ -136,7 +130,7 @@ FIXME
 FIXME
 
 
-### 使用 `remote.*.push`
+#### 使用 `remote.*.push`
 预处理
 
     cd
@@ -154,7 +148,6 @@ FIXME
     touch README
     git add .
     git commit -m 'C0'
-    git push origin master
     git branch testing
     clear
 
@@ -172,8 +165,8 @@ FIXME
 FIXME
 
 
-## `git push <remote> <refspec>`
-## `git push <remote> <tagname>`
+### refspec 的各种形式
+#### tagname
 预处理
 
     cd
@@ -192,7 +185,6 @@ FIXME
     git add .
     git commit -m 'C0'
     git tag v0.1
-    git push origin
     clear
 
 执行
@@ -203,18 +195,10 @@ FIXME
 
 **执行结果**
 
-    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
-    cat: /home/me/test/repo/demo/refs/tags/v0.1: No such file or directory
-    me@mypc:~/test/workspace/demo$ git push origin v0.1
-    Total 0 (delta 0), reused 0 (delta 0)
-    To /home/me/test/repo/demo
-     * [new tag]         v0.1 -> v0.1
-    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
-    d45f08c3fb1b689f4ae056a8553b949dc51570a2
-    me@mypc:~/test/workspace/demo$ 
+FIXME
 
 
-## `git push <remote> :branch`
+#### `:branch`
 > Pushing an empty `<src>` allows you to delete the `<dst>` ref from the remote repository.
 
 预处理
@@ -253,9 +237,7 @@ FIXME
 FIXME
 
 
-## `git push <remote> :refs/tags/<tagname>`
-> In order to update any remotes, you must use `git push <remote> :refs/tags/<tagname>`:
-
+#### `:refs/tags/<tagname>`
 预处理
 
     cd
@@ -279,30 +261,19 @@ FIXME
 
 执行
 
-    git tag
-    git tag -d v0.1
-    git tag
     cat ~/test/repo/demo/refs/tags/v0.1
     git push origin :refs/tags/v0.1
     cat ~/test/repo/demo/refs/tags/v0.1
 
 **执行结果**
 
-    me@mypc:~/test/workspace/demo$ git tag
-    v0.1
-    me@mypc:~/test/workspace/demo$ git tag -d v0.1
-    Deleted tag 'v0.1' (was f3c3ab0)
-    me@mypc:~/test/workspace/demo$ git tag
-    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
-    f3c3ab08fb68dea0b18c9f5233bf2f1355be1afe
-    me@mypc:~/test/workspace/demo$ git push origin :refs/tags/v0.1
-    To /home/me/test/repo/demo
-     - [deleted]         v0.1
-    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
-    cat: /home/me/test/repo/demo/refs/tags/v0.1: No such file or directory
-    me@mypc:~/test/workspace/demo$ 
+FIXME
 
 
+# Examples
+
+
+# Demo
 ## `git push --tags`
 > If you have a lot of tags that you want to push up at once, you can also use the `--tags` option to the `git push` command. This will transfer all of your tags to the remote server that are not already there.
 
@@ -325,7 +296,6 @@ FIXME
     git commit -m 'C0'
     git tag v0.1
     git tag v0.2
-    git push origin
     clear
 
 执行
@@ -338,20 +308,7 @@ FIXME
 
 **执行结果**
 
-    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
-    cat: /home/me/test/repo/demo/refs/tags/v0.1: No such file or directory
-    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.2
-    cat: /home/me/test/repo/demo/refs/tags/v0.2: No such file or directory
-    me@mypc:~/test/workspace/demo$ git push origin --tags
-    Total 0 (delta 0), reused 0 (delta 0)
-    To /home/me/test/repo/demo
-     * [new tag]         v0.1 -> v0.1
-     * [new tag]         v0.2 -> v0.2
-    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.1
-    bf1022a27662771ed32c934c34b2e2abe50d4068
-    me@mypc:~/test/workspace/demo$ cat ~/test/repo/demo/refs/tags/v0.2
-    bf1022a27662771ed32c934c34b2e2abe50d4068
-    me@mypc:~/test/workspace/demo$ 
+FIXME
 
 
 ## `git push --all`
@@ -413,13 +370,11 @@ FIXME
     touch README
     git add .
     git commit -m 'C0'
-    git push origin master
-    git checkout -b testing
+    git branch testing
     clear
 
 执行
 
-    git push origin testing
     git branch -vv
     git remote show origin
     git push -u origin testing

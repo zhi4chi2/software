@@ -116,7 +116,7 @@
     me@mypc:~/test$ 
 
 
-## `git rm -f`
+### `git rm -f`
 > If you modified the file and added it to the staging area already, you must force the removal with the `-f` option. This is a safety feature to prevent accidental removal of data that hasn’t yet been recorded in a snapshot and that can’t be recovered from Git.
 
 预处理
@@ -160,7 +160,7 @@
     me@mypc:~/test$ 
 
 
-## `git rm --cached`
+### `git rm --cached`
 > Another useful thing you may want to do is to keep the file in your working tree but remove it from your staging area. In other words, you may want to keep the file on your hard drive but not have Git track it anymore. This is particularly useful if you forgot to add something to your `.gitignore` file and accidentally staged it, like a large log file or a bunch of `.a` compiled files. To do this, use the `--cached` option
 
 预处理
@@ -203,3 +203,7 @@
 
 
 # Examples
+
+
+# Reference
+- file:///D:/Git/mingw64/share/doc/git-doc/git-rm.html

@@ -33,6 +33,29 @@
     me@mypc:~/test/ticgit$ 
 
 
+### `git remote -v`
+预处理
+
+    cd
+    rm -rf test
+    mkdir test
+    cd test/
+    git clone https://github.com/schacon/ticgit
+    cd ticgit/
+    clear
+
+执行
+
+    git remote -v
+
+**执行结果**
+
+    me@mypc:~/test/ticgit$ git remote -v
+    origin  https://github.com/schacon/ticgit (fetch)
+    origin  https://github.com/schacon/ticgit (push)
+    me@mypc:~/test/ticgit$ 
+
+
 ## `git remote show` 
 预处理
 
@@ -167,29 +190,6 @@
 
 
 > It’s worth mentioning that this changes all your remote-tracking branch names, too. What used to be referenced at `pb/master` is now at `paul/master`.
-
-
-## `git remote -v`
-预处理
-
-    cd
-    rm -rf test
-    mkdir test
-    cd test/
-    git clone https://github.com/schacon/ticgit
-    cd ticgit/
-    clear
-
-执行
-
-    git remote -v
-
-**执行结果**
-
-    me@mypc:~/test/ticgit$ git remote -v
-    origin  https://github.com/schacon/ticgit (fetch)
-    origin  https://github.com/schacon/ticgit (push)
-    me@mypc:~/test/ticgit$ 
 
 
 # Reference
